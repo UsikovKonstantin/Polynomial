@@ -5,6 +5,12 @@ VisualStudioVersion = 17.1.32328.378
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClassLibraryPolynomial", "ClassLibraryPolynomial\ClassLibraryPolynomial.csproj", "{AA1F3B2C-3F05-4B29-985B-602611DF36B1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleAppPolynomial", "ConsoleAppPolynomial\ConsoleAppPolynomial.csproj", "{3221F4E0-ACBC-4A55-8623-B0F8EE47C0E8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinFormsAppPolynomial", "WinFormsAppPolynomial\WinFormsAppPolynomial.csproj", "{B0D2A1BF-E4BF-46AD-9197-3DC3746B53CE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestProjectPolynomial", "TestProjectPolynomial\TestProjectPolynomial.csproj", "{79B38684-A833-4258-831A-D9970F427B49}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +21,18 @@ Global
 		{AA1F3B2C-3F05-4B29-985B-602611DF36B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AA1F3B2C-3F05-4B29-985B-602611DF36B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AA1F3B2C-3F05-4B29-985B-602611DF36B1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3221F4E0-ACBC-4A55-8623-B0F8EE47C0E8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3221F4E0-ACBC-4A55-8623-B0F8EE47C0E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3221F4E0-ACBC-4A55-8623-B0F8EE47C0E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3221F4E0-ACBC-4A55-8623-B0F8EE47C0E8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B0D2A1BF-E4BF-46AD-9197-3DC3746B53CE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B0D2A1BF-E4BF-46AD-9197-3DC3746B53CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B0D2A1BF-E4BF-46AD-9197-3DC3746B53CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B0D2A1BF-E4BF-46AD-9197-3DC3746B53CE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{79B38684-A833-4258-831A-D9970F427B49}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{79B38684-A833-4258-831A-D9970F427B49}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{79B38684-A833-4258-831A-D9970F427B49}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{79B38684-A833-4258-831A-D9970F427B49}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
