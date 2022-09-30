@@ -1,6 +1,6 @@
 ﻿using ClassLibraryPolynomial;
 
-Polynomial pol;
+Polynomial pol, pol2;
 
 // 1
 pol = new Polynomial();
@@ -37,3 +37,16 @@ Console.WriteLine(pol.GetValue(2));
 pol = new Polynomial(new double[] { 1, 5, 9, 1, 1 });
 Console.WriteLine(pol);
 Console.WriteLine(pol.GetDerivative());
+
+pol = new Polynomial(new double[] { 1 });
+Console.WriteLine(pol);
+Console.WriteLine(pol.GetDerivative());
+
+
+pol = new Polynomial(new double[] { 1, 5, 8 });
+pol2 = new Polynomial(new double[] { 2, 3 });
+Console.WriteLine(pol + pol2);
+
+pol = new Polynomial(new double[] { 1, 5, 8 });
+pol2 = new Polynomial(new double[] { 2, 3 });
+Console.WriteLine(pol - pol2);

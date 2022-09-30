@@ -193,5 +193,49 @@
             }
             return new Polynomial(resCoefs);
         }
+
+        /// <summary>
+        /// Сложение полиномов.
+        /// </summary>
+        /// <param name="p1"> первый полином </param>
+        /// <param name="p2"> второй полином </param>
+        /// <returns> сумма полиномов </returns>
+        public static Polynomial operator +(Polynomial p1, Polynomial p2)
+        {
+            int m = Math.Min(p1.N, p2.N);
+            int n = Math.Max(p1.N, p2.N);
+            double[] resCoef = new double[n + 1];
+            for (int i = 0; i <= m; i++)
+            {
+                resCoef[i] = p1.Coefs[i] + p2.Coefs[i];
+            }
+            for (int i = m + 1; i <= n; i++)
+            {
+                resCoef[i] = (p1.N >= p2.N) ? p1.Coefs[i] : p2.Coefs[i];
+            }
+            return new Polynomial(resCoef);
+        }
+
+        /// <summary>
+        /// Вычитание полиномов.
+        /// </summary>
+        /// <param name="p1"> первый полином </param>
+        /// <param name="p2"> второй полином </param>
+        /// <returns> разность полиномов </returns>
+        public static Polynomial operator -(Polynomial p1, Polynomial p2)
+        {
+            int m = Math.Min(p1.N, p2.N);
+            int n = Math.Max(p1.N, p2.N);
+            double[] resCoef = new double[n + 1];
+            for (int i = 0; i <= m; i++)
+            {
+                resCoef[i] = p1.Coefs[i] - p2.Coefs[i];
+            }
+            for (int i = m + 1; i <= n; i++)
+            {
+                resCoef[i] = (p1.N >= p2.N) ? p1.Coefs[i] : -p2.Coefs[i];
+            }
+            return new Polynomial(resCoef);
+        }
     }
 }
