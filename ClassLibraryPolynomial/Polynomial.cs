@@ -237,5 +237,198 @@
             }
             return new Polynomial(resCoef);
         }
+
+        /// <summary>
+        /// Умножение полиномов.
+        /// </summary>
+        /// <param name="p1"> первый полином </param>
+        /// <param name="p2"> второй полином </param>
+        /// <returns> произведение полиномов </returns>
+        public static Polynomial operator *(Polynomial p1, Polynomial p2)
+        {
+            int n = p1.N;
+            int m = p2.N;
+            double[] resCoef = new double[n + m + 1];
+            for (int i = 0; i <= n + m; i++)
+            {
+                for (int k = 0; k <= Math.Min(i, n); k++)
+                {
+                    int j = i - k;
+                    if (j <= m)
+                    {
+                        resCoef[i] += p1.Coefs[k] * p2.Coefs[j];
+                    }
+                }
+            }
+            return new Polynomial(resCoef);
+        }
+
+        /// <summary>
+        /// Деление полиномов нацело.
+        /// </summary>
+        /// <param name="p1"> первый полином </param>
+        /// <param name="p2"> второй полином </param>
+        /// <returns> полином - результат деления нацело </returns>
+        public static Polynomial operator /(Polynomial p1, Polynomial p2)
+        {
+            int n = p1.N;
+            int m = p2.N;
+            if (n < m)
+            {
+                return new Polynomial(0);
+            }
+            double d;
+            double[] pCoef = new double[n - m + 1];
+            double[] tCoef = new double[n + 1];
+            for (int i = 0; i <= n; i++)
+            {
+                tCoef[i] = p1.Coefs[i];
+            }
+            for (int i = 0; i <= n - m; i++)
+            {
+                d = tCoef[n - i] / p2.Coefs[m];
+                pCoef[n - m - i] = d;
+                tCoef[n - i] = 0;
+                for (int k = 1; k <= m; k++)
+                {
+                    tCoef[n - i - k] -= d * p2.Coefs[m - k];
+                }
+            }
+            return new Polynomial(pCoef);
+        }
+
+        /// <summary>
+        /// Остаток от деления нацело полиномов.
+        /// </summary>
+        /// <param name="p1"> первый полином </param>
+        /// <param name="p2"> второй полином </param>
+        /// <returns> полином - остаток от деления нацело </returns>
+        public static Polynomial operator %(Polynomial p1, Polynomial p2)
+        {
+            int n = p1.N;
+            int m = p2.N;
+            if (n < m)
+            {
+                return new Polynomial(p1.Coefs);
+            }
+            double d;
+            double[] pCoef = new double[n - m + 1];
+            double[] tCoef = new double[n + 1];
+            for (int i = 0; i <= n; i++)
+            {
+                tCoef[i] = p1.Coefs[i];
+            }
+            for (int i = 0; i <= n - m; i++)
+            {
+                d = tCoef[n - i] / p2.Coefs[m];
+                pCoef[n - m - i] = d;
+                tCoef[n - i] = 0;
+                for (int k = 1; k <= m; k++)
+                {
+                    tCoef[n - i - k] -= d * p2.Coefs[m - k];
+                }
+            }
+            int j = 0;
+            while (j <= n && tCoef[n - j] == 0)
+            {
+                j++;
+            }
+            double[] resCoef = new double[1];
+            if (j <= n)
+            {
+                resCoef = new double[n - j + 1];
+                for (int i = 0; i <= n - j; i++)
+                {
+                    resCoef[i] = tCoef[i];
+                }
+            }
+            return new Polynomial(resCoef);
+        }
+
+        /// <summary>
+        /// Умножение полинома на число.
+        /// </summary>
+        /// <param name="n"> число, на которое умножается полином </param>
+        /// <param name="p"> полином для умножения </param>
+        /// <returns> полином - результат умножения </returns>
+        public static Polynomial operator *(double n, Polynomial p)
+        {
+            int k = p.N;
+            double[] resCoefs = new double[k + 1];
+            for (int i = 0; i <= k; i++)
+            {
+                resCoefs[i] = p.Coefs[i];
+            }
+            for (int i = 0; i <= k; i++)
+            {
+                resCoefs[i] *= n;
+            }
+            return new Polynomial(resCoefs);
+        }
+
+        /// <summary>
+        /// Умножение полинома на число.
+        /// </summary>
+        /// <param name="p"> полином для умножения </param>
+        /// <param name="n"> число, на которое умножается полином </param>
+        /// <returns> полином - результат умножения </returns>
+        public static Polynomial operator *(Polynomial p, double n)
+        {
+            int k = p.N;
+            double[] resCoefs = new double[k + 1];
+            for (int i = 0; i <= k; i++)
+            {
+                resCoefs[i] = p.Coefs[i];
+            }
+            for (int i = 0; i <= k; i++)
+            {
+                resCoefs[i] *= n;
+            }
+            return new Polynomial(resCoefs);
+        }
+
+        /// <summary>
+        /// Сравнение полиномов.
+        /// </summary>
+        /// <param name="p1"> первый полином </param>
+        /// <param name="p2"> второй полином </param>
+        /// <returns> true - если полиномы равны, иначе - false </returns>
+        public static bool operator ==(Polynomial p1, Polynomial p2)
+        {
+            if (p1.N != p2.N)
+            {
+                return false;
+            }
+            for (int i = 0; i <= p1.N; i++)
+            {
+                if (p1.Coefs[i] != p2.Coefs[i])
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        /// <summary>
+        /// Сравнение полиномов.
+        /// </summary>
+        /// <param name="p1"> первый полином </param>
+        /// <param name="p2"> второй полином </param>
+        /// <returns> true - если полиномы не равны, иначе - false </returns>
+        public static bool operator !=(Polynomial p1, Polynomial p2)
+        {
+            if (p1.N != p2.N)
+            {
+                return true;
+            }
+            for (int i = 0; i <= p1.N; i++)
+            {
+                if (p1.Coefs[i] != p2.Coefs[i])
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
     }
 }

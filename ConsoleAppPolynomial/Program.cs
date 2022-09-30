@@ -1,6 +1,6 @@
 ﻿using ClassLibraryPolynomial;
 
-Polynomial pol, pol2;
+Polynomial pol, pol2, pol3;
 
 // 1
 pol = new Polynomial();
@@ -50,3 +50,29 @@ Console.WriteLine(pol + pol2);
 pol = new Polynomial(new double[] { 1, 5, 8 });
 pol2 = new Polynomial(new double[] { 2, 3 });
 Console.WriteLine(pol - pol2);
+
+
+pol = new Polynomial(new double[] { 1, 1, 1 });
+Console.WriteLine(pol);
+pol2 = new Polynomial(new double[] { 1, 1 });
+Console.WriteLine(pol2);
+Console.WriteLine(pol * pol2);
+
+
+pol = new Polynomial(new double[] { 6, 1, 0, 4, 0, 2 });
+Console.WriteLine(pol);
+pol2 = new Polynomial(new double[] { 3, 4, 0, 4 });
+Console.WriteLine(pol2);
+Console.WriteLine(pol / pol2);
+
+pol = new Polynomial(new double[] { 6, 1, 0, 4, 0, 2 });
+Console.WriteLine(pol);
+pol2 = pol * 2;
+Console.WriteLine(pol2);
+
+
+pol = new Polynomial(new double[] { 1, 1, 1 });
+Console.WriteLine(pol);
+pol2 = new Polynomial(new double[] { 1, 1, 1 });
+Console.WriteLine(pol2);
+Console.WriteLine(pol == pol2);
