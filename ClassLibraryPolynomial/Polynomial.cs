@@ -76,22 +76,9 @@
         /// Создаёт полином, копируя переданные коэффициенты.
         /// </summary>
         /// <param name="coefs"> набор коэффициентов </param>
-        public Polynomial(params double[] coefs)
-        {
-            N = coefs.Length - 1;
-            Array.Reverse(coefs);
-            Coefs = new List<double>(coefs);
-        }
-
-        /// <summary>
-        /// Конструктор.
-        /// Создаёт полином, копируя переданные коэффициенты.
-        /// </summary>
-        /// <param name="coefs"> набор коэффициентов </param>
         public Polynomial(IEnumerable<double> coefs)
         {
             N = coefs.Count() - 1;
-            coefs = Enumerable.Reverse(coefs);
             Coefs = new List<double>(coefs);
         }
 
@@ -175,6 +162,36 @@
             if (n >= 0)
                 return " + ";
             return " - ";
-        } 
+        }
+
+        /// <summary>
+        /// Вычисление значения полинома в точке x.
+        /// Схема Горнера.
+        /// </summary>
+        /// <param name="x"> точка </param>
+        /// <returns> значение полинома в точке </returns>
+        public double GetValue(double x)
+        {
+            double res = 0;
+            for (int i = N; i >= 0; i--)
+            {
+                res = res * x + Coefs[i];
+            }
+            return res;
+        }
+
+        /// <summary>
+        /// Производная полинома.
+        /// </summary>
+        /// <returns> полином, представляющий производную </returns>
+        public Polynomial GetDerivative()
+        {
+            double[] resCoefs = new double[N];
+            for (int i = N; i > 0; i--)
+            {
+                resCoefs[i - 1] = i * Coefs[i];
+            }
+            return new Polynomial(resCoefs);
+        }
     }
 }

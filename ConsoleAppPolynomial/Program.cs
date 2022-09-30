@@ -14,11 +14,7 @@ Console.WriteLine(pol);
 pol = new Polynomial(0);
 Console.WriteLine(pol);
 
-// 3.1
-pol = new Polynomial(4, 5, -6, 1, -1, 0, 8);
-Console.WriteLine(pol);
-
-// 3.2
+// 3
 pol = new Polynomial(new double[] { 0, 1, -1, 8 });
 Console.WriteLine(pol);
 
@@ -33,3 +29,11 @@ Console.WriteLine(pol);
 // 6
 pol = new Polynomial(10, -5, 5);
 Console.WriteLine(pol);
+
+
+pol = new Polynomial(new double[] { 3, 2, 1, });
+Console.WriteLine(pol.GetValue(2));
+
+pol = new Polynomial(new double[] { 1, 5, 9, 1, 1 });
+Console.WriteLine(pol);
+Console.WriteLine(pol.GetDerivative());
