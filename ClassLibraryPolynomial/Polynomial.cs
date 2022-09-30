@@ -16,7 +16,7 @@
         public Polynomial()
         {
             N = 2;
-            Coefs = new List<double> { 1, -6, 9 };
+            Coefs = new List<double> { 9, -6, 1 };
         }
 
         /// <summary>
@@ -79,6 +79,7 @@
         public Polynomial(params double[] coefs)
         {
             N = coefs.Length - 1;
+            Array.Reverse(coefs);
             Coefs = new List<double>(coefs);
         }
 
@@ -90,6 +91,7 @@
         public Polynomial(IEnumerable<double> coefs)
         {
             N = coefs.Count() - 1;
+            coefs = Enumerable.Reverse(coefs);
             Coefs = new List<double>(coefs);
         }
 
@@ -100,26 +102,26 @@
         public override string ToString()
         {
             string res = GetFirstNotNullMember(out int position);
-            for (int i = position + 1; i <= N; i++)
+            for (int i = position - 1; i >= 0; i--)
             {
                 if (Coefs[i] == 0) continue;
                 if (Math.Abs(Coefs[i]) == 1)
                 {
-                    if (i == N)
+                    if (i == 0)
                         res += SetGign(Coefs[i]) + Math.Abs(Coefs[i]);
-                    else if (i == N - 1)
+                    else if (i == 1)
                         res += SetGign(Coefs[i]) + "x";
                     else
-                        res += SetGign(Coefs[i]) + "x^" + (N - i);
+                        res += SetGign(Coefs[i]) + "x^" + i;
                 }
                 else
                 {
-                    if (i == N)
+                    if (i == 0)
                         res += SetGign(Coefs[i]) + Math.Abs(Coefs[i]);
-                    else if (i == N - 1)
+                    else if (i == 1)
                         res += SetGign(Coefs[i]) + Math.Abs(Coefs[i]) + "x";
                     else
-                        res += SetGign(Coefs[i]) + Math.Abs(Coefs[i]) + "x^" + (N - i);
+                        res += SetGign(Coefs[i]) + Math.Abs(Coefs[i]) + "x^" + i;
                 }
             }
             return res;
@@ -134,26 +136,26 @@
         {
             string res = "";
             int i;
-            for (i = 0; i <= N; i++)
+            for (i = N; i >= 0; i--)
             {
                 if (Coefs[i] == 0) continue;
                 if (Math.Abs(Coefs[i]) == 1)
                 {
-                    if (i == N)
+                    if (i == 0)
                         res += Coefs[i];
-                    else if (i == N - 1)
+                    else if (i == 1)
                         res += Coefs[i] == 1 ? "x" : "-x";
                     else
-                        res += (Coefs[i] == 1 ? "x^" : "-x^") + (N - i);
+                        res += (Coefs[i] == 1 ? "x^" : "-x^") + i;
                 }
                 else
                 {
-                    if (i == N)
+                    if (i == 0)
                         res += Coefs[i];
-                    else if (i == N - 1)
+                    else if (i == 1)
                         res += Coefs[i] + "x";
                     else
-                        res += Coefs[i] + "x^" + (N - i);
+                        res += Coefs[i] + "x^" + i;
                 }
                 break;
             }
@@ -162,7 +164,6 @@
             position = i;
             return res;
         }
-
 
         /// <summary>
         /// Получает знак числа.
