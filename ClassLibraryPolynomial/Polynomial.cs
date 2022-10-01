@@ -185,7 +185,7 @@
         /// </summary>
         /// <param name="x"> точка </param>
         /// <returns> значение полинома в точке </returns>
-        public double GetValue(double x)
+        public double P(double x)
         {
             double res = 0;
             for (int i = n; i >= 0; i--)
@@ -400,50 +400,6 @@
                 resCoefs[i] *= n;
             }
             return new Polynomial(resCoefs);
-        }
-
-        /// <summary>
-        /// Сравнение полиномов.
-        /// </summary>
-        /// <param name="p1"> первый полином </param>
-        /// <param name="p2"> второй полином </param>
-        /// <returns> true - если полиномы равны, иначе - false </returns>
-        public static bool operator ==(Polynomial p1, Polynomial p2)
-        {
-            if (p1.n != p2.n)
-            {
-                return false;
-            }
-            for (int i = 0; i <= p1.n; i++)
-            {
-                if (p1.coefs[i] != p2.coefs[i])
-                {
-                    return false;
-                }
-            }
-            return true;
-        }
-
-        /// <summary>
-        /// Сравнение полиномов.
-        /// </summary>
-        /// <param name="p1"> первый полином </param>
-        /// <param name="p2"> второй полином </param>
-        /// <returns> true - если полиномы не равны, иначе - false </returns>
-        public static bool operator !=(Polynomial p1, Polynomial p2)
-        {
-            if (p1.n != p2.n)
-            {
-                return true;
-            }
-            for (int i = 0; i <= p1.n; i++)
-            {
-                if (p1.coefs[i] != p2.coefs[i])
-                {
-                    return true;
-                }
-            }
-            return false;
-        }
+        } 
     }
 }

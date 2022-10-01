@@ -32,7 +32,7 @@ Console.WriteLine(pol);
 
 
 pol = new Polynomial(new double[] { 3, 2, 1, });
-Console.WriteLine(pol.GetValue(2));
+Console.WriteLine(pol.P(2));
 
 pol = new Polynomial(new double[] { 1, 5, 9, 1, 1 });
 Console.WriteLine(pol);
@@ -81,4 +81,21 @@ Console.WriteLine(pol == pol2);
 PolynomialWithRoots p = new PolynomialWithRoots(new List<double> { 1, 1 });
 PolynomialWithRoots p2 = new PolynomialWithRoots(new List<double> { 1, 1 });
 Console.WriteLine(p);
-Console.WriteLine(p + p2);
+//Console.WriteLine(p + p2);
+
+//Console.WriteLine(p / p2);
+
+
+p = new PolynomialWithRoots(new double[] { 2, -3, 1});
+var r = p.FindAllRoots(-100, 100);
+foreach (var item in r)
+{
+    Console.WriteLine($"{item}");
+}
+
+p = new PolynomialWithRoots(new double[] { 2, -3, 1 });
+r = p.FindAllRootsEin(-100, 100);
+foreach (var item in r)
+{
+    Console.WriteLine($"{item}");
+}

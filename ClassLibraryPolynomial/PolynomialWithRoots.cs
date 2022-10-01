@@ -5,7 +5,8 @@
     /// </summary>
     public class PolynomialWithRoots : Polynomial
     {
-        private List<double> roots = new List<double>();  // корни полинома
+        private protected List<double> roots = new List<double>();  // корни полинома
+        private protected List<(double, int)> stationaryPoints;  // точки экстремума
 
         // Свойство для доступа к корням.
         public List<double> Roots
@@ -14,6 +15,20 @@
             {
                 List<double> res = new List<double>();
                 foreach (double item in roots)
+                {
+                    res.Add(item);
+                }
+                return res;
+            }
+        }
+
+        // Свойство для доступа к точкам экстремума
+        public List<(double, int)> StationaryPoints
+        {
+            get 
+            {
+                List<(double, int)> res = new List<(double, int)>();
+                foreach ((double, int) item in stationaryPoints)
                 {
                     res.Add(item);
                 }
@@ -181,7 +196,7 @@
         /// <returns> полином - результат деления нацело </returns>
         public static PolynomialWithRoots operator /(PolynomialWithRoots p1, PolynomialWithRoots p2)
         {
-            return Parse(p1 / p2);
+            return Parse((Polynomial)p1 / p2);
         }
 
         /// <summary>
@@ -215,6 +230,169 @@
         public static PolynomialWithRoots operator *(PolynomialWithRoots p, double n)
         {
             return Parse(p * n);
+        }
+
+        /// <summary>
+        /// Существует ли корень полинома на заданном интервале.
+        /// </summary>
+        /// <param name="a"> левая граница интервала </param>
+        /// <param name="b"> правая граница интервала </param>
+        /// <returns> true - если существует, иначе - false </returns>
+        public bool ExistRoot(ref double a, ref double b)
+        {
+            double eps = 1e-1;
+            if (P(a) * P(b) <= 0)
+            {
+                return true;
+            }
+            else
+            {
+                if (b - a < eps)
+                {
+                    return false;
+                }
+                else
+                {
+                    double mid = (a + b) / 2;
+                    if (ExistRoot(ref a, ref mid))
+                    {
+                        b = mid;
+                        return true;
+                    }
+                    else if (ExistRoot(ref mid, ref b))
+                    {
+                        a = mid;
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// Поиск корня на заданном интервале
+        /// при условии, что корень существует.
+        /// </summary>
+        /// <param name="a"> левая граница интервала </param>
+        /// <param name="b"> правая граница интервала </param>
+        /// <returns> корень </returns>
+        public double FindRoot(double a, double b)
+        {
+            double eps = 1e-7;
+            double mid = (a + b) / 2;
+            while (Math.Abs(P(mid)) > eps)
+            {
+                if (P(a) * P(mid) > 0)
+                {
+                    a = mid;
+                }
+                else
+                {
+                    b = mid;
+                }
+                mid = (a + b) / 2;
+            }
+            return mid;
+        }
+
+        /// <summary>
+        /// Поиск всех корней полинома на заданном интервале.
+        /// </summary>
+        /// <param name="a"> левая граница интервала </param>
+        /// <param name="b"> правая граница интервала </param>
+        /// <returns> список всех корней </returns>
+        public List<double> FindAllRoots(double a, double b)
+        {
+            double ta = a, tb = b;
+            List<double> res = new List<double>();
+            PolynomialWithRoots q = new PolynomialWithRoots(Coefs);
+            double r;
+            PolynomialWithRoots one = new PolynomialWithRoots(1);
+            one.coefs[1] = 1;
+            while (q.ExistRoot(ref a, ref b))
+            {
+                r = q.FindRoot(a, b);
+                res.Add(r);
+                one.coefs[0] = -r;
+                q = q / one;
+                a = ta;
+                b = tb;
+            }
+            return res;
+        }
+
+        /// <summary>
+        /// Поиск всех точек экстремума на заданном интервале.
+        /// </summary>
+        /// <param name="a"> левая граница интервала </param>
+        /// <param name="b"> правая граница интервала </param>
+        /// <returns> список всех точек экстремума </returns>
+        public List<(double, int)> FindAllStationaryPoints(double a, double b)
+        {
+            double eps = 1e-5;
+            PolynomialWithRoots derivative = Parse(GetDerivative());
+            List<double> roots = derivative.FindAllRoots(a, b);
+            List<(double, int)> res = new List<(double, int)>();
+            for (int i = 0; i < roots.Count; i++)
+            {
+                if (P(roots[i]) < P(roots[i] + eps) && P(roots[i]) < P(roots[i] - eps))
+                {
+                    res.Add((roots[i], -1));
+                }
+                else
+                {
+                    res.Add((roots[i], 1));
+                }
+            }
+            return res;
+        }
+
+        public double FindRootEin(double a, double b)
+        {
+            double eps = 1e-7;
+            double x0 = 0;
+
+            if (P(a) * GetDerivative().GetDerivative().P(a) > 0)
+            {
+                x0 = a;
+            }
+            else if (P(b) * GetDerivative().GetDerivative().P(b) > 0)
+            {
+                x0 = b;
+            }
+
+            double xn = x0 - P(x0) / GetDerivative().P(x0);
+            double xnp1 = xn - P(xn) / GetDerivative().P(xn);
+
+            while (Math.Abs(xn - xnp1) >= eps)
+            {
+                xn = xnp1;
+                xnp1 = xn - P(xn) / GetDerivative().P(xn);
+            }
+            return xnp1;
+        }
+
+        public List<double> FindAllRootsEin(double a, double b)
+        {
+            double ta = a, tb = b;
+            List<double> res = new List<double>();
+            PolynomialWithRoots q = new PolynomialWithRoots(Coefs);
+            double r;
+            PolynomialWithRoots one = new PolynomialWithRoots(1);
+            one.coefs[1] = 1;
+            while (q.ExistRoot(ref a, ref b))
+            {
+                r = q.FindRootEin(a, b);
+                res.Add(r);
+                one.coefs[0] = -r;
+                q = q / one;
+                a = ta;
+                b = tb;
+            }
+            return res;
         }
     }
 }
