@@ -6,17 +6,36 @@
     public class Polynomial
     {
         private static Random rnd = new Random();  // генератор случайных чисел
-        public int N { get; }  // степень полинома
-        public List<double> Coefs { get; }  // коэффициенты полинома
+        private protected int n;  // степень полинома
+        private protected double[] coefs;  // коэффициенты полинома
+
+        // Свойство для доступа к степени полинома.
+        public int N
+        {
+            get { return n; }
+        }
+        // Свойство для доступа к коэффициентам полинома.
+        public double[] Coefs
+        {
+            get 
+            {
+                double[] res = new double[N + 1];
+                for (int i = 0; i <= N; i++)
+                {
+                    res[i] = coefs[i];
+                }
+                return res;
+            }
+        }
 
         /// <summary>
         /// Конструктор по умолчанию.
-        /// Создает полином x^2 - 6x + 9.
+        /// Создает полином x^2 - 3x + 2.
         /// </summary>
         public Polynomial()
         {
-            N = 2;
-            Coefs = new List<double> { 9, -6, 1 };
+            n = 2;
+            coefs = new double[] { 2, -3, 1 };
         }
 
         /// <summary>
@@ -26,12 +45,8 @@
         /// <param name="n"> степень полинома </param>
         public Polynomial(int n)
         {
-            N = n;
-            Coefs = new List<double>(n);
-            for (int i = 0; i <= n; i++)
-            {
-                Coefs.Add(0);
-            }
+            this.n = n;
+            coefs = new double[N + 1];
         }
 
         /// <summary>
@@ -44,11 +59,11 @@
         /// <param name="max"> верхняя граница </param>
         public Polynomial(int n, long min, long max)
         {
-            N = n;
-            Coefs = new List<double>(n);
+            this.n = n;
+            coefs = new double[N + 1];
             for (int i = 0; i <= n; i++)
             {
-                Coefs.Add(rnd.NextInt64(min, max));
+                coefs[i] = rnd.NextInt64(min, max);
             }
         }
 
@@ -63,11 +78,11 @@
         /// <param name="round"> количество знаков после запятой </param>
         public Polynomial(int n, double min, double max, int round)
         {
-            N = n;
-            Coefs = new List<double>(n);
+            this.n = n;
+            coefs = new double[N + 1];
             for (int i = 0; i <= n; i++)
             {
-                Coefs.Add(Math.Round(rnd.NextDouble() * (max - min) + min, round));
+                coefs[i] = Math.Round(rnd.NextDouble() * (max - min) + min, round);
             }
         }
 
@@ -76,10 +91,10 @@
         /// Создаёт полином, копируя переданные коэффициенты.
         /// </summary>
         /// <param name="coefs"> набор коэффициентов </param>
-        public Polynomial(IEnumerable<double> coefs)
+        public Polynomial(double[] coefs)
         {
-            N = coefs.Count() - 1;
-            Coefs = new List<double>(coefs);
+            n = coefs.Count() - 1;
+            this.coefs = coefs;
         }
 
         /// <summary>
@@ -91,24 +106,24 @@
             string res = GetFirstNotNullMember(out int position);
             for (int i = position - 1; i >= 0; i--)
             {
-                if (Coefs[i] == 0) continue;
-                if (Math.Abs(Coefs[i]) == 1)
+                if (coefs[i] == 0) continue;
+                if (Math.Abs(coefs[i]) == 1)
                 {
                     if (i == 0)
-                        res += SetGign(Coefs[i]) + Math.Abs(Coefs[i]);
+                        res += SetGign(coefs[i]) + Math.Abs(coefs[i]);
                     else if (i == 1)
-                        res += SetGign(Coefs[i]) + "x";
+                        res += SetGign(coefs[i]) + "x";
                     else
-                        res += SetGign(Coefs[i]) + "x^" + i;
+                        res += SetGign(coefs[i]) + "x^" + i;
                 }
                 else
                 {
                     if (i == 0)
-                        res += SetGign(Coefs[i]) + Math.Abs(Coefs[i]);
+                        res += SetGign(coefs[i]) + Math.Abs(coefs[i]);
                     else if (i == 1)
-                        res += SetGign(Coefs[i]) + Math.Abs(Coefs[i]) + "x";
+                        res += SetGign(coefs[i]) + Math.Abs(coefs[i]) + "x";
                     else
-                        res += SetGign(Coefs[i]) + Math.Abs(Coefs[i]) + "x^" + i;
+                        res += SetGign(coefs[i]) + Math.Abs(coefs[i]) + "x^" + i;
                 }
             }
             return res;
@@ -123,26 +138,26 @@
         {
             string res = "";
             int i;
-            for (i = N; i >= 0; i--)
+            for (i = n; i >= 0; i--)
             {
-                if (Coefs[i] == 0) continue;
-                if (Math.Abs(Coefs[i]) == 1)
+                if (coefs[i] == 0) continue;
+                if (Math.Abs(coefs[i]) == 1)
                 {
                     if (i == 0)
-                        res += Coefs[i];
+                        res += coefs[i];
                     else if (i == 1)
-                        res += Coefs[i] == 1 ? "x" : "-x";
+                        res += coefs[i] == 1 ? "x" : "-x";
                     else
-                        res += (Coefs[i] == 1 ? "x^" : "-x^") + i;
+                        res += (coefs[i] == 1 ? "x^" : "-x^") + i;
                 }
                 else
                 {
                     if (i == 0)
-                        res += Coefs[i];
+                        res += coefs[i];
                     else if (i == 1)
-                        res += Coefs[i] + "x";
+                        res += coefs[i] + "x";
                     else
-                        res += Coefs[i] + "x^" + i;
+                        res += coefs[i] + "x^" + i;
                 }
                 break;
             }
@@ -173,9 +188,9 @@
         public double GetValue(double x)
         {
             double res = 0;
-            for (int i = N; i >= 0; i--)
+            for (int i = n; i >= 0; i--)
             {
-                res = res * x + Coefs[i];
+                res = res * x + coefs[i];
             }
             return res;
         }
@@ -186,10 +201,10 @@
         /// <returns> полином, представляющий производную </returns>
         public Polynomial GetDerivative()
         {
-            double[] resCoefs = new double[N];
-            for (int i = N; i > 0; i--)
+            double[] resCoefs = new double[n];
+            for (int i = n; i > 0; i--)
             {
-                resCoefs[i - 1] = i * Coefs[i];
+                resCoefs[i - 1] = i * coefs[i];
             }
             return new Polynomial(resCoefs);
         }
@@ -202,16 +217,16 @@
         /// <returns> сумма полиномов </returns>
         public static Polynomial operator +(Polynomial p1, Polynomial p2)
         {
-            int m = Math.Min(p1.N, p2.N);
-            int n = Math.Max(p1.N, p2.N);
+            int m = Math.Min(p1.n, p2.n);
+            int n = Math.Max(p1.n, p2.n);
             double[] resCoef = new double[n + 1];
             for (int i = 0; i <= m; i++)
             {
-                resCoef[i] = p1.Coefs[i] + p2.Coefs[i];
+                resCoef[i] = p1.coefs[i] + p2.coefs[i];
             }
             for (int i = m + 1; i <= n; i++)
             {
-                resCoef[i] = (p1.N >= p2.N) ? p1.Coefs[i] : p2.Coefs[i];
+                resCoef[i] = (p1.n >= p2.n) ? p1.coefs[i] : p2.coefs[i];
             }
             return new Polynomial(resCoef);
         }
@@ -224,16 +239,16 @@
         /// <returns> разность полиномов </returns>
         public static Polynomial operator -(Polynomial p1, Polynomial p2)
         {
-            int m = Math.Min(p1.N, p2.N);
-            int n = Math.Max(p1.N, p2.N);
+            int m = Math.Min(p1.n, p2.n);
+            int n = Math.Max(p1.n, p2.n);
             double[] resCoef = new double[n + 1];
             for (int i = 0; i <= m; i++)
             {
-                resCoef[i] = p1.Coefs[i] - p2.Coefs[i];
+                resCoef[i] = p1.coefs[i] - p2.coefs[i];
             }
             for (int i = m + 1; i <= n; i++)
             {
-                resCoef[i] = (p1.N >= p2.N) ? p1.Coefs[i] : -p2.Coefs[i];
+                resCoef[i] = (p1.n >= p2.n) ? p1.coefs[i] : -p2.coefs[i];
             }
             return new Polynomial(resCoef);
         }
@@ -246,8 +261,8 @@
         /// <returns> произведение полиномов </returns>
         public static Polynomial operator *(Polynomial p1, Polynomial p2)
         {
-            int n = p1.N;
-            int m = p2.N;
+            int n = p1.n;
+            int m = p2.n;
             double[] resCoef = new double[n + m + 1];
             for (int i = 0; i <= n + m; i++)
             {
@@ -256,7 +271,7 @@
                     int j = i - k;
                     if (j <= m)
                     {
-                        resCoef[i] += p1.Coefs[k] * p2.Coefs[j];
+                        resCoef[i] += p1.coefs[k] * p2.coefs[j];
                     }
                 }
             }
@@ -271,8 +286,8 @@
         /// <returns> полином - результат деления нацело </returns>
         public static Polynomial operator /(Polynomial p1, Polynomial p2)
         {
-            int n = p1.N;
-            int m = p2.N;
+            int n = p1.n;
+            int m = p2.n;
             if (n < m)
             {
                 return new Polynomial(0);
@@ -282,16 +297,16 @@
             double[] tCoef = new double[n + 1];
             for (int i = 0; i <= n; i++)
             {
-                tCoef[i] = p1.Coefs[i];
+                tCoef[i] = p1.coefs[i];
             }
             for (int i = 0; i <= n - m; i++)
             {
-                d = tCoef[n - i] / p2.Coefs[m];
+                d = tCoef[n - i] / p2.coefs[m];
                 pCoef[n - m - i] = d;
                 tCoef[n - i] = 0;
                 for (int k = 1; k <= m; k++)
                 {
-                    tCoef[n - i - k] -= d * p2.Coefs[m - k];
+                    tCoef[n - i - k] -= d * p2.coefs[m - k];
                 }
             }
             return new Polynomial(pCoef);
@@ -305,27 +320,27 @@
         /// <returns> полином - остаток от деления нацело </returns>
         public static Polynomial operator %(Polynomial p1, Polynomial p2)
         {
-            int n = p1.N;
-            int m = p2.N;
+            int n = p1.n;
+            int m = p2.n;
             if (n < m)
             {
-                return new Polynomial(p1.Coefs);
+                return new Polynomial(p1.coefs);
             }
             double d;
             double[] pCoef = new double[n - m + 1];
             double[] tCoef = new double[n + 1];
             for (int i = 0; i <= n; i++)
             {
-                tCoef[i] = p1.Coefs[i];
+                tCoef[i] = p1.coefs[i];
             }
             for (int i = 0; i <= n - m; i++)
             {
-                d = tCoef[n - i] / p2.Coefs[m];
+                d = tCoef[n - i] / p2.coefs[m];
                 pCoef[n - m - i] = d;
                 tCoef[n - i] = 0;
                 for (int k = 1; k <= m; k++)
                 {
-                    tCoef[n - i - k] -= d * p2.Coefs[m - k];
+                    tCoef[n - i - k] -= d * p2.coefs[m - k];
                 }
             }
             int j = 0;
@@ -353,11 +368,11 @@
         /// <returns> полином - результат умножения </returns>
         public static Polynomial operator *(double n, Polynomial p)
         {
-            int k = p.N;
+            int k = p.n;
             double[] resCoefs = new double[k + 1];
             for (int i = 0; i <= k; i++)
             {
-                resCoefs[i] = p.Coefs[i];
+                resCoefs[i] = p.coefs[i];
             }
             for (int i = 0; i <= k; i++)
             {
@@ -374,11 +389,11 @@
         /// <returns> полином - результат умножения </returns>
         public static Polynomial operator *(Polynomial p, double n)
         {
-            int k = p.N;
+            int k = p.n;
             double[] resCoefs = new double[k + 1];
             for (int i = 0; i <= k; i++)
             {
-                resCoefs[i] = p.Coefs[i];
+                resCoefs[i] = p.coefs[i];
             }
             for (int i = 0; i <= k; i++)
             {
@@ -395,13 +410,13 @@
         /// <returns> true - если полиномы равны, иначе - false </returns>
         public static bool operator ==(Polynomial p1, Polynomial p2)
         {
-            if (p1.N != p2.N)
+            if (p1.n != p2.n)
             {
                 return false;
             }
-            for (int i = 0; i <= p1.N; i++)
+            for (int i = 0; i <= p1.n; i++)
             {
-                if (p1.Coefs[i] != p2.Coefs[i])
+                if (p1.coefs[i] != p2.coefs[i])
                 {
                     return false;
                 }
@@ -417,13 +432,13 @@
         /// <returns> true - если полиномы не равны, иначе - false </returns>
         public static bool operator !=(Polynomial p1, Polynomial p2)
         {
-            if (p1.N != p2.N)
+            if (p1.n != p2.n)
             {
                 return true;
             }
-            for (int i = 0; i <= p1.N; i++)
+            for (int i = 0; i <= p1.n; i++)
             {
-                if (p1.Coefs[i] != p2.Coefs[i])
+                if (p1.coefs[i] != p2.coefs[i])
                 {
                     return true;
                 }

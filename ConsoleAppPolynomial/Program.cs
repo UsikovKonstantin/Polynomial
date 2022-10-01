@@ -19,7 +19,7 @@ pol = new Polynomial(new double[] { 0, 1, -1, 8 });
 Console.WriteLine(pol);
 
 // 4
-pol = new Polynomial(new List<double> { -1, 2, 3, 4, 5 });
+pol = new Polynomial(new double[] { -1, 2, 3, 4, 5 });
 Console.WriteLine(pol);
 
 // 5
@@ -76,3 +76,9 @@ Console.WriteLine(pol);
 pol2 = new Polynomial(new double[] { 1, 1, 1 });
 Console.WriteLine(pol2);
 Console.WriteLine(pol == pol2);
+
+
+PolynomialWithRoots p = new PolynomialWithRoots(new List<double> { 1, 1 });
+PolynomialWithRoots p2 = new PolynomialWithRoots(new List<double> { 1, 1 });
+Console.WriteLine(p);
+Console.WriteLine(p + p2);
