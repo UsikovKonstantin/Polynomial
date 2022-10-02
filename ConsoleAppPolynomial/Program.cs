@@ -1,4 +1,5 @@
 ﻿using ClassLibraryPolynomial;
+using System.Diagnostics;
 
 Polynomial pol, pol2, pol3;
 
@@ -86,16 +87,34 @@ Console.WriteLine(p);
 //Console.WriteLine(p / p2);
 
 
-p = new PolynomialWithRoots(new double[] { 2, -3, 1});
-var r = p.FindAllRoots(-100, 100);
-foreach (var item in r)
+//p = new PolynomialWithRoots(new double[] { 2, -3, 1});
+//var r = p.FindAllStationaryPoints(-100000, 100000);
+//foreach (var item in r)
+//{
+//    Console.WriteLine($"{item}");
+//}
+pol = new Polynomial(new double[] { 1, 1, 1 });
+p = new PolynomialWithRoots(new double[] { 1, 1, 1 });
+Stopwatch sw = new Stopwatch();
+sw.Start();
+for (int i = 0; i < 100000000; i++)
 {
-    Console.WriteLine($"{item}");
+    pol = pol + pol;
 }
+sw.Stop();
+Console.WriteLine(sw.ElapsedMilliseconds);
+sw.Restart();
 
-p = new PolynomialWithRoots(new double[] { 2, -3, 1 });
-r = p.FindAllRootsEin(-100, 100);
-foreach (var item in r)
+for (int i = 0; i < 100000000; i++)
 {
-    Console.WriteLine($"{item}");
+    p = p + p;
 }
+sw.Stop();
+Console.WriteLine(sw.ElapsedMilliseconds);
+
+//p = new PolynomialWithRoots(new double[] { 2, -3, 1 });
+//r = p.FindAllRootsEin(-100000, 100000);
+//foreach (var item in r)
+//{
+//    Console.WriteLine($"{item}");
+//}

@@ -153,7 +153,18 @@
         /// <returns> сумма полиномов </returns>
         public static PolynomialWithRoots operator +(PolynomialWithRoots p1, PolynomialWithRoots p2)
         {
-            return Parse(p1 + p2);
+            int m = Math.Min(p1.n, p2.n);
+            int n = Math.Max(p1.n, p2.n);
+            double[] resCoef = new double[n + 1];
+            for (int i = 0; i <= m; i++)
+            {
+                resCoef[i] = p1.coefs[i] + p2.coefs[i];
+            }
+            for (int i = m + 1; i <= n; i++)
+            {
+                resCoef[i] = (p1.n >= p2.n) ? p1.coefs[i] : p2.coefs[i];
+            }
+            return new PolynomialWithRoots(resCoef);
         }
 
         /// <summary>
@@ -164,7 +175,18 @@
         /// <returns> разность полиномов </returns>
         public static PolynomialWithRoots operator -(PolynomialWithRoots p1, PolynomialWithRoots p2)
         {
-            return Parse(p1 - p2);
+            int m = Math.Min(p1.n, p2.n);
+            int n = Math.Max(p1.n, p2.n);
+            double[] resCoef = new double[n + 1];
+            for (int i = 0; i <= m; i++)
+            {
+                resCoef[i] = p1.coefs[i] - p2.coefs[i];
+            }
+            for (int i = m + 1; i <= n; i++)
+            {
+                resCoef[i] = (p1.n >= p2.n) ? p1.coefs[i] : -p2.coefs[i];
+            }
+            return new PolynomialWithRoots(resCoef);
         }
 
         /// <summary>
@@ -175,17 +197,32 @@
         /// <returns> произведение полиномов </returns>
         public static PolynomialWithRoots operator *(PolynomialWithRoots p1, PolynomialWithRoots p2)
         {
-            PolynomialWithRoots p = Parse(p1 * p2);
+            int n = p1.n;
+            int m = p2.n;
+            double[] resCoef = new double[n + m + 1];
+            for (int i = 0; i <= n + m; i++)
+            {
+                for (int k = 0; k <= Math.Min(i, n); k++)
+                {
+                    int j = i - k;
+                    if (j <= m)
+                    {
+                        resCoef[i] += p1.coefs[k] * p2.coefs[j];
+                    }
+                }
+            }
+            PolynomialWithRoots res = new PolynomialWithRoots(resCoef);
+
             // Получение корней произведения полиномов
             foreach (double root in p1.Roots)
             {
-                p.roots.Add(root);
+                res.roots.Add(root);
             }
             foreach (double root in p2.Roots)
             {
-                p.roots.Add(root);
+                res.roots.Add(root);
             }
-            return p;
+            return res;
         }
 
         /// <summary>
@@ -196,7 +233,30 @@
         /// <returns> полином - результат деления нацело </returns>
         public static PolynomialWithRoots operator /(PolynomialWithRoots p1, PolynomialWithRoots p2)
         {
-            return Parse((Polynomial)p1 / p2);
+            int n = p1.n;
+            int m = p2.n;
+            if (n < m)
+            {
+                return new PolynomialWithRoots(0);
+            }
+            double d;
+            double[] pCoef = new double[n - m + 1];
+            double[] tCoef = new double[n + 1];
+            for (int i = 0; i <= n; i++)
+            {
+                tCoef[i] = p1.coefs[i];
+            }
+            for (int i = 0; i <= n - m; i++)
+            {
+                d = tCoef[n - i] / p2.coefs[m];
+                pCoef[n - m - i] = d;
+                tCoef[n - i] = 0;
+                for (int k = 1; k <= m; k++)
+                {
+                    tCoef[n - i - k] -= d * p2.coefs[m - k];
+                }
+            }
+            return new PolynomialWithRoots(pCoef);
         }
 
         /// <summary>
@@ -207,7 +267,44 @@
         /// <returns> полином - остаток от деления нацело </returns>
         public static PolynomialWithRoots operator %(PolynomialWithRoots p1, PolynomialWithRoots p2)
         {
-            return Parse(p1 % p2);
+            int n = p1.n;
+            int m = p2.n;
+            if (n < m)
+            {
+                return new PolynomialWithRoots(p1.coefs);
+            }
+            double d;
+            double[] pCoef = new double[n - m + 1];
+            double[] tCoef = new double[n + 1];
+            for (int i = 0; i <= n; i++)
+            {
+                tCoef[i] = p1.coefs[i];
+            }
+            for (int i = 0; i <= n - m; i++)
+            {
+                d = tCoef[n - i] / p2.coefs[m];
+                pCoef[n - m - i] = d;
+                tCoef[n - i] = 0;
+                for (int k = 1; k <= m; k++)
+                {
+                    tCoef[n - i - k] -= d * p2.coefs[m - k];
+                }
+            }
+            int j = 0;
+            while (j <= n && tCoef[n - j] == 0)
+            {
+                j++;
+            }
+            double[] resCoef = new double[1];
+            if (j <= n)
+            {
+                resCoef = new double[n - j + 1];
+                for (int i = 0; i <= n - j; i++)
+                {
+                    resCoef[i] = tCoef[i];
+                }
+            }
+            return new PolynomialWithRoots(resCoef);
         }
 
         /// <summary>
@@ -218,7 +315,17 @@
         /// <returns> полином - результат умножения </returns>
         public static PolynomialWithRoots operator *(double n, PolynomialWithRoots p)
         {
-            return Parse(n * p);
+            int k = p.n;
+            double[] resCoefs = new double[k + 1];
+            for (int i = 0; i <= k; i++)
+            {
+                resCoefs[i] = p.coefs[i];
+            }
+            for (int i = 0; i <= k; i++)
+            {
+                resCoefs[i] *= n;
+            }
+            return new PolynomialWithRoots(resCoefs);
         }
 
         /// <summary>
@@ -229,7 +336,17 @@
         /// <returns> полином - результат умножения </returns>
         public static PolynomialWithRoots operator *(PolynomialWithRoots p, double n)
         {
-            return Parse(p * n);
+            int k = p.n;
+            double[] resCoefs = new double[k + 1];
+            for (int i = 0; i <= k; i++)
+            {
+                resCoefs[i] = p.coefs[i];
+            }
+            for (int i = 0; i <= k; i++)
+            {
+                resCoefs[i] *= n;
+            }
+            return new PolynomialWithRoots(resCoefs);
         }
 
         /// <summary>
@@ -350,7 +467,15 @@
             return res;
         }
 
-        public double FindRootEin(double a, double b)
+        /// <summary>
+        /// Поиск корня на заданном интервале
+        /// при условии, что корень существует.
+        /// Использует метод Ньютона.
+        /// </summary>
+        /// <param name="a"> левая граница интервала </param>
+        /// <param name="b"> правая граница интервала </param>
+        /// <returns> корень </returns>
+        public double FindRootNewton(double a, double b)
         {
             double eps = 1e-7;
             double x0 = 0;
@@ -375,7 +500,13 @@
             return xnp1;
         }
 
-        public List<double> FindAllRootsEin(double a, double b)
+        /// <summary>
+        /// Поиск всех корней полинома на заданном интервале.
+        /// </summary>
+        /// <param name="a"> левая граница интервала </param>
+        /// <param name="b"> правая граница интервала </param>
+        /// <returns> список всех корней </returns>
+        public List<double> FindAllRootsNewton(double a, double b)
         {
             double ta = a, tb = b;
             List<double> res = new List<double>();
@@ -385,7 +516,7 @@
             one.coefs[1] = 1;
             while (q.ExistRoot(ref a, ref b))
             {
-                r = q.FindRootEin(a, b);
+                r = q.FindRootNewton(a, b);
                 res.Add(r);
                 one.coefs[0] = -r;
                 q = q / one;
