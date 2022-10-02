@@ -9,7 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ClassLibraryPolynomial\ClassLibraryPolynomial.csproj" />
+.    <ProjectReference Include="..\ClassLibraryPolynomial\ClassLibraryPolynomial.csproj" />
   </ItemGroup>
 
 </Project>
