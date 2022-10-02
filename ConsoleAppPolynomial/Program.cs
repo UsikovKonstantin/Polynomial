@@ -93,24 +93,24 @@ Console.WriteLine(p);
 //{
 //    Console.WriteLine($"{item}");
 //}
-pol = new Polynomial(new double[] { 1, 1, 1 });
-p = new PolynomialWithRoots(new double[] { 1, 1, 1 });
-Stopwatch sw = new Stopwatch();
-sw.Start();
-for (int i = 0; i < 100000000; i++)
-{
-    pol = pol + pol;
-}
-sw.Stop();
-Console.WriteLine(sw.ElapsedMilliseconds);
-sw.Restart();
+//pol = new Polynomial(new double[] { 1, 1, 1 });
+//p = new PolynomialWithRoots(new double[] { 1, 1, 1 });
+//Stopwatch sw = new Stopwatch();
+//sw.Start();
+//for (int i = 0; i < 100000000; i++)
+//{
+//    pol = pol + pol;
+//}
+//sw.Stop();
+//Console.WriteLine(sw.ElapsedMilliseconds);
+//sw.Restart();
 
-for (int i = 0; i < 100000000; i++)
-{
-    p = p + p;
-}
-sw.Stop();
-Console.WriteLine(sw.ElapsedMilliseconds);
+//for (int i = 0; i < 100000000; i++)
+//{
+//    p = p + p;
+//}
+//sw.Stop();
+//Console.WriteLine(sw.ElapsedMilliseconds);
 
 //p = new PolynomialWithRoots(new double[] { 2, -3, 1 });
 //r = p.FindAllRootsEin(-100000, 100000);
@@ -118,3 +118,7 @@ Console.WriteLine(sw.ElapsedMilliseconds);
 //{
 //    Console.WriteLine($"{item}");
 //}
+
+
+PolynomialPrediction pp = new PolynomialPrediction();
+Console.WriteLine(pp.GetPredictionPol(new double[] { -1, 0, 1, 2}, new double[] { 4, 2, 0, 1}));
