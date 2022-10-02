@@ -5,6 +5,7 @@
     /// </summary>
     public class Polynomial
     {
+        #region Поля
         private static Random rnd = new Random();  // генератор случайных чисел
         private protected int n;  // степень полинома
         private protected double[] coefs;  // коэффициенты полинома
@@ -27,7 +28,9 @@
                 return res;
             }
         }
+        #endregion
 
+        #region Конструкторы
         /// <summary>
         /// Конструктор по умолчанию.
         /// Создает полином x^2 - 3x + 2.
@@ -96,7 +99,9 @@
             n = coefs.Count() - 1;
             this.coefs = coefs;
         }
+        #endregion
 
+        #region Переопределение ToString()
         /// <summary>
         /// Переопределение метода ToString().
         /// </summary>
@@ -178,37 +183,9 @@
                 return " + ";
             return " - ";
         }
+        #endregion
 
-        /// <summary>
-        /// Вычисление значения полинома в точке x.
-        /// Схема Горнера.
-        /// </summary>
-        /// <param name="x"> точка </param>
-        /// <returns> значение полинома в точке </returns>
-        public double P(double x)
-        {
-            double res = 0;
-            for (int i = n; i >= 0; i--)
-            {
-                res = res * x + coefs[i];
-            }
-            return res;
-        }
-
-        /// <summary>
-        /// Производная полинома.
-        /// </summary>
-        /// <returns> полином, представляющий производную </returns>
-        public Polynomial GetDerivative()
-        {
-            double[] resCoefs = new double[n];
-            for (int i = n; i > 0; i--)
-            {
-                resCoefs[i - 1] = i * coefs[i];
-            }
-            return new Polynomial(resCoefs);
-        }
-
+        #region Арифметические операции
         /// <summary>
         /// Сложение полиномов.
         /// </summary>
@@ -400,6 +377,37 @@
                 resCoefs[i] *= n;
             }
             return new Polynomial(resCoefs);
-        } 
+        }
+        #endregion
+
+        /// <summary>
+        /// Вычисление значения полинома в точке x.
+        /// Схема Горнера.
+        /// </summary>
+        /// <param name="x"> точка </param>
+        /// <returns> значение полинома в точке </returns>
+        public double P(double x)
+        {
+            double res = 0;
+            for (int i = n; i >= 0; i--)
+            {
+                res = res * x + coefs[i];
+            }
+            return res;
+        }
+
+        /// <summary>
+        /// Производная полинома.
+        /// </summary>
+        /// <returns> полином, представляющий производную </returns>
+        public Polynomial GetDerivative()
+        {
+            double[] resCoefs = new double[n];
+            for (int i = n; i > 0; i--)
+            {
+                resCoefs[i - 1] = i * coefs[i];
+            }
+            return new Polynomial(resCoefs);
+        }
     }
 }

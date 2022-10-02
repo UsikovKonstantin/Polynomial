@@ -5,8 +5,9 @@
     /// </summary>
     public class PolynomialWithRoots : Polynomial
     {
+        #region Поля
         private protected List<double> roots = new List<double>();  // корни полинома
-        private protected List<(double, int)> stationaryPoints;  // точки экстремума
+        private protected List<(double, int)> stationaryPoints = new();  // точки экстремума
 
         // Свойство для доступа к корням.
         public List<double> Roots
@@ -21,8 +22,7 @@
                 return res;
             }
         }
-
-        // Свойство для доступа к точкам экстремума
+        // Свойство для доступа к точкам экстремума.
         public List<(double, int)> StationaryPoints
         {
             get 
@@ -35,7 +35,9 @@
                 return res;
             }
         }
+        #endregion
 
+        #region Конструкторы
         /// <summary>
         /// Конструктор по умолчанию.
         /// Создает полином второй степени и задаёт корни.
@@ -43,7 +45,7 @@
         public PolynomialWithRoots() : base()
         {
             roots.Add(1);
-            roots.Add(1);
+            roots.Add(2);
         }
 
         /// <summary>
@@ -119,13 +121,20 @@
             }
             return coefs;
         }
+        #endregion
 
+        #region Переопределение ToString()
         /// <summary>
         /// Переопределение метода ToString().
         /// </summary>
         /// <returns> описание полинома с указанием его корней </returns>
         public override string ToString()
         {
+            if (roots.Count == 0)
+            {
+                return base.ToString();
+            }
+
             string s = "\nКорни полинома:";
             int m = roots.Count;
             for (int i = 0; i < m; i++)
@@ -134,17 +143,9 @@
             }
             return base.ToString() + s;
         }
+        #endregion
 
-        /// <summary>
-        /// Приведение объекта типа Polynomial к типу PolynomialWithRoots.
-        /// </summary>
-        /// <param name="p"> объект типа Polynomial </param>
-        /// <returns> объект типа PolynomialWithRoots </returns>
-        public static PolynomialWithRoots Parse(Polynomial p)
-        {
-            return new PolynomialWithRoots(p.Coefs);
-        }
-
+        #region Арифметические операции
         /// <summary>
         /// Сложение полиномов.
         /// </summary>
@@ -348,7 +349,9 @@
             }
             return new PolynomialWithRoots(resCoefs);
         }
+        #endregion
 
+        #region Поиск корней полинома
         /// <summary>
         /// Существует ли корень полинома на заданном интервале.
         /// </summary>
@@ -440,33 +443,9 @@
             }
             return res;
         }
+        #endregion
 
-        /// <summary>
-        /// Поиск всех точек экстремума на заданном интервале.
-        /// </summary>
-        /// <param name="a"> левая граница интервала </param>
-        /// <param name="b"> правая граница интервала </param>
-        /// <returns> список всех точек экстремума </returns>
-        public List<(double, int)> FindAllStationaryPoints(double a, double b)
-        {
-            double eps = 1e-5;
-            PolynomialWithRoots derivative = Parse(GetDerivative());
-            List<double> roots = derivative.FindAllRoots(a, b);
-            List<(double, int)> res = new List<(double, int)>();
-            for (int i = 0; i < roots.Count; i++)
-            {
-                if (P(roots[i]) < P(roots[i] + eps) && P(roots[i]) < P(roots[i] - eps))
-                {
-                    res.Add((roots[i], -1));
-                }
-                else
-                {
-                    res.Add((roots[i], 1));
-                }
-            }
-            return res;
-        }
-
+        #region Поиск корней полинома (метод Ньютона)
         /// <summary>
         /// Поиск корня на заданном интервале
         /// при условии, что корень существует.
@@ -479,7 +458,6 @@
         {
             double eps = 1e-7;
             double x0 = 0;
-
             if (P(a) * GetDerivative().GetDerivative().P(a) > 0)
             {
                 x0 = a;
@@ -488,10 +466,8 @@
             {
                 x0 = b;
             }
-
             double xn = x0 - P(x0) / GetDerivative().P(x0);
             double xnp1 = xn - P(xn) / GetDerivative().P(xn);
-
             while (Math.Abs(xn - xnp1) >= eps)
             {
                 xn = xnp1;
@@ -522,6 +498,43 @@
                 q = q / one;
                 a = ta;
                 b = tb;
+            }
+            return res;
+        }
+        #endregion
+
+        /// <summary>
+        /// Приведение объекта типа Polynomial к типу PolynomialWithRoots.
+        /// </summary>
+        /// <param name="p"> объект типа Polynomial </param>
+        /// <returns> объект типа PolynomialWithRoots </returns>
+        public static PolynomialWithRoots Parse(Polynomial p)
+        {
+            return new PolynomialWithRoots(p.Coefs);
+        }
+
+        /// <summary>
+        /// Поиск всех точек экстремума на заданном интервале.
+        /// </summary>
+        /// <param name="a"> левая граница интервала </param>
+        /// <param name="b"> правая граница интервала </param>
+        /// <returns> список всех точек экстремума </returns>
+        public List<(double, int)> FindAllStationaryPoints(double a, double b)
+        {
+            double eps = 1e-5;
+            PolynomialWithRoots derivative = Parse(GetDerivative());
+            List<double> roots = derivative.FindAllRoots(a, b);
+            List<(double, int)> res = new List<(double, int)>();
+            for (int i = 0; i < roots.Count; i++)
+            {
+                if (P(roots[i]) < P(roots[i] + eps) && P(roots[i]) < P(roots[i] - eps))
+                {
+                    res.Add((roots[i], -1));
+                }
+                else
+                {
+                    res.Add((roots[i], 1));
+                }
             }
             return res;
         }
