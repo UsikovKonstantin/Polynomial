@@ -122,3 +122,4 @@ Console.WriteLine(p);
 
 PolynomialPrediction pp = new PolynomialPrediction();
 Console.WriteLine(pp.GetPredictionPol(new double[] { -1, 0, 1, 2}, new double[] { 4, 2, 0, 1}));
+Console.WriteLine(pp.MNK(3, new double[] { -1, 0, 1, 2 }, new double[] { 4, 2, 0, 1 }));
