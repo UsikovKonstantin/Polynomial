@@ -5,6 +5,7 @@ namespace WinFormsApp1
         public MainForm()
         {
             InitializeComponent();
+            errorProvider.SetError(tbACoefs, "sdjgfkosd");
         }
     }
 }
