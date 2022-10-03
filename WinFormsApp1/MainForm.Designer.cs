@@ -107,7 +107,12 @@
             this.tableLayoutPanel16 = new System.Windows.Forms.TableLayoutPanel();
             this.button11 = new System.Windows.Forms.Button();
             this.button12 = new System.Windows.Forms.Button();
-            this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
+            this.epACoefs = new System.Windows.Forms.ErrorProvider(this.components);
+            this.epBCoefs = new System.Windows.Forms.ErrorProvider(this.components);
+            this.epAInputX = new System.Windows.Forms.ErrorProvider(this.components);
+            this.epBInputX = new System.Windows.Forms.ErrorProvider(this.components);
+            this.epAInputN = new System.Windows.Forms.ErrorProvider(this.components);
+            this.epBInputN = new System.Windows.Forms.ErrorProvider(this.components);
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.tableLayoutPanel17.SuspendLayout();
@@ -133,7 +138,12 @@
             this.tableLayoutPanel14.SuspendLayout();
             this.tableLayoutPanel15.SuspendLayout();
             this.tableLayoutPanel16.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.epACoefs)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.epBCoefs)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.epAInputX)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.epBInputX)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.epAInputN)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.epBInputN)).BeginInit();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -259,6 +269,7 @@
             this.btnBGetRoots.TabIndex = 2;
             this.btnBGetRoots.Text = "Корни";
             this.btnBGetRoots.UseVisualStyleBackColor = true;
+            this.btnBGetRoots.Click += new System.EventHandler(this.btnBGetRoots_Click);
             // 
             // bntBGetStationaryPoints
             // 
@@ -270,6 +281,7 @@
             this.bntBGetStationaryPoints.TabIndex = 1;
             this.bntBGetStationaryPoints.Text = "Экстремумы";
             this.bntBGetStationaryPoints.UseVisualStyleBackColor = true;
+            this.bntBGetStationaryPoints.Click += new System.EventHandler(this.bntBGetStationaryPoints_Click);
             // 
             // tableLayoutPanel19
             // 
@@ -296,6 +308,7 @@
             this.tbBInputN.Size = new System.Drawing.Size(89, 33);
             this.tbBInputN.TabIndex = 2;
             this.tbBInputN.Text = "";
+            this.tbBInputN.TextChanged += new System.EventHandler(this.tbBInputN_TextChanged);
             // 
             // btnBMultiplyByN
             // 
@@ -307,6 +320,7 @@
             this.btnBMultiplyByN.TabIndex = 0;
             this.btnBMultiplyByN.Text = "Умножить на";
             this.btnBMultiplyByN.UseVisualStyleBackColor = true;
+            this.btnBMultiplyByN.Click += new System.EventHandler(this.btnBMultiplyByN_Click);
             // 
             // label8
             // 
@@ -345,6 +359,7 @@
             this.tbBCoefs.Size = new System.Drawing.Size(346, 31);
             this.tbBCoefs.TabIndex = 1;
             this.tbBCoefs.Text = "";
+            this.tbBCoefs.TextChanged += new System.EventHandler(this.tbBCoefs_TextChanged);
             // 
             // label10
             // 
@@ -376,13 +391,11 @@
             // tbBPolynomial
             // 
             this.tbBPolynomial.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tbBPolynomial.Enabled = false;
             this.tbBPolynomial.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.tbBPolynomial.Location = new System.Drawing.Point(3, 33);
-            this.tbBPolynomial.Margin = new System.Windows.Forms.Padding(3, 3, 20, 3);
             this.tbBPolynomial.Name = "tbBPolynomial";
             this.tbBPolynomial.ReadOnly = true;
-            this.tbBPolynomial.Size = new System.Drawing.Size(346, 31);
+            this.tbBPolynomial.Size = new System.Drawing.Size(363, 31);
             this.tbBPolynomial.TabIndex = 2;
             this.tbBPolynomial.Text = "";
             // 
@@ -423,6 +436,7 @@
             this.tbBInputX.Size = new System.Drawing.Size(89, 33);
             this.tbBInputX.TabIndex = 2;
             this.tbBInputX.Text = "";
+            this.tbBInputX.TextChanged += new System.EventHandler(this.tbBInputX_TextChanged);
             // 
             // btnBGetValue
             // 
@@ -434,6 +448,7 @@
             this.btnBGetValue.TabIndex = 0;
             this.btnBGetValue.Text = "Значение в точке";
             this.btnBGetValue.UseVisualStyleBackColor = true;
+            this.btnBGetValue.Click += new System.EventHandler(this.btnBGetValue_Click);
             // 
             // tableLayoutPanel23
             // 
@@ -460,6 +475,7 @@
             this.btnBGetPrimitive.TabIndex = 2;
             this.btnBGetPrimitive.Text = "Первообразная";
             this.btnBGetPrimitive.UseVisualStyleBackColor = true;
+            this.btnBGetPrimitive.Click += new System.EventHandler(this.btnBGetPrimitive_Click);
             // 
             // btnBGetDerivative
             // 
@@ -471,6 +487,7 @@
             this.btnBGetDerivative.TabIndex = 1;
             this.btnBGetDerivative.Text = "Производная";
             this.btnBGetDerivative.UseVisualStyleBackColor = true;
+            this.btnBGetDerivative.Click += new System.EventHandler(this.btnBGetDerivative_Click);
             // 
             // tableLayoutPanel24
             // 
@@ -509,6 +526,7 @@
             this.btnSwap.TabIndex = 3;
             this.btnSwap.Text = "⇄\r\n";
             this.btnSwap.UseVisualStyleBackColor = true;
+            this.btnSwap.Click += new System.EventHandler(this.btnSwap_Click);
             // 
             // btnAdd
             // 
@@ -521,6 +539,7 @@
             this.btnAdd.TabIndex = 4;
             this.btnAdd.Text = "A + B";
             this.btnAdd.UseVisualStyleBackColor = true;
+            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
             // 
             // btnSubtract
             // 
@@ -533,6 +552,7 @@
             this.btnSubtract.TabIndex = 5;
             this.btnSubtract.Text = "A - B";
             this.btnSubtract.UseVisualStyleBackColor = true;
+            this.btnSubtract.Click += new System.EventHandler(this.btnSubtract_Click);
             // 
             // btnMultiply
             // 
@@ -545,6 +565,7 @@
             this.btnMultiply.TabIndex = 6;
             this.btnMultiply.Text = "A * B";
             this.btnMultiply.UseVisualStyleBackColor = true;
+            this.btnMultiply.Click += new System.EventHandler(this.btnMultiply_Click);
             // 
             // btnDivide
             // 
@@ -557,6 +578,7 @@
             this.btnDivide.TabIndex = 7;
             this.btnDivide.Text = "A / B";
             this.btnDivide.UseVisualStyleBackColor = true;
+            this.btnDivide.Click += new System.EventHandler(this.btnDivide_Click);
             // 
             // btnMod
             // 
@@ -569,6 +591,7 @@
             this.btnMod.TabIndex = 8;
             this.btnMod.Text = "A % B";
             this.btnMod.UseVisualStyleBackColor = true;
+            this.btnMod.Click += new System.EventHandler(this.btnMod_Click);
             // 
             // btnInterpolationExtrapolation
             // 
@@ -645,6 +668,7 @@
             this.btnAGetRoots.TabIndex = 2;
             this.btnAGetRoots.Text = "Корни";
             this.btnAGetRoots.UseVisualStyleBackColor = true;
+            this.btnAGetRoots.Click += new System.EventHandler(this.btnAGetRoots_Click);
             // 
             // bntAGetStationaryPoints
             // 
@@ -656,6 +680,7 @@
             this.bntAGetStationaryPoints.TabIndex = 1;
             this.bntAGetStationaryPoints.Text = "Экстремумы";
             this.bntAGetStationaryPoints.UseVisualStyleBackColor = true;
+            this.bntAGetStationaryPoints.Click += new System.EventHandler(this.bntAGetStationaryPoints_Click);
             // 
             // tableLayoutPanel7
             // 
@@ -682,6 +707,7 @@
             this.tbAInputN.Size = new System.Drawing.Size(89, 33);
             this.tbAInputN.TabIndex = 2;
             this.tbAInputN.Text = "";
+            this.tbAInputN.TextChanged += new System.EventHandler(this.tbAInputN_TextChanged);
             // 
             // btnAMultiplyByN
             // 
@@ -693,6 +719,7 @@
             this.btnAMultiplyByN.TabIndex = 0;
             this.btnAMultiplyByN.Text = "Умножить на";
             this.btnAMultiplyByN.UseVisualStyleBackColor = true;
+            this.btnAMultiplyByN.Click += new System.EventHandler(this.btnAMultiplyByN_Click);
             // 
             // label2
             // 
@@ -731,6 +758,7 @@
             this.tbACoefs.Size = new System.Drawing.Size(344, 31);
             this.tbACoefs.TabIndex = 1;
             this.tbACoefs.Text = "";
+            this.tbACoefs.TextChanged += new System.EventHandler(this.tbACoefs_TextChanged);
             // 
             // label3
             // 
@@ -762,13 +790,11 @@
             // tbAPolynomial
             // 
             this.tbAPolynomial.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tbAPolynomial.Enabled = false;
             this.tbAPolynomial.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.tbAPolynomial.Location = new System.Drawing.Point(3, 33);
-            this.tbAPolynomial.Margin = new System.Windows.Forms.Padding(3, 3, 20, 3);
             this.tbAPolynomial.Name = "tbAPolynomial";
             this.tbAPolynomial.ReadOnly = true;
-            this.tbAPolynomial.Size = new System.Drawing.Size(344, 31);
+            this.tbAPolynomial.Size = new System.Drawing.Size(361, 31);
             this.tbAPolynomial.TabIndex = 2;
             this.tbAPolynomial.Text = "";
             // 
@@ -809,6 +835,7 @@
             this.tbAInputX.Size = new System.Drawing.Size(89, 33);
             this.tbAInputX.TabIndex = 2;
             this.tbAInputX.Text = "";
+            this.tbAInputX.TextChanged += new System.EventHandler(this.tbAInputX_TextChanged);
             // 
             // btnAGetValue
             // 
@@ -820,6 +847,7 @@
             this.btnAGetValue.TabIndex = 0;
             this.btnAGetValue.Text = "Значение в точке";
             this.btnAGetValue.UseVisualStyleBackColor = true;
+            this.btnAGetValue.Click += new System.EventHandler(this.btnAGetValue_Click);
             // 
             // tableLayoutPanel8
             // 
@@ -846,6 +874,7 @@
             this.btnAGetPrimitive.TabIndex = 2;
             this.btnAGetPrimitive.Text = "Первообразная";
             this.btnAGetPrimitive.UseVisualStyleBackColor = true;
+            this.btnAGetPrimitive.Click += new System.EventHandler(this.btnAGetPrimitive_Click);
             // 
             // btnAGetDerivative
             // 
@@ -857,6 +886,7 @@
             this.btnAGetDerivative.TabIndex = 1;
             this.btnAGetDerivative.Text = "Производная";
             this.btnAGetDerivative.UseVisualStyleBackColor = true;
+            this.btnAGetDerivative.Click += new System.EventHandler(this.btnAGetDerivative_Click);
             // 
             // tableLayoutPanel25
             // 
@@ -885,6 +915,7 @@
             this.btnInsertB.TabIndex = 4;
             this.btnInsertB.Text = "Вставить в B";
             this.btnInsertB.UseVisualStyleBackColor = true;
+            this.btnInsertB.Click += new System.EventHandler(this.btnInsertB_Click);
             // 
             // btnInsertA
             // 
@@ -896,11 +927,11 @@
             this.btnInsertA.TabIndex = 3;
             this.btnInsertA.Text = "Вставить в A";
             this.btnInsertA.UseVisualStyleBackColor = true;
+            this.btnInsertA.Click += new System.EventHandler(this.btnInsertA_Click);
             // 
             // tbOutput
             // 
             this.tbOutput.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tbOutput.Enabled = false;
             this.tbOutput.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.tbOutput.Location = new System.Drawing.Point(3, 3);
             this.tbOutput.Name = "tbOutput";
@@ -1164,10 +1195,35 @@
             this.button12.Text = "Производная";
             this.button12.UseVisualStyleBackColor = true;
             // 
-            // errorProvider
+            // epACoefs
             // 
-            this.errorProvider.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
-            this.errorProvider.ContainerControl = this;
+            this.epACoefs.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
+            this.epACoefs.ContainerControl = this;
+            // 
+            // epBCoefs
+            // 
+            this.epBCoefs.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
+            this.epBCoefs.ContainerControl = this;
+            // 
+            // epAInputX
+            // 
+            this.epAInputX.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
+            this.epAInputX.ContainerControl = this;
+            // 
+            // epBInputX
+            // 
+            this.epBInputX.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
+            this.epBInputX.ContainerControl = this;
+            // 
+            // epAInputN
+            // 
+            this.epAInputN.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
+            this.epAInputN.ContainerControl = this;
+            // 
+            // epBInputN
+            // 
+            this.epBInputN.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
+            this.epBInputN.ContainerControl = this;
             // 
             // MainForm
             // 
@@ -1212,7 +1268,12 @@
             this.tableLayoutPanel14.PerformLayout();
             this.tableLayoutPanel15.ResumeLayout(false);
             this.tableLayoutPanel16.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.epACoefs)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.epBCoefs)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.epAInputX)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.epBInputX)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.epAInputN)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.epBInputN)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1298,6 +1359,11 @@
         private TableLayoutPanel tableLayoutPanel23;
         private Button btnBGetPrimitive;
         private Button btnBGetDerivative;
-        private ErrorProvider errorProvider;
+        private ErrorProvider epACoefs;
+        private ErrorProvider epBCoefs;
+        private ErrorProvider epAInputX;
+        private ErrorProvider epBInputX;
+        private ErrorProvider epAInputN;
+        private ErrorProvider epBInputN;
     }
 }

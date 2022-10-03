@@ -409,5 +409,20 @@
             }
             return new Polynomial(resCoefs);
         }
+
+        /// <summary>
+        /// Первообразная полинома.
+        /// </summary>
+        /// <returns> полином, представляющий первообразную </returns>
+        public Polynomial GetPrimitive()
+        {
+            double[] resCoefs = new double[n + 2];
+            for (int i = n + 1; i > 0; i--)
+            {
+                resCoefs[i] = coefs[i - 1] / i;
+            }
+            resCoefs[0] = 0;
+            return new Polynomial(resCoefs);
+        }
     }
 }

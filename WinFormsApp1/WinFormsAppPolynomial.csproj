@@ -12,4 +12,8 @@
     <PackageReference Include="ScottPlot.WinForms" Version="4.1.58" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\ClassLibraryPolynomial\ClassLibraryPolynomial.csproj" />
+  </ItemGroup>
+
 </Project>
