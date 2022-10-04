@@ -433,5 +433,11 @@ namespace WinFormsApp1
             ChartOutput f = new ChartOutput(B);
             f.Show();
         }
+
+        private void btnInterpolationExtrapolation_Click(object sender, EventArgs e)
+        {
+            PredictionForm f = new PredictionForm();
+            f.Show();
+        }
     }
 }

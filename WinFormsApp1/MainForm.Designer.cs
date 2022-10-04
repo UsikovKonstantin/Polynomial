@@ -602,6 +602,7 @@
             this.btnInterpolationExtrapolation.TabIndex = 9;
             this.btnInterpolationExtrapolation.Text = "Интерполяция/\r\nэкстраполяция";
             this.btnInterpolationExtrapolation.UseVisualStyleBackColor = true;
+            this.btnInterpolationExtrapolation.Click += new System.EventHandler(this.btnInterpolationExtrapolation_Click);
             // 
             // tableLayoutPanel3
             // 
