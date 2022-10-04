@@ -243,6 +243,7 @@
             this.btnBChartOutout.TabIndex = 2;
             this.btnBChartOutout.Text = "График";
             this.btnBChartOutout.UseVisualStyleBackColor = true;
+            this.btnBChartOutout.Click += new System.EventHandler(this.btnBChartOutout_Click);
             // 
             // tableLayoutPanel18
             // 
@@ -356,7 +357,7 @@
             this.tbBCoefs.Name = "tbBCoefs";
             this.tbBCoefs.Size = new System.Drawing.Size(363, 31);
             this.tbBCoefs.TabIndex = 1;
-            this.tbBCoefs.Text = "";
+            this.tbBCoefs.Text = "4 5 6";
             this.tbBCoefs.TextChanged += new System.EventHandler(this.tbBCoefs_TextChanged);
             // 
             // label10
@@ -395,7 +396,7 @@
             this.tbBPolynomial.ReadOnly = true;
             this.tbBPolynomial.Size = new System.Drawing.Size(363, 31);
             this.tbBPolynomial.TabIndex = 2;
-            this.tbBPolynomial.Text = "";
+            this.tbBPolynomial.Text = "4x^2 + 5x + 6";
             // 
             // label11
             // 
@@ -639,6 +640,7 @@
             this.btnAChartOutout.TabIndex = 2;
             this.btnAChartOutout.Text = "График";
             this.btnAChartOutout.UseVisualStyleBackColor = true;
+            this.btnAChartOutout.Click += new System.EventHandler(this.btnAChartOutout_Click);
             // 
             // tableLayoutPanel9
             // 
@@ -752,7 +754,7 @@
             this.tbACoefs.Name = "tbACoefs";
             this.tbACoefs.Size = new System.Drawing.Size(361, 31);
             this.tbACoefs.TabIndex = 1;
-            this.tbACoefs.Text = "";
+            this.tbACoefs.Text = "1 2 3";
             this.tbACoefs.TextChanged += new System.EventHandler(this.tbACoefs_TextChanged);
             // 
             // label3
@@ -791,7 +793,7 @@
             this.tbAPolynomial.ReadOnly = true;
             this.tbAPolynomial.Size = new System.Drawing.Size(361, 31);
             this.tbAPolynomial.TabIndex = 2;
-            this.tbAPolynomial.Text = "";
+            this.tbAPolynomial.Text = "x^2 + 2x + 3";
             // 
             // label4
             // 
@@ -902,6 +904,7 @@
             // btnInsertB
             // 
             this.btnInsertB.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnInsertB.Enabled = false;
             this.btnInsertB.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.btnInsertB.Location = new System.Drawing.Point(713, 3);
             this.btnInsertB.Name = "btnInsertB";
@@ -914,6 +917,7 @@
             // btnInsertA
             // 
             this.btnInsertA.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnInsertA.Enabled = false;
             this.btnInsertA.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.btnInsertA.Location = new System.Drawing.Point(513, 3);
             this.btnInsertA.Name = "btnInsertA";

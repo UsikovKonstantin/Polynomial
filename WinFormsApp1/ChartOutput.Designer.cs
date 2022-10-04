@@ -28,12 +28,32 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
+            this.plot = new ScottPlot.FormsPlot();
+            this.SuspendLayout();
+            // 
+            // plot
+            // 
+            this.plot.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.plot.Location = new System.Drawing.Point(0, 0);
+            this.plot.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.plot.Name = "plot";
+            this.plot.Size = new System.Drawing.Size(800, 450);
+            this.plot.TabIndex = 0;
+            // 
+            // ChartOutput
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.plot);
+            this.Name = "ChartOutput";
             this.Text = "ChartOutput";
+            this.ResumeLayout(false);
+
         }
 
         #endregion
+
+        private ScottPlot.FormsPlot plot;
     }
 }

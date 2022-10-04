@@ -1,5 +1,6 @@
 using ClassLibraryPolynomial;
 using System.Windows.Forms;
+using WinFormsAppPolynomial;
 
 namespace WinFormsApp1
 {
@@ -8,16 +9,11 @@ namespace WinFormsApp1
         public MainForm()
         {
             InitializeComponent();
-            tbACoefs.Text = "1 2 3";
-            tbBCoefs.Text = "4 5 6";
         }
 
-        PolynomialPrediction A = new PolynomialPrediction();
-        PolynomialPrediction B = new PolynomialPrediction();
-        PolynomialPrediction R = new PolynomialPrediction();
-        List<(double, int)> stationaryPoints = new List<(double, int)>();
-        List<double> roots = new List<double>();
-        double resInPoint;
+        PolynomialWithRoots A = new PolynomialWithRoots(new double[] { 3, 2, 1 });
+        PolynomialWithRoots B = new PolynomialWithRoots(new double[] { 6, 5, 4 });
+        PolynomialWithRoots R = new PolynomialWithRoots();
 
         private void tbACoefs_TextChanged(object sender, EventArgs e)
         {
@@ -138,119 +134,229 @@ namespace WinFormsApp1
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
+            if (tbAPolynomial.Text == "" || tbBPolynomial.Text == "")
+            {
+                return;
+            }
             R = A + B;
             tbOutput.Text = R.ToString();
+            btnInsertA.Enabled = true;
+            btnInsertB.Enabled = true;
         }
 
         private void btnSubtract_Click(object sender, EventArgs e)
         {
+            if (tbAPolynomial.Text == "" || tbBPolynomial.Text == "")
+            {
+                return;
+            }
             R = A - B;
             tbOutput.Text = R.ToString();
+            btnInsertA.Enabled = true;
+            btnInsertB.Enabled = true;
         }
 
         private void btnMultiply_Click(object sender, EventArgs e)
         {
+            if (tbAPolynomial.Text == "" || tbBPolynomial.Text == "")
+            {
+                return;
+            }
             R = A * B;
             tbOutput.Text = R.ToString();
+            btnInsertA.Enabled = true;
+            btnInsertB.Enabled = true;
         }
 
         private void btnDivide_Click(object sender, EventArgs e)
         {
+            if (tbAPolynomial.Text == "" || tbBPolynomial.Text == "")
+            {
+                return;
+            }
             R = A / B;
             tbOutput.Text = R.ToString();
+            btnInsertA.Enabled = true;
+            btnInsertB.Enabled = true;
         }
 
         private void btnMod_Click(object sender, EventArgs e)
         {
+            if (tbAPolynomial.Text == "" || tbBPolynomial.Text == "")
+            {
+                return;
+            }
             R = A % B;
             tbOutput.Text = R.ToString();
+            btnInsertA.Enabled = true;
+            btnInsertB.Enabled = true;
         }
 
         private void btnAGetValue_Click(object sender, EventArgs e)
         {
+            if (tbAPolynomial.Text == "")
+            {
+                return;
+            }
             if (double.TryParse(tbAInputX.Text, out double x))
             {
-                resInPoint = A.P(x);
+                double resInPoint = A.P(x);
                 tbOutput.Text = resInPoint.ToString();
             }
+            btnInsertA.Enabled = false;
+            btnInsertB.Enabled = false;
         }
 
         private void btnBGetValue_Click(object sender, EventArgs e)
         {
+            if (tbBPolynomial.Text == "")
+            {
+                return;
+            }
             if (double.TryParse(tbBInputX.Text, out double x))
             {
-                resInPoint = B.P(x);
+                double resInPoint = B.P(x);
                 tbOutput.Text = resInPoint.ToString();
             }
+            btnInsertA.Enabled = false;
+            btnInsertB.Enabled = false;
         }
 
         private void btnAMultiplyByN_Click(object sender, EventArgs e)
         {
+            if (tbAPolynomial.Text == "")
+            {
+                return;
+            }
             if (double.TryParse(tbAInputN.Text, out double n))
             {
                 R = A * n;
                 tbOutput.Text = R.ToString();
             }
+            btnInsertA.Enabled = true;
+            btnInsertB.Enabled = true;
         }
 
         private void btnBMultiplyByN_Click(object sender, EventArgs e)
         {
+            if (tbBPolynomial.Text == "")
+            {
+                return;
+            }
             if (double.TryParse(tbBInputN.Text, out double n))
             {
                 R = B * n;
                 tbOutput.Text = R.ToString();
             }
+            btnInsertA.Enabled = true;
+            btnInsertB.Enabled = true;
         }
 
         private void btnAGetDerivative_Click(object sender, EventArgs e)
         {
+            if (tbAPolynomial.Text == "")
+            {
+                return;
+            }
             R = new PolynomialPrediction(A.GetDerivative().Coefs);
             tbOutput.Text = R.ToString();
+            btnInsertA.Enabled = true;
+            btnInsertB.Enabled = true;
         }
 
         private void btnBGetDerivative_Click(object sender, EventArgs e)
         {
+            if (tbBPolynomial.Text == "")
+            {
+                return;
+            }
             R = new PolynomialPrediction(B.GetDerivative().Coefs);
             tbOutput.Text = R.ToString();
+            btnInsertA.Enabled = true;
+            btnInsertB.Enabled = true;
         }
 
         private void btnAGetPrimitive_Click(object sender, EventArgs e)
         {
+            if (tbAPolynomial.Text == "")
+            {
+                return;
+            }
             R = new PolynomialPrediction(A.GetPrimitive().Coefs);
             tbOutput.Text = R.ToString();
+            btnInsertA.Enabled = true;
+            btnInsertB.Enabled = true;
         }
 
         private void btnBGetPrimitive_Click(object sender, EventArgs e)
         {
+            if (tbBPolynomial.Text == "")
+            {
+                return;
+            }
             R = new PolynomialPrediction(B.GetPrimitive().Coefs);
             tbOutput.Text = R.ToString();
+            btnInsertA.Enabled = true;
+            btnInsertB.Enabled = true;
         }
 
         private void bntAGetStationaryPoints_Click(object sender, EventArgs e)
         {
-            stationaryPoints = A.FindAllStationaryPoints(-100000, 100000);
+            if (A.N <= 1)
+            {
+                tbOutput.Text = "Точек экстремума нет";
+                btnInsertA.Enabled = false;
+                btnInsertB.Enabled = false;
+                return;
+            }
+            List<(double, int)> stationaryPoints = A.FindAllStationaryPoints(-100000, 100000);
             string s = "";
             foreach (var item in stationaryPoints)
             {
                 s += $"({item.Item1}; {A.P(item.Item1)}) - точка " + (item.Item2 == -1 ? "минимума" : "максимума") + "\n";
             }
+            if (s == "")
+            {
+                s = "Точек экстремума нет";
+            }
             tbOutput.Text = s;
+            btnInsertA.Enabled = false;
+            btnInsertB.Enabled = false;
         }
 
         private void bntBGetStationaryPoints_Click(object sender, EventArgs e)
         {
-            stationaryPoints = B.FindAllStationaryPoints(-100000, 100000);
+            if (B.N <= 1)
+            {
+                tbOutput.Text = "Точек экстремума нет";
+                btnInsertA.Enabled = false;
+                btnInsertB.Enabled = false;
+                return;
+            }
+            List<(double, int)> stationaryPoints = B.FindAllStationaryPoints(-100000, 100000);
             string s = "";
             foreach (var item in stationaryPoints)
             {
                 s += $"({item.Item1}; {A.P(item.Item1)}) - точка " + (item.Item2 == -1 ? "минимума" : "максимума") + "\n";
             }
+            if (s == "")
+            {
+                s = "Точек экстремума нет";
+            }
             tbOutput.Text = s;
+            btnInsertA.Enabled = false;
+            btnInsertB.Enabled = false;
         }
 
         private void btnAGetRoots_Click(object sender, EventArgs e)
         {
-            roots = A.FindAllRoots(-100000, 100000);
+            if (tbAPolynomial.Text == "")
+            {
+                btnInsertA.Enabled = false;
+                btnInsertB.Enabled = false;
+                return;
+            }
+            List<double> roots = A.FindAllRoots(-100000, 100000);
             string s = "";
             foreach (var item in roots)
             {
@@ -264,11 +370,19 @@ namespace WinFormsApp1
             {
                 tbOutput.Text = s;
             }
+            btnInsertA.Enabled = false;
+            btnInsertB.Enabled = false;
         }
 
         private void btnBGetRoots_Click(object sender, EventArgs e)
         {
-            roots = B.FindAllRoots(-100000, 100000);
+            if (tbBPolynomial.Text == "")
+            {
+                btnInsertA.Enabled = false;
+                btnInsertB.Enabled = false;
+                return;
+            }
+            List<double> roots = B.FindAllRoots(-100000, 100000);
             string s = "";
             foreach (var item in roots)
             {
@@ -282,6 +396,8 @@ namespace WinFormsApp1
             {
                 tbOutput.Text = s;
             }
+            btnInsertA.Enabled = false;
+            btnInsertB.Enabled = false;
         }
 
         private void btnInsertA_Click(object sender, EventArgs e)
@@ -304,6 +420,18 @@ namespace WinFormsApp1
                 s += coefs[i].ToString() + " ";
             }
             tbBCoefs.Text = s;
+        }
+
+        private void btnAChartOutout_Click(object sender, EventArgs e)
+        {
+            ChartOutput f = new ChartOutput(A);
+            f.Show();
+        }
+
+        private void btnBChartOutout_Click(object sender, EventArgs e)
+        {
+            ChartOutput f = new ChartOutput(B);
+            f.Show();
         }
     }
 }
