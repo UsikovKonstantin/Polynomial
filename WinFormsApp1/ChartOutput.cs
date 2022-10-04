@@ -12,7 +12,15 @@ namespace WinFormsAppPolynomial
         {
             InitializeComponent();
 
-            int n = 100000;
+            int n = Math.Max(100, 10000 / ((int)Math.Pow(10, polynomial.N / 10)));
+            if (polynomial.N > 40)
+            {
+                n = 10;
+            }
+            if (polynomial.N > 85)
+            {
+                n = 0;
+            }
             double[] x = new double[2 * n + 1];
             double[] y = new double[2 * n + 1];
             int ind = 0;
