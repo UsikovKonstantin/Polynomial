@@ -303,9 +303,8 @@
             this.tbBInputN.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tbBInputN.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.tbBInputN.Location = new System.Drawing.Point(260, 3);
-            this.tbBInputN.Margin = new System.Windows.Forms.Padding(3, 3, 20, 3);
             this.tbBInputN.Name = "tbBInputN";
-            this.tbBInputN.Size = new System.Drawing.Size(89, 33);
+            this.tbBInputN.Size = new System.Drawing.Size(106, 33);
             this.tbBInputN.TabIndex = 2;
             this.tbBInputN.Text = "";
             this.tbBInputN.TextChanged += new System.EventHandler(this.tbBInputN_TextChanged);
@@ -354,9 +353,8 @@
             this.tbBCoefs.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tbBCoefs.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.tbBCoefs.Location = new System.Drawing.Point(3, 33);
-            this.tbBCoefs.Margin = new System.Windows.Forms.Padding(3, 3, 20, 3);
             this.tbBCoefs.Name = "tbBCoefs";
-            this.tbBCoefs.Size = new System.Drawing.Size(346, 31);
+            this.tbBCoefs.Size = new System.Drawing.Size(363, 31);
             this.tbBCoefs.TabIndex = 1;
             this.tbBCoefs.Text = "";
             this.tbBCoefs.TextChanged += new System.EventHandler(this.tbBCoefs_TextChanged);
@@ -431,9 +429,8 @@
             this.tbBInputX.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tbBInputX.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.tbBInputX.Location = new System.Drawing.Point(260, 3);
-            this.tbBInputX.Margin = new System.Windows.Forms.Padding(3, 3, 20, 3);
             this.tbBInputX.Name = "tbBInputX";
-            this.tbBInputX.Size = new System.Drawing.Size(89, 33);
+            this.tbBInputX.Size = new System.Drawing.Size(106, 33);
             this.tbBInputX.TabIndex = 2;
             this.tbBInputX.Text = "";
             this.tbBInputX.TextChanged += new System.EventHandler(this.tbBInputX_TextChanged);
@@ -702,9 +699,8 @@
             this.tbAInputN.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tbAInputN.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.tbAInputN.Location = new System.Drawing.Point(258, 3);
-            this.tbAInputN.Margin = new System.Windows.Forms.Padding(3, 3, 20, 3);
             this.tbAInputN.Name = "tbAInputN";
-            this.tbAInputN.Size = new System.Drawing.Size(89, 33);
+            this.tbAInputN.Size = new System.Drawing.Size(106, 33);
             this.tbAInputN.TabIndex = 2;
             this.tbAInputN.Text = "";
             this.tbAInputN.TextChanged += new System.EventHandler(this.tbAInputN_TextChanged);
@@ -753,9 +749,8 @@
             this.tbACoefs.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tbACoefs.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.tbACoefs.Location = new System.Drawing.Point(3, 33);
-            this.tbACoefs.Margin = new System.Windows.Forms.Padding(3, 3, 20, 3);
             this.tbACoefs.Name = "tbACoefs";
-            this.tbACoefs.Size = new System.Drawing.Size(344, 31);
+            this.tbACoefs.Size = new System.Drawing.Size(361, 31);
             this.tbACoefs.TabIndex = 1;
             this.tbACoefs.Text = "";
             this.tbACoefs.TextChanged += new System.EventHandler(this.tbACoefs_TextChanged);
@@ -830,9 +825,8 @@
             this.tbAInputX.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tbAInputX.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.tbAInputX.Location = new System.Drawing.Point(258, 3);
-            this.tbAInputX.Margin = new System.Windows.Forms.Padding(3, 3, 20, 3);
             this.tbAInputX.Name = "tbAInputX";
-            this.tbAInputX.Size = new System.Drawing.Size(89, 33);
+            this.tbAInputX.Size = new System.Drawing.Size(106, 33);
             this.tbAInputX.TabIndex = 2;
             this.tbAInputX.Text = "";
             this.tbAInputX.TextChanged += new System.EventHandler(this.tbAInputX_TextChanged);

@@ -33,11 +33,13 @@ namespace WinFormsApp1
                 else
                 {
                     epACoefs.SetError(tbACoefs, "Ќевозможно привести все значени€ к целому числу");
+                    tbACoefs.Margin = new Padding(3, 3, 20, 3);
                     tbAPolynomial.Text = "";
                     return;
                 }
             }
             epACoefs.Clear();
+            tbACoefs.Margin = new Padding(3, 3, 3, 3);
             A = new PolynomialPrediction(coefs);
             tbAPolynomial.Text = A.ToString();
         }
@@ -56,13 +58,75 @@ namespace WinFormsApp1
                 else
                 {
                     epBCoefs.SetError(tbBCoefs, "Ќевозможно привести все значени€ к целому числу");
+                    tbBCoefs.Margin = new Padding(3, 3, 20, 3);
                     tbBPolynomial.Text = "";
                     return;
                 }
             }
             epBCoefs.Clear();
+            tbBCoefs.Margin = new Padding(3, 3, 3, 3);
             B = new PolynomialPrediction(coefs);
             tbBPolynomial.Text = B.ToString();
+        }
+
+        private void tbAInputX_TextChanged(object sender, EventArgs e)
+        {
+            string s = tbAInputX.Text.Trim();
+            if (s != "" && !double.TryParse(s, out double x))
+            {
+                epAInputX.SetError(tbAInputX, "Ќевозможно привести к целому числу");
+                tbAInputX.Margin = new Padding(3, 3, 20, 3);
+            }
+            else
+            {
+                epAInputX.Clear();
+                tbAInputX.Margin = new Padding(3, 3, 3, 3);
+            }
+        }
+
+        private void tbBInputX_TextChanged(object sender, EventArgs e)
+        {
+            string s = tbBInputX.Text.Trim();
+            if (s != "" && !double.TryParse(s, out double x))
+            {
+                epBInputX.SetError(tbBInputX, "Ќевозможно привести к целому числу");
+                tbBInputX.Margin = new Padding(3, 3, 20, 3);
+            }
+            else
+            {
+                epBInputX.Clear();
+                tbBInputX.Margin = new Padding(3, 3, 3, 3);
+            }
+        }
+
+        private void tbAInputN_TextChanged(object sender, EventArgs e)
+        {
+            string s = tbAInputN.Text.Trim();
+            if (s != "" && !double.TryParse(s, out double x))
+            {
+                epAInputN.SetError(tbAInputN, "Ќевозможно привести к целому числу");
+                tbAInputN.Margin = new Padding(3, 3, 20, 3);
+            }
+            else
+            {
+                epAInputN.Clear();
+                tbAInputN.Margin = new Padding(3, 3, 3, 3);
+            }
+        }
+
+        private void tbBInputN_TextChanged(object sender, EventArgs e)
+        {
+            string s = tbBInputN.Text.Trim();
+            if (s != "" && !double.TryParse(s, out double x))
+            {
+                epBInputN.SetError(tbBInputN, "Ќевозможно привести к целому числу");
+                tbBInputN.Margin = new Padding(3, 3, 20, 3);
+            }
+            else
+            {
+                epBInputN.Clear();
+                tbBInputN.Margin = new Padding(3, 3, 3, 3);
+            }
         }
 
         private void btnSwap_Click(object sender, EventArgs e)
@@ -240,58 +304,6 @@ namespace WinFormsApp1
                 s += coefs[i].ToString() + " ";
             }
             tbBCoefs.Text = s;
-        }
-
-        private void tbAInputX_TextChanged(object sender, EventArgs e)
-        {
-            string s = tbAInputX.Text.Trim();
-            if (s != "" && !double.TryParse(s, out double x))
-            {
-                epAInputX.SetError(tbAInputX, "Ќевозможно привести к целому числу");
-            }
-            else
-            {
-                epAInputX.Clear();
-            }
-        }
-
-        private void tbBInputX_TextChanged(object sender, EventArgs e)
-        {
-            string s = tbBInputX.Text.Trim();
-            if (s != "" && !double.TryParse(s, out double x))
-            {
-                epBInputX.SetError(tbBInputX, "Ќевозможно привести к целому числу");
-            }
-            else
-            {
-                epBInputX.Clear();
-            }
-        }
-
-        private void tbAInputN_TextChanged(object sender, EventArgs e)
-        {
-            string s = tbAInputN.Text.Trim();
-            if (s != "" && !double.TryParse(s, out double x))
-            {
-                epAInputN.SetError(tbAInputN, "Ќевозможно привести к целому числу");
-            }
-            else
-            {
-                epAInputN.Clear();
-            }
-        }
-
-        private void tbBInputN_TextChanged(object sender, EventArgs e)
-        {
-            string s = tbBInputN.Text.Trim();
-            if (s != "" && !double.TryParse(s, out double x))
-            {
-                epBInputN.SetError(tbBInputN, "Ќевозможно привести к целому числу");
-            }
-            else
-            {
-                epBInputN.Clear();
-            }
         }
     }
 }
