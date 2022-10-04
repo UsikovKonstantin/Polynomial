@@ -36,7 +36,7 @@ namespace WinFormsApp1
             }
             epACoefs.Clear();
             tbACoefs.Margin = new Padding(3, 3, 3, 3);
-            A = new PolynomialPrediction(coefs);
+            A = new PolynomialWithRoots(coefs);
             tbAPolynomial.Text = A.ToString();
         }
 
@@ -61,7 +61,7 @@ namespace WinFormsApp1
             }
             epBCoefs.Clear();
             tbBCoefs.Margin = new Padding(3, 3, 3, 3);
-            B = new PolynomialPrediction(coefs);
+            B = new PolynomialWithRoots(coefs);
             tbBPolynomial.Text = B.ToString();
         }
 
@@ -202,9 +202,9 @@ namespace WinFormsApp1
             {
                 double resInPoint = A.P(x);
                 tbOutput.Text = resInPoint.ToString();
+                btnInsertA.Enabled = false;
+                btnInsertB.Enabled = false;
             }
-            btnInsertA.Enabled = false;
-            btnInsertB.Enabled = false;
         }
 
         private void btnBGetValue_Click(object sender, EventArgs e)
@@ -217,9 +217,9 @@ namespace WinFormsApp1
             {
                 double resInPoint = B.P(x);
                 tbOutput.Text = resInPoint.ToString();
+                btnInsertA.Enabled = false;
+                btnInsertB.Enabled = false;
             }
-            btnInsertA.Enabled = false;
-            btnInsertB.Enabled = false;
         }
 
         private void btnAMultiplyByN_Click(object sender, EventArgs e)
@@ -232,9 +232,9 @@ namespace WinFormsApp1
             {
                 R = A * n;
                 tbOutput.Text = R.ToString();
+                btnInsertA.Enabled = true;
+                btnInsertB.Enabled = true;
             }
-            btnInsertA.Enabled = true;
-            btnInsertB.Enabled = true;
         }
 
         private void btnBMultiplyByN_Click(object sender, EventArgs e)
@@ -247,9 +247,9 @@ namespace WinFormsApp1
             {
                 R = B * n;
                 tbOutput.Text = R.ToString();
+                btnInsertA.Enabled = true;
+                btnInsertB.Enabled = true;
             }
-            btnInsertA.Enabled = true;
-            btnInsertB.Enabled = true;
         }
 
         private void btnAGetDerivative_Click(object sender, EventArgs e)
@@ -258,7 +258,7 @@ namespace WinFormsApp1
             {
                 return;
             }
-            R = new PolynomialPrediction(A.GetDerivative().Coefs);
+            R = new PolynomialWithRoots(A.GetDerivative().Coefs);
             tbOutput.Text = R.ToString();
             btnInsertA.Enabled = true;
             btnInsertB.Enabled = true;
@@ -270,7 +270,7 @@ namespace WinFormsApp1
             {
                 return;
             }
-            R = new PolynomialPrediction(B.GetDerivative().Coefs);
+            R = new PolynomialWithRoots(B.GetDerivative().Coefs);
             tbOutput.Text = R.ToString();
             btnInsertA.Enabled = true;
             btnInsertB.Enabled = true;
@@ -282,7 +282,7 @@ namespace WinFormsApp1
             {
                 return;
             }
-            R = new PolynomialPrediction(A.GetPrimitive().Coefs);
+            R = new PolynomialWithRoots(A.GetPrimitive().Coefs);
             tbOutput.Text = R.ToString();
             btnInsertA.Enabled = true;
             btnInsertB.Enabled = true;
@@ -294,7 +294,7 @@ namespace WinFormsApp1
             {
                 return;
             }
-            R = new PolynomialPrediction(B.GetPrimitive().Coefs);
+            R = new PolynomialWithRoots(B.GetPrimitive().Coefs);
             tbOutput.Text = R.ToString();
             btnInsertA.Enabled = true;
             btnInsertB.Enabled = true;

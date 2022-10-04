@@ -362,8 +362,8 @@
         /// <summary>
         /// Построение полинома Лагранжа по точкам.
         /// </summary>
-        /// <param name="points"></param>
-        /// <returns></returns>
+        /// <param name="points"> точки </param>
+        /// <returns> полином Лагранжа </returns>
         private PolynomialPrediction GetPredictionPolynomial(Point[] points)
         {
             PolynomialPrediction p = new PolynomialPrediction(new double[] { 0 });
@@ -642,16 +642,16 @@
         /// <param name="p"> полином </param>
         /// <param name="points"> точки </param>
         /// <returns> среднеквадратичное отклонение </returns>
-        private double? GetDelta(PolynomialPrediction p, Point[] points)
+        public double? GetDelta(Point[] points)
         {
             if (Coefs == null) return null;
             double[] dif = new double[points.Length];
             double[] f = new double[points.Length];
             for (int i = 0; i < points.Length; i++)
             {
-                for (int j = 0; j < p.coefs.Length; j++)
+                for (int j = 0; j < coefs.Length; j++)
                 {
-                    f[i] += p.coefs[j] * Math.Pow(points[i].X, j);
+                    f[i] += coefs[j] * Math.Pow(points[i].X, j);
                 }
                 dif[i] = Math.Pow(f[i] - points[i].Y, 2);
             }

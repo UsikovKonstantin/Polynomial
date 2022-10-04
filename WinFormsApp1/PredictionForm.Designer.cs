@@ -63,6 +63,8 @@
             this.tableLayoutPanel14 = new System.Windows.Forms.TableLayoutPanel();
             this.label9 = new System.Windows.Forms.Label();
             this.tbSquareN = new System.Windows.Forms.RichTextBox();
+            this.label19 = new System.Windows.Forms.Label();
+            this.tbOutput = new System.Windows.Forms.RichTextBox();
             this.tableLayoutPanel15 = new System.Windows.Forms.TableLayoutPanel();
             this.label10 = new System.Windows.Forms.Label();
             this.richTextBox7 = new System.Windows.Forms.RichTextBox();
@@ -123,7 +125,7 @@
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(1214, 676);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(1239, 699);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // plot
@@ -132,7 +134,7 @@
             this.plot.Location = new System.Drawing.Point(4, 3);
             this.plot.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.plot.Name = "plot";
-            this.plot.Size = new System.Drawing.Size(907, 670);
+            this.plot.Size = new System.Drawing.Size(925, 693);
             this.plot.TabIndex = 0;
             // 
             // tableLayoutPanel6
@@ -142,17 +144,21 @@
             this.tableLayoutPanel6.Controls.Add(this.tableLayoutPanel2, 0, 0);
             this.tableLayoutPanel6.Controls.Add(this.tableLayoutPanel7, 0, 2);
             this.tableLayoutPanel6.Controls.Add(this.tableLayoutPanel11, 0, 4);
+            this.tableLayoutPanel6.Controls.Add(this.label19, 0, 6);
+            this.tableLayoutPanel6.Controls.Add(this.tbOutput, 0, 7);
             this.tableLayoutPanel6.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel6.Location = new System.Drawing.Point(918, 3);
+            this.tableLayoutPanel6.Location = new System.Drawing.Point(936, 3);
             this.tableLayoutPanel6.Name = "tableLayoutPanel6";
-            this.tableLayoutPanel6.RowCount = 5;
+            this.tableLayoutPanel6.RowCount = 8;
             this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 165F));
-            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 170F));
-            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 217F));
-            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel6.Size = new System.Drawing.Size(293, 670);
+            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 10F));
+            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 165F));
+            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 10F));
+            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 211F));
+            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 10F));
+            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel6.Size = new System.Drawing.Size(300, 693);
             this.tableLayoutPanel6.TabIndex = 2;
             // 
             // tableLayoutPanel2
@@ -174,7 +180,7 @@
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(287, 159);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(294, 159);
             this.tableLayoutPanel2.TabIndex = 1;
             // 
             // tableLayoutPanel5
@@ -189,7 +195,7 @@
             this.tableLayoutPanel5.Name = "tableLayoutPanel5";
             this.tableLayoutPanel5.RowCount = 1;
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel5.Size = new System.Drawing.Size(281, 39);
+            this.tableLayoutPanel5.Size = new System.Drawing.Size(288, 39);
             this.tableLayoutPanel5.TabIndex = 3;
             // 
             // btnAddPoint
@@ -198,7 +204,7 @@
             this.btnAddPoint.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.btnAddPoint.Location = new System.Drawing.Point(3, 3);
             this.btnAddPoint.Name = "btnAddPoint";
-            this.btnAddPoint.Size = new System.Drawing.Size(134, 33);
+            this.btnAddPoint.Size = new System.Drawing.Size(138, 33);
             this.btnAddPoint.TabIndex = 0;
             this.btnAddPoint.Text = "Добавить";
             this.btnAddPoint.UseVisualStyleBackColor = true;
@@ -208,9 +214,9 @@
             // 
             this.btnClear.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnClear.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.btnClear.Location = new System.Drawing.Point(143, 3);
+            this.btnClear.Location = new System.Drawing.Point(147, 3);
             this.btnClear.Name = "btnClear";
-            this.btnClear.Size = new System.Drawing.Size(135, 33);
+            this.btnClear.Size = new System.Drawing.Size(138, 33);
             this.btnClear.TabIndex = 1;
             this.btnClear.Text = "Очистить";
             this.btnClear.UseVisualStyleBackColor = true;
@@ -228,7 +234,7 @@
             this.tableLayoutPanel4.Name = "tableLayoutPanel4";
             this.tableLayoutPanel4.RowCount = 1;
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel4.Size = new System.Drawing.Size(281, 39);
+            this.tableLayoutPanel4.Size = new System.Drawing.Size(288, 39);
             this.tableLayoutPanel4.TabIndex = 2;
             // 
             // label3
@@ -249,7 +255,7 @@
             this.tbInputY.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.tbInputY.Location = new System.Drawing.Point(38, 3);
             this.tbInputY.Name = "tbInputY";
-            this.tbInputY.Size = new System.Drawing.Size(240, 33);
+            this.tbInputY.Size = new System.Drawing.Size(247, 33);
             this.tbInputY.TabIndex = 1;
             this.tbInputY.Text = "";
             // 
@@ -260,7 +266,7 @@
             this.label1.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.label1.Location = new System.Drawing.Point(3, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(281, 25);
+            this.label1.Size = new System.Drawing.Size(288, 25);
             this.label1.TabIndex = 0;
             this.label1.Text = "Точки";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -277,7 +283,7 @@
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
             this.tableLayoutPanel3.RowCount = 1;
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(281, 39);
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(288, 39);
             this.tableLayoutPanel3.TabIndex = 1;
             // 
             // label2
@@ -298,7 +304,7 @@
             this.tbInputX.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.tbInputX.Location = new System.Drawing.Point(38, 3);
             this.tbInputX.Name = "tbInputX";
-            this.tbInputX.Size = new System.Drawing.Size(240, 33);
+            this.tbInputX.Size = new System.Drawing.Size(247, 33);
             this.tbInputX.TabIndex = 1;
             this.tbInputX.Text = "";
             // 
@@ -311,7 +317,7 @@
             this.tableLayoutPanel7.Controls.Add(this.label5, 0, 0);
             this.tableLayoutPanel7.Controls.Add(this.tableLayoutPanel10, 0, 1);
             this.tableLayoutPanel7.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel7.Location = new System.Drawing.Point(3, 227);
+            this.tableLayoutPanel7.Location = new System.Drawing.Point(3, 178);
             this.tableLayoutPanel7.Name = "tableLayoutPanel7";
             this.tableLayoutPanel7.RowCount = 4;
             this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
@@ -321,7 +327,7 @@
             this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel7.Size = new System.Drawing.Size(287, 164);
+            this.tableLayoutPanel7.Size = new System.Drawing.Size(294, 159);
             this.tableLayoutPanel7.TabIndex = 2;
             // 
             // btnLagrange
@@ -330,7 +336,7 @@
             this.btnLagrange.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.btnLagrange.Location = new System.Drawing.Point(3, 118);
             this.btnLagrange.Name = "btnLagrange";
-            this.btnLagrange.Size = new System.Drawing.Size(281, 43);
+            this.btnLagrange.Size = new System.Drawing.Size(288, 39);
             this.btnLagrange.TabIndex = 3;
             this.btnLagrange.Text = "Вычислить";
             this.btnLagrange.UseVisualStyleBackColor = true;
@@ -348,7 +354,7 @@
             this.tableLayoutPanel9.Name = "tableLayoutPanel9";
             this.tableLayoutPanel9.RowCount = 1;
             this.tableLayoutPanel9.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel9.Size = new System.Drawing.Size(281, 39);
+            this.tableLayoutPanel9.Size = new System.Drawing.Size(288, 39);
             this.tableLayoutPanel9.TabIndex = 2;
             // 
             // label4
@@ -370,7 +376,7 @@
             this.tbLagrangeY.Location = new System.Drawing.Point(38, 3);
             this.tbLagrangeY.Name = "tbLagrangeY";
             this.tbLagrangeY.ReadOnly = true;
-            this.tbLagrangeY.Size = new System.Drawing.Size(240, 33);
+            this.tbLagrangeY.Size = new System.Drawing.Size(247, 33);
             this.tbLagrangeY.TabIndex = 1;
             this.tbLagrangeY.Text = "";
             // 
@@ -381,7 +387,7 @@
             this.label5.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.label5.Location = new System.Drawing.Point(3, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(281, 25);
+            this.label5.Size = new System.Drawing.Size(288, 25);
             this.label5.TabIndex = 0;
             this.label5.Text = "Полином Лагранжа";
             this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -398,7 +404,7 @@
             this.tableLayoutPanel10.Name = "tableLayoutPanel10";
             this.tableLayoutPanel10.RowCount = 1;
             this.tableLayoutPanel10.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel10.Size = new System.Drawing.Size(281, 39);
+            this.tableLayoutPanel10.Size = new System.Drawing.Size(288, 39);
             this.tableLayoutPanel10.TabIndex = 1;
             // 
             // label6
@@ -419,7 +425,7 @@
             this.tbLagrangeX.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.tbLagrangeX.Location = new System.Drawing.Point(38, 3);
             this.tbLagrangeX.Name = "tbLagrangeX";
-            this.tbLagrangeX.Size = new System.Drawing.Size(240, 33);
+            this.tbLagrangeX.Size = new System.Drawing.Size(247, 33);
             this.tbLagrangeX.TabIndex = 1;
             this.tbLagrangeX.Text = "";
             // 
@@ -433,7 +439,7 @@
             this.tableLayoutPanel11.Controls.Add(this.label8, 0, 0);
             this.tableLayoutPanel11.Controls.Add(this.tableLayoutPanel14, 0, 2);
             this.tableLayoutPanel11.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel11.Location = new System.Drawing.Point(3, 456);
+            this.tableLayoutPanel11.Location = new System.Drawing.Point(3, 353);
             this.tableLayoutPanel11.Name = "tableLayoutPanel11";
             this.tableLayoutPanel11.RowCount = 5;
             this.tableLayoutPanel11.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
@@ -442,7 +448,7 @@
             this.tableLayoutPanel11.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 45F));
             this.tableLayoutPanel11.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 45F));
             this.tableLayoutPanel11.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel11.Size = new System.Drawing.Size(287, 211);
+            this.tableLayoutPanel11.Size = new System.Drawing.Size(294, 205);
             this.tableLayoutPanel11.TabIndex = 3;
             // 
             // btnSquare
@@ -451,7 +457,7 @@
             this.btnSquare.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.btnSquare.Location = new System.Drawing.Point(3, 163);
             this.btnSquare.Name = "btnSquare";
-            this.btnSquare.Size = new System.Drawing.Size(281, 45);
+            this.btnSquare.Size = new System.Drawing.Size(288, 39);
             this.btnSquare.TabIndex = 5;
             this.btnSquare.Text = "Вычислить";
             this.btnSquare.UseVisualStyleBackColor = true;
@@ -469,7 +475,7 @@
             this.tableLayoutPanel23.Name = "tableLayoutPanel23";
             this.tableLayoutPanel23.RowCount = 1;
             this.tableLayoutPanel23.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel23.Size = new System.Drawing.Size(281, 39);
+            this.tableLayoutPanel23.Size = new System.Drawing.Size(288, 39);
             this.tableLayoutPanel23.TabIndex = 4;
             // 
             // label18
@@ -490,7 +496,7 @@
             this.tbSquareX.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.tbSquareX.Location = new System.Drawing.Point(38, 3);
             this.tbSquareX.Name = "tbSquareX";
-            this.tbSquareX.Size = new System.Drawing.Size(240, 33);
+            this.tbSquareX.Size = new System.Drawing.Size(247, 33);
             this.tbSquareX.TabIndex = 1;
             this.tbSquareX.Text = "";
             // 
@@ -506,7 +512,7 @@
             this.tableLayoutPanel13.Name = "tableLayoutPanel13";
             this.tableLayoutPanel13.RowCount = 1;
             this.tableLayoutPanel13.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel13.Size = new System.Drawing.Size(281, 39);
+            this.tableLayoutPanel13.Size = new System.Drawing.Size(288, 39);
             this.tableLayoutPanel13.TabIndex = 2;
             // 
             // label7
@@ -528,7 +534,7 @@
             this.tbSquareY.Location = new System.Drawing.Point(38, 3);
             this.tbSquareY.Name = "tbSquareY";
             this.tbSquareY.ReadOnly = true;
-            this.tbSquareY.Size = new System.Drawing.Size(240, 33);
+            this.tbSquareY.Size = new System.Drawing.Size(247, 33);
             this.tbSquareY.TabIndex = 1;
             this.tbSquareY.Text = "";
             // 
@@ -539,7 +545,7 @@
             this.label8.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.label8.Location = new System.Drawing.Point(3, 0);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(281, 25);
+            this.label8.Size = new System.Drawing.Size(288, 25);
             this.label8.TabIndex = 0;
             this.label8.Text = "Метод наименьших квадратов";
             this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -556,7 +562,7 @@
             this.tableLayoutPanel14.Name = "tableLayoutPanel14";
             this.tableLayoutPanel14.RowCount = 1;
             this.tableLayoutPanel14.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel14.Size = new System.Drawing.Size(281, 39);
+            this.tableLayoutPanel14.Size = new System.Drawing.Size(288, 39);
             this.tableLayoutPanel14.TabIndex = 1;
             // 
             // label9
@@ -577,9 +583,32 @@
             this.tbSquareN.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.tbSquareN.Location = new System.Drawing.Point(38, 3);
             this.tbSquareN.Name = "tbSquareN";
-            this.tbSquareN.Size = new System.Drawing.Size(240, 33);
+            this.tbSquareN.Size = new System.Drawing.Size(247, 33);
             this.tbSquareN.TabIndex = 1;
             this.tbSquareN.Text = "";
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label19.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label19.Location = new System.Drawing.Point(3, 571);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(294, 30);
+            this.label19.TabIndex = 4;
+            this.label19.Text = "Результат:";
+            this.label19.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // tbOutput
+            // 
+            this.tbOutput.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tbOutput.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.tbOutput.Location = new System.Drawing.Point(3, 604);
+            this.tbOutput.Name = "tbOutput";
+            this.tbOutput.ReadOnly = true;
+            this.tbOutput.Size = new System.Drawing.Size(294, 86);
+            this.tbOutput.TabIndex = 5;
+            this.tbOutput.Text = "";
             // 
             // tableLayoutPanel15
             // 
@@ -870,12 +899,13 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1214, 676);
+            this.ClientSize = new System.Drawing.Size(1239, 699);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Name = "PredictionForm";
             this.Text = "PredictionForm";
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel6.ResumeLayout(false);
+            this.tableLayoutPanel6.PerformLayout();
             this.tableLayoutPanel2.ResumeLayout(false);
             this.tableLayoutPanel2.PerformLayout();
             this.tableLayoutPanel5.ResumeLayout(false);
@@ -978,5 +1008,7 @@
         private RichTextBox richTextBox14;
         private Button btnLagrange;
         private Button btnSquare;
+        private Label label19;
+        private RichTextBox tbOutput;
     }
 }

@@ -31,6 +31,8 @@ namespace WinFormsAppPolynomial
                     }
                 }
                 points.Add(new Point(x, y));
+                tbInputX.Text = "";
+                tbInputY.Text = "";
             }
         }
 
@@ -65,29 +67,18 @@ namespace WinFormsAppPolynomial
                 foreach (var item in points)
                 {
                     if (item.X < xMin)
-                    {
                         xMin = item.X;
-                    }
                     if (item.X > xMax)
-                    {
                         xMax = item.X;
-                    }
                 }
+                if (x < xMin)
+                    xMin = x;
+                if (x > xMax)
+                    xMax = x;
 
-                int n = Math.Min(10, 10000 / ((int)Math.Pow(10, polynomial.N / 10)));
-                if (polynomial.N > 40)
-                {
-                    n = 10;
-                }
-                if (polynomial.N > 85)
-                {
-                    n = 0;
-                }
-                //double[] X = new double[2 * n + 1];
-                //double[] Y = new double[2 * n + 1];
                 List<double> X = new List<double>();
                 List<double> Y = new List<double>();
-                int ind = 0;
+
                 double i = xMin - 10;
                 double step = (xMax - xMin + 20) / 1000;
                 while (i <= xMax + 10)
@@ -96,24 +87,19 @@ namespace WinFormsAppPolynomial
                     Y.Add(polynomial.P(i));
                     i += step;
                 }
-                //for (int i = -n; i <= n; i++)
-                //{
-                //    X[ind] = i;
-                //    Y[ind] = polynomial.P(i);
-                //    ind++;
-                //}
-                //plot.plt.AddScatter(X, Y, Color.Black, 2, 0);
-                //plot.plt.Clear();
+                
                 charts.Add(plot.plt.PlotScatter(X.ToArray(), Y.ToArray(), Color.Black, 2, 0));
                 redPoints.Add(plot.plt.AddPoint(x, polynomial.P(x), Color.Red, 10));
                 plot.Refresh();
                 tbLagrangeY.Text = polynomial.P(x).ToString();
+                tbOutput.Text = "Полученный полином:\n" + polynomial.ToString() + "\n";
+                tbOutput.Text += "Среднеквадратичное отклонение:\n" + polynomial.GetDelta(points.ToArray()).ToString();
             }
         }
 
         private void btnSquare_Click(object sender, EventArgs e)
         {
-            if (double.TryParse(tbSquareX.Text, out double x) && int.TryParse(tbSquareN.Text, out int N))
+            if (double.TryParse(tbSquareX.Text, out double x) && int.TryParse(tbSquareN.Text, out int N) && N > 0 && N < points.Count)
             {
                 PolynomialPrediction polynomial = new PolynomialPrediction(N, points.ToArray());
 
@@ -122,29 +108,18 @@ namespace WinFormsAppPolynomial
                 foreach (var item in points)
                 {
                     if (item.X < xMin)
-                    {
                         xMin = item.X;
-                    }
                     if (item.X > xMax)
-                    {
                         xMax = item.X;
-                    }
                 }
+                if (x < xMin)
+                    xMin = x;
+                if (x > xMax)
+                    xMax = x;
 
-                int n = Math.Min(10, 10000 / ((int)Math.Pow(10, polynomial.N / 10)));
-                if (polynomial.N > 40)
-                {
-                    n = 10;
-                }
-                if (polynomial.N > 85)
-                {
-                    n = 0;
-                }
-                //double[] X = new double[2 * n + 1];
-                //double[] Y = new double[2 * n + 1];
                 List<double> X = new List<double>();
                 List<double> Y = new List<double>();
-                int ind = 0;
+
                 double i = xMin - 10;
                 double step = (xMax - xMin + 20) / 1000;
                 while (i <= xMax + 10)
@@ -153,20 +128,14 @@ namespace WinFormsAppPolynomial
                     Y.Add(polynomial.P(i));
                     i += step;
                 }
-                //for (int i = -n; i <= n; i++)
-                //{
-                //    X[ind] = i;
-                //    Y[ind] = polynomial.P(i);
-                //    ind++;
-                //}
-                //plot.plt.AddScatter(X, Y, Color.Black, 2, 0);
-                //plot.plt.Clear();
+                
                 charts.Add(plot.plt.PlotScatter(X.ToArray(), Y.ToArray(), Color.Black, 2, 0));
                 redPoints.Add(plot.plt.AddPoint(x, polynomial.P(x), Color.Red, 10));
                 plot.Refresh();
                 tbSquareY.Text = polynomial.P(x).ToString();
+                tbOutput.Text = "Полученный полином:\n" + polynomial.ToString() + "\n";
+                tbOutput.Text += "Среднеквадратичное отклонение:\n" + polynomial.GetDelta(points.ToArray()).ToString();
             }
         }
- 
     }
 }
