@@ -125,6 +125,66 @@ namespace WinFormsApp1
             }
         }
 
+        private void tbAPow_TextChanged(object sender, EventArgs e)
+        {
+            string s = tbAPow.Text.Trim();
+            if (s != "" && !int.TryParse(s, out int x))
+            {
+                epAPow.SetError(tbAPow, "Невозможно привести к целому числу");
+                tbAPow.Margin = new Padding(3, 3, 20, 3);
+            }
+            else
+            {
+                epAPow.Clear();
+                tbAPow.Margin = new Padding(3, 3, 3, 3);
+            }
+        }
+
+        private void tbBPow_TextChanged(object sender, EventArgs e)
+        {
+            string s = tbBPow.Text.Trim();
+            if (s != "" && !int.TryParse(s, out int x))
+            {
+                epBPow.SetError(tbBPow, "Невозможно привести к целому числу");
+                tbBPow.Margin = new Padding(3, 3, 20, 3);
+            }
+            else
+            {
+                epBPow.Clear();
+                tbBPow.Margin = new Padding(3, 3, 3, 3);
+            }
+        }
+
+        private void tbARoot_TextChanged(object sender, EventArgs e)
+        {
+            string s = tbARoot.Text.Trim();
+            if (s != "" && !double.TryParse(s, out double x))
+            {
+                epARoot.SetError(tbARoot, "Невозможно привести к целому числу");
+                tbARoot.Margin = new Padding(3, 3, 20, 3);
+            }
+            else
+            {
+                epARoot.Clear();
+                tbARoot.Margin = new Padding(3, 3, 3, 3);
+            }
+        }
+
+        private void tbBRoot_TextChanged(object sender, EventArgs e)
+        {
+            string s = tbBRoot.Text.Trim();
+            if (s != "" && !double.TryParse(s, out double x))
+            {
+                epBRoot.SetError(tbBRoot, "Невозможно привести к целому числу");
+                tbBRoot.Margin = new Padding(3, 3, 20, 3);
+            }
+            else
+            {
+                epBRoot.Clear();
+                tbBRoot.Margin = new Padding(3, 3, 3, 3);
+            }
+        }
+
         private void btnSwap_Click(object sender, EventArgs e)
         {
             string t = tbACoefs.Text;
@@ -252,6 +312,36 @@ namespace WinFormsApp1
             }
         }
 
+        private void btnAPow_Click(object sender, EventArgs e)
+        {
+            if (tbAPolynomial.Text == "")
+            {
+                return;
+            }
+            if (int.TryParse(tbAPow.Text, out int n) && n >= 0)
+            {
+                R = new PolynomialWithRoots(A.Pow(n).Coefs);
+                tbOutput.Text = R.ToString();
+                btnInsertA.Enabled = true;
+                btnInsertB.Enabled = true;
+            }
+        }
+
+        private void btnBPow_Click(object sender, EventArgs e)
+        {
+            if (tbBPolynomial.Text == "")
+            {
+                return;
+            }
+            if (int.TryParse(tbBPow.Text, out int n) && n >= 0)
+            {
+                R = new PolynomialWithRoots(B.Pow(n).Coefs);
+                tbOutput.Text = R.ToString();
+                btnInsertA.Enabled = true;
+                btnInsertB.Enabled = true;
+            }
+        }
+
         private void btnAGetDerivative_Click(object sender, EventArgs e)
         {
             if (tbAPolynomial.Text == "")
@@ -356,22 +446,25 @@ namespace WinFormsApp1
                 btnInsertB.Enabled = false;
                 return;
             }
-            List<double> roots = A.FindAllRoots(-100000, 100000);
-            string s = "";
-            foreach (var item in roots)
+            if (double.TryParse(tbARoot.Text, out double y))
             {
-                s += item.ToString() + "\n";
+                List<double> roots = A.FindAllRootsNewton(-100000, 100000, y);
+                string s = "";
+                foreach (var item in roots)
+                {
+                    s += Math.Round(item, 5).ToString() + "\n";
+                }
+                if (s == "")
+                {
+                    tbOutput.Text = "Корней нет";
+                }
+                else
+                {
+                    tbOutput.Text = s;
+                }
+                btnInsertA.Enabled = false;
+                btnInsertB.Enabled = false;
             }
-            if (s == "")
-            {
-                tbOutput.Text = "Корней нет";
-            }
-            else
-            {
-                tbOutput.Text = s;
-            }
-            btnInsertA.Enabled = false;
-            btnInsertB.Enabled = false;
         }
 
         private void btnBGetRoots_Click(object sender, EventArgs e)
@@ -382,22 +475,25 @@ namespace WinFormsApp1
                 btnInsertB.Enabled = false;
                 return;
             }
-            List<double> roots = B.FindAllRoots(-100000, 100000);
-            string s = "";
-            foreach (var item in roots)
+            if (double.TryParse(tbBRoot.Text, out double y))
             {
-                s += item.ToString() + "\n";
+                List<double> roots = B.FindAllRootsNewton(-100000, 100000, y);
+                string s = "";
+                foreach (var item in roots)
+                {
+                    s += Math.Round(item, 5).ToString() + "\n";
+                }
+                if (s == "")
+                {
+                    tbOutput.Text = "Корней нет";
+                }
+                else
+                {
+                    tbOutput.Text = s;
+                }
+                btnInsertA.Enabled = false;
+                btnInsertB.Enabled = false;
             }
-            if (s == "")
-            {
-                tbOutput.Text = "Корней нет";
-            }
-            else
-            {
-                tbOutput.Text = s;
-            }
-            btnInsertA.Enabled = false;
-            btnInsertB.Enabled = false;
         }
 
         private void btnInsertA_Click(object sender, EventArgs e)

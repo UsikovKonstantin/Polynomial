@@ -377,12 +377,12 @@
                 else
                 {
                     double mid = (a + b) / 2;
-                    if (pol.ExistRoot(ref a, ref mid, y))
+                    if (pol.ExistRoot(ref a, ref mid))
                     {
                         b = mid;
                         return true;
                     }
-                    else if (pol.ExistRoot(ref mid, ref b, y))
+                    else if (pol.ExistRoot(ref mid, ref b))
                     {
                         a = mid;
                         return true;
@@ -440,9 +440,9 @@
             double r;
             PolynomialWithRoots one = new PolynomialWithRoots(1);
             one.coefs[1] = 1;
-            while (q.ExistRoot(ref a, ref b, y))
+            while (q.ExistRoot(ref a, ref b))
             {
-                r = q.FindRoot(a, b, y);
+                r = q.FindRoot(a, b);
                 res.Add(r);
                 one.coefs[0] = -r;
                 q = q / one;
@@ -503,9 +503,9 @@
             double r;
             PolynomialWithRoots one = new PolynomialWithRoots(1);
             one.coefs[1] = 1;
-            while (q.ExistRoot(ref a, ref b, y))
+            while (q.ExistRoot(ref a, ref b))
             {
-                r = q.FindRootNewton(a, b, y);
+                r = q.FindRootNewton(a, b);
                 res.Add(r);
                 one.coefs[0] = -r;
                 q = q / one;
