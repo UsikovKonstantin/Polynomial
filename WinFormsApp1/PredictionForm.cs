@@ -58,7 +58,7 @@ namespace WinFormsAppPolynomial
 
         private void btnLagrange_Click(object sender, EventArgs e)
         {
-            if (double.TryParse(tbLagrangeX.Text, out double x))
+            if (double.TryParse(tbLagrangeX.Text, out double x) && points.Count > 0)
             {
                 PolynomialPrediction polynomial = new PolynomialPrediction(points.ToArray());
 
