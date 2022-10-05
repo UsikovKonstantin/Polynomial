@@ -357,11 +357,14 @@
         /// </summary>
         /// <param name="a"> левая граница интервала </param>
         /// <param name="b"> правая граница интервала </param>
+        /// <param name="y"> корень (по умолчанию 0) </param>
         /// <returns> true - если существует, иначе - false </returns>
-        public bool ExistRoot(ref double a, ref double b)
+        public bool ExistRoot(ref double a, ref double b, double y = 0)
         {
+            PolynomialWithRoots pol = new PolynomialWithRoots(coefs);
+            pol.coefs[0] -= y;
             double eps = 1e-1;
-            if (P(a) * P(b) <= 0)
+            if (pol.P(a) * pol.P(b) <= 0)
             {
                 return true;
             }
@@ -374,12 +377,12 @@
                 else
                 {
                     double mid = (a + b) / 2;
-                    if (ExistRoot(ref a, ref mid))
+                    if (pol.ExistRoot(ref a, ref mid, y))
                     {
                         b = mid;
                         return true;
                     }
-                    else if (ExistRoot(ref mid, ref b))
+                    else if (pol.ExistRoot(ref mid, ref b, y))
                     {
                         a = mid;
                         return true;
@@ -398,14 +401,17 @@
         /// </summary>
         /// <param name="a"> левая граница интервала </param>
         /// <param name="b"> правая граница интервала </param>
+        /// <param name="y"> корень (по умолчанию 0) </param>
         /// <returns> корень </returns>
-        public double FindRoot(double a, double b)
+        public double FindRoot(double a, double b, double y = 0)
         {
+            PolynomialWithRoots pol = new PolynomialWithRoots(coefs);
+            pol.coefs[0] -= y;
             double eps = 1e-7;
             double mid = (a + b) / 2;
-            while (Math.Abs(P(mid)) > eps)
+            while (Math.Abs(pol.P(mid)) > eps)
             {
-                if (P(a) * P(mid) > 0)
+                if (pol.P(a) * pol.P(mid) > 0)
                 {
                     a = mid;
                 }
@@ -423,18 +429,20 @@
         /// </summary>
         /// <param name="a"> левая граница интервала </param>
         /// <param name="b"> правая граница интервала </param>
+        /// <param name="y"> корень (по умолчанию 0) </param>
         /// <returns> список всех корней </returns>
-        public List<double> FindAllRoots(double a, double b)
+        public List<double> FindAllRoots(double a, double b, double y = 0)
         {
             double ta = a, tb = b;
             List<double> res = new List<double>();
             PolynomialWithRoots q = new PolynomialWithRoots(Coefs);
+            q.coefs[0] -= y;
             double r;
             PolynomialWithRoots one = new PolynomialWithRoots(1);
             one.coefs[1] = 1;
-            while (q.ExistRoot(ref a, ref b))
+            while (q.ExistRoot(ref a, ref b, y))
             {
-                r = q.FindRoot(a, b);
+                r = q.FindRoot(a, b, y);
                 res.Add(r);
                 one.coefs[0] = -r;
                 q = q / one;
@@ -453,25 +461,28 @@
         /// </summary>
         /// <param name="a"> левая граница интервала </param>
         /// <param name="b"> правая граница интервала </param>
+        /// <param name="y"> корень (по умолчанию 0) </param>
         /// <returns> корень </returns>
-        public double FindRootNewton(double a, double b)
+        public double FindRootNewton(double a, double b, double y = 0)
         {
+            PolynomialWithRoots pol = new PolynomialWithRoots(coefs);
+            pol.coefs[0] -= y;
             double eps = 1e-7;
             double x0 = 0;
-            if (P(a) * GetDerivative().GetDerivative().P(a) > 0)
+            if (pol.P(a) * pol.GetDerivative().GetDerivative().P(a) > 0)
             {
                 x0 = a;
             }
-            else if (P(b) * GetDerivative().GetDerivative().P(b) > 0)
+            else if (pol.P(b) * pol.GetDerivative().GetDerivative().P(b) > 0)
             {
                 x0 = b;
             }
-            double xn = x0 - P(x0) / GetDerivative().P(x0);
-            double xnp1 = xn - P(xn) / GetDerivative().P(xn);
+            double xn = x0 - pol.P(x0) / pol.GetDerivative().P(x0);
+            double xnp1 = xn - pol.P(xn) / pol.GetDerivative().P(xn);
             while (Math.Abs(xn - xnp1) >= eps)
             {
                 xn = xnp1;
-                xnp1 = xn - P(xn) / GetDerivative().P(xn);
+                xnp1 = xn - pol.P(xn) / pol.GetDerivative().P(xn);
             }
             return xnp1;
         }
@@ -481,18 +492,20 @@
         /// </summary>
         /// <param name="a"> левая граница интервала </param>
         /// <param name="b"> правая граница интервала </param>
+        /// <param name="y"> корень (по умолчанию 0) </param>
         /// <returns> список всех корней </returns>
-        public List<double> FindAllRootsNewton(double a, double b)
+        public List<double> FindAllRootsNewton(double a, double b, double y = 0)
         {
             double ta = a, tb = b;
             List<double> res = new List<double>();
             PolynomialWithRoots q = new PolynomialWithRoots(Coefs);
+            q.coefs[0] -= y;
             double r;
             PolynomialWithRoots one = new PolynomialWithRoots(1);
             one.coefs[1] = 1;
-            while (q.ExistRoot(ref a, ref b))
+            while (q.ExistRoot(ref a, ref b, y))
             {
-                r = q.FindRootNewton(a, b);
+                r = q.FindRootNewton(a, b, y);
                 res.Add(r);
                 one.coefs[0] = -r;
                 q = q / one;

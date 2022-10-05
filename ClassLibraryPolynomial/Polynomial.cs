@@ -525,5 +525,20 @@
             resCoefs[0] = 0;
             return new Polynomial(resCoefs);
         }
+
+        /// <summary>
+        /// Возведение полинома в целую неотрицательную степень.
+        /// </summary>
+        /// <param name="n"> степень </param>
+        /// <returns> полином - результат возведения в степень </returns>
+        public Polynomial Pow(int n)
+        {
+            Polynomial polynomial = new Polynomial(new double[] { 1 });
+            for (int i = 0; i < n; i++)
+            {
+                polynomial *= this;
+            }
+            return polynomial;
+        }
     }
 }
