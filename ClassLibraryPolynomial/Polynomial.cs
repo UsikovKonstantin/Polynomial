@@ -380,6 +380,107 @@
         }
         #endregion
 
+        #region Сравнение полиномов
+        /// <summary>
+        /// Сравнение полиномов.
+        /// </summary>
+        /// <param name="p1"> первый полином </param>
+        /// <param name="p2"> второй полином </param>
+        /// <returns> true - если полиномы равны, иначе false </returns>
+        public static bool operator ==(Polynomial p1, Polynomial p2)
+        {
+            int m = Math.Min(p1.n, p2.n);
+            int n = Math.Max(p1.n, p2.n);
+            for (int i = 0; i <= m; i++)
+                if (p1.coefs[i] != p2.coefs[i])
+                    return false;
+            for (int i = m + 1; i <= n; i++)
+                if (p1.n >= p2.n)
+                {
+                    if (p1.coefs[i] != 0)
+                        return false;
+                }
+                else
+                {
+                    if (p2.coefs[i] != 0)
+                        return false;
+                }
+            return true;
+        }
+
+        /// <summary>
+        /// Сравнение полиномов.
+        /// </summary>
+        /// <param name="p1"> первый полином </param>
+        /// <param name="p2"> второй полином </param>
+        /// <returns> true - если полиномы не равны, иначе false </returns>
+        public static bool operator !=(Polynomial p1, Polynomial p2)
+        {
+            int m = Math.Min(p1.n, p2.n);
+            int n = Math.Max(p1.n, p2.n);
+            for (int i = 0; i <= m; i++)
+                if (p1.coefs[i] != p2.coefs[i])
+                    return true;
+            for (int i = m + 1; i <= n; i++)
+                if (p1.n >= p2.n)
+                {
+                    if (p1.coefs[i] != 0)
+                        return true;
+                }
+                else
+                {
+                    if (p2.coefs[i] != 0)
+                        return true;
+                }
+            return false;
+        }
+
+        /// <summary>
+        /// Переопределение Equals().
+        /// </summary>
+        /// <param name="obj"> объект для сравнения </param>
+        /// <returns> true - если объекты равны, иначе - false </returns>
+        public override bool Equals(object? obj)
+        {
+            if (obj is Polynomial p)
+            {
+                int m = Math.Min(this.n, p.n);
+                int n = Math.Max(this.n, p.n);
+                for (int i = 0; i <= m; i++)
+                    if (coefs[i] != p.coefs[i])
+                        return false;
+                for (int i = m + 1; i <= n; i++)
+                    if (this.n >= p.n)
+                    {
+                        if (coefs[i] != 0)
+                            return false;
+                    }
+                    else
+                    {
+                        if (p.coefs[i] != 0)
+                            return false;
+                    }
+                return true;
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// Переопределение GetHashCode().
+        /// </summary>
+        /// <returns> хэш-код </returns>
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                int hash = 17;
+                hash = hash * 23 + n.GetHashCode();
+                hash = hash * 23 + coefs.GetHashCode();
+                return hash;
+            }
+        }
+        #endregion 
+
         /// <summary>
         /// Вычисление значения полинома в точке x.
         /// Схема Горнера.
