@@ -3,6 +3,7 @@ using System.Diagnostics;
 
 Polynomial pol, pol2;
 
+
 // 1
 pol = new Polynomial();
 Console.WriteLine(pol);
@@ -79,9 +80,9 @@ Console.WriteLine(pol2);
 Console.WriteLine(pol == pol2);
 
 
-PolynomialWithRoots p = new PolynomialWithRoots(new List<double> { 1, 1 });
-PolynomialWithRoots p2 = new PolynomialWithRoots(new List<double> { 1, 1 });
-Console.WriteLine(p);
+//PolynomialWithRoots p = new PolynomialWithRoots(new List<double> { 1, 1 });
+//PolynomialWithRoots p2 = new PolynomialWithRoots(new List<double> { 1, 1 });
+//Console.WriteLine(p);
 //Console.WriteLine(p + p2);
 
 //Console.WriteLine(p / p2);
