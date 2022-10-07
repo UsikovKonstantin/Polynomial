@@ -26,6 +26,20 @@ namespace TestProjectPolynomial
         }
 
         [TestMethod]
+        public void ToStringTest()
+        {
+            pol = new Polynomial(new double[] { 1, 5, 8 });
+            Assert.AreEqual(pol.ToString(), "8x^2 + 5x + 1");
+        }
+
+        [TestMethod]
+        public void ToStringTest2()
+        {
+            pol = new Polynomial(new double[] { 3, 8, 6, 4, 7 });
+            Assert.AreEqual(pol.ToString(), "7x^4 + 4x^3 + 6x^2 + 8x + 3");
+        }
+
+        [TestMethod]
         public void AddPolTest()
         {
             pol = new Polynomial(new double[] { 1, 5, 8 });
@@ -232,6 +246,20 @@ namespace TestProjectPolynomial
             pol = new PolynomialWithRoots(5);
             pol2 = new PolynomialWithRoots(new double[5] { 0, 0, 0, 0, 0 });
             Assert.AreEqual(pol, pol2);
+        }
+
+        [TestMethod]
+        public void ToStringTest()
+        {
+            pol = new PolynomialWithRoots(new double[] { 1, 5, 8 });
+            Assert.AreEqual(pol.ToString(), "8x^2 + 5x + 1");
+        }
+
+        [TestMethod]
+        public void ToStringTest2()
+        {
+            pol = new PolynomialWithRoots(new double[] { 3, 8, 6, 4, 7 });
+            Assert.AreEqual(pol.ToString(), "7x^4 + 4x^3 + 6x^2 + 8x + 3");
         }
 
         [TestMethod]
@@ -442,6 +470,13 @@ namespace TestProjectPolynomial
         {
             pol = new PolynomialWithRoots(new double[] { 5, -7, 2, 3 });
             Assert.AreEqual(pol.FindRoot(-3,3), -2.129723757505417);
+        }
+
+        [TestMethod]
+        public void FindRootNewtonTest()
+        {
+            pol = new PolynomialWithRoots(new double[] { 5, -7, 2, 3 });
+            Assert.AreEqual(pol.FindRootNewton(-3, 3), -2.1297237562197444);
         }
     }
 }
