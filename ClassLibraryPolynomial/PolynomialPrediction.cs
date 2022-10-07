@@ -220,9 +220,10 @@
         /// <returns> обратная матрица </returns>
         public Matrix InverseMatrix()
         {
+            if (Math.Abs(Determ(this)) <= 0.000000001) throw new ArgumentException("Обратная матрица не существует!");
             double k = 1 / Determ(this);
-            Matrix minorMatrix = this.MinorMatrix();
-            return minorMatrix * k;
+            Matrix minorMatrix = MinorMatrix();
+            return minorMatrix.Transposition() * k;
         }
         #endregion
     }
