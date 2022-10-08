@@ -1,5 +1,16 @@
-﻿namespace ClassLibraryPolynomial
+﻿using System.Text;
+
+namespace ClassLibraryPolynomial
 {
+    /// <summary>
+    /// Перечисление точка экстремума.
+    /// </summary>
+    public enum StationaryPointType
+    {
+        Min,
+        Max
+    }
+
     /// <summary>
     /// Класс полином с возможностью вычисления корней и точек экстремума.
     /// </summary>
@@ -135,13 +146,16 @@
                 return base.ToString();
             }
 
-            string s = "\nКорни полинома:";
             int m = roots.Count;
+            StringBuilder sb = new StringBuilder();
+            sb.Append(base.ToString());
+            sb.Append("\nКорни полинома:");
             for (int i = 0; i < m; i++)
             {
-                s += " " + roots[i];
+                sb.Append(' ');
+                sb.Append(roots[i].ToString());
             }
-            return base.ToString() + s;
+            return sb.ToString();
         }
         #endregion
 
@@ -532,21 +546,21 @@
         /// <param name="a"> левая граница интервала </param>
         /// <param name="b"> правая граница интервала </param>
         /// <returns> список всех точек экстремума </returns>
-        public List<(double, int)> FindAllStationaryPoints(double a, double b)
+        public List<(double x, double y, StationaryPointType stPoint)> FindAllStationaryPoints(double a, double b)
         {
             double eps = 1e-5;
             PolynomialWithRoots derivative = Parse(GetDerivative());
             List<double> roots = derivative.FindAllRoots(a, b);
-            List<(double, int)> res = new List<(double, int)>();
+            List<(double, double, StationaryPointType)> res = new List<(double, double, StationaryPointType)>();
             for (int i = 0; i < roots.Count; i++)
             {
                 if (P(roots[i]) < P(roots[i] + eps) && P(roots[i]) < P(roots[i] - eps))
                 {
-                    res.Add((roots[i], -1));
+                    res.Add((roots[i], P(roots[i]), StationaryPointType.Min));
                 }
                 else
                 {
-                    res.Add((roots[i], 1));
+                    res.Add((roots[i], P(roots[i]), StationaryPointType.Max));
                 }
             }
             return res;

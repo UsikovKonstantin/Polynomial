@@ -1,4 +1,6 @@
-﻿namespace ClassLibraryPolynomial
+﻿using System.Text;
+
+namespace ClassLibraryPolynomial
 {
     /// <summary>
     /// Класс Полином
@@ -108,30 +110,53 @@
         /// <returns> строка, представляющая полином </returns>
         public override string ToString()
         {
-            string res = GetFirstNotNullMember(out int position);
+            StringBuilder sb = new StringBuilder();
+            sb.Append(GetFirstNotNullMember(out int position));
             for (int i = position - 1; i >= 0; i--)
             {
                 if (coefs[i] == 0) continue;
                 if (Math.Abs(coefs[i]) == 1)
                 {
                     if (i == 0)
-                        res += SetGign(coefs[i]) + Math.Abs(coefs[i]);
+                    {
+                        sb.Append(SetGign(coefs[i]));
+                        sb.Append('1');
+                    }
                     else if (i == 1)
-                        res += SetGign(coefs[i]) + "x";
+                    {
+                        sb.Append(SetGign(coefs[i]));
+                        sb.Append('x');
+                    }
                     else
-                        res += SetGign(coefs[i]) + "x^" + i;
+                    {
+                        sb.Append(SetGign(coefs[i]));
+                        sb.Append("x^");
+                        sb.Append(i);
+                    }
                 }
                 else
                 {
                     if (i == 0)
-                        res += SetGign(coefs[i]) + Math.Abs(coefs[i]);
+                    {
+                        sb.Append(SetGign(coefs[i]));
+                        sb.Append(Math.Abs(coefs[i]));
+                    }
                     else if (i == 1)
-                        res += SetGign(coefs[i]) + Math.Abs(coefs[i]) + "x";
+                    {
+                        sb.Append(SetGign(coefs[i]));
+                        sb.Append(Math.Abs(coefs[i]));
+                        sb.Append('x');
+                    }
                     else
-                        res += SetGign(coefs[i]) + Math.Abs(coefs[i]) + "x^" + i;
+                    {
+                        sb.Append(SetGign(coefs[i]));
+                        sb.Append(Math.Abs(coefs[i]));
+                        sb.Append("x^");
+                        sb.Append(i);
+                    }
                 }
             }
-            return res;
+            return sb.ToString();
         }
 
         /// <summary>

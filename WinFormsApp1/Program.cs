@@ -1,4 +1,4 @@
-namespace WinFormsApp1
+namespace WinFormsAppPolynomial
 {
     internal static class Program
     {

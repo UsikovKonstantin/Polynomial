@@ -1,8 +1,6 @@
 using ClassLibraryPolynomial;
-using System.Windows.Forms;
-using WinFormsAppPolynomial;
 
-namespace WinFormsApp1
+namespace WinFormsAppPolynomial
 {
     public partial class MainForm : Form
     {
@@ -17,18 +15,31 @@ namespace WinFormsApp1
 
         private void tbACoefs_TextChanged(object sender, EventArgs e)
         {
-            string s = tbACoefs.Text.Trim();
-            string[] coefsStr = s.Split();
+            string[] coefsStr = tbACoefs.Text.Trim().Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+            if (coefsStr.Length > 1001)
+            {
+                epACoefs.SetError(tbACoefs, "Слишком много коэффициентов.");
+                tbACoefs.Margin = new Padding(3, 3, 20, 3);
+                tbAPolynomial.Text = "";
+                return;
+            }
             double[] coefs = new double[coefsStr.Length];
             for (int i = 0; i < coefs.Length; i++)
             {
                 if (double.TryParse(coefsStr[coefs.Length - i - 1], out double n))
                 {
+                    if (n == double.PositiveInfinity || n == double.NegativeInfinity)
+                    {
+                        epACoefs.SetError(tbACoefs, "Слишком большие коэффициенты.");
+                        tbACoefs.Margin = new Padding(3, 3, 20, 3);
+                        tbAPolynomial.Text = "";
+                        return;
+                    }
                     coefs[i] = n;
                 }
                 else
                 {
-                    epACoefs.SetError(tbACoefs, "Невозможно привести все значения к целому числу");
+                    epACoefs.SetError(tbACoefs, "Невозможно привести все значения к числу.");
                     tbACoefs.Margin = new Padding(3, 3, 20, 3);
                     tbAPolynomial.Text = "";
                     return;
@@ -42,18 +53,31 @@ namespace WinFormsApp1
 
         private void tbBCoefs_TextChanged(object sender, EventArgs e)
         {
-            string s = tbBCoefs.Text.Trim();
-            string[] coefsStr = s.Split();
+            string[] coefsStr = tbBCoefs.Text.Trim().Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+            if (coefsStr.Length > 1001)
+            {
+                epBCoefs.SetError(tbBCoefs, "Слишком много коэффициентов.");
+                tbBCoefs.Margin = new Padding(3, 3, 20, 3);
+                tbBPolynomial.Text = "";
+                return;
+            }
             double[] coefs = new double[coefsStr.Length];
             for (int i = 0; i < coefs.Length; i++)
             {
                 if (double.TryParse(coefsStr[coefs.Length - i - 1], out double n))
                 {
+                    if (n == double.PositiveInfinity || n == double.NegativeInfinity)
+                    {
+                        epBCoefs.SetError(tbBCoefs, "Слишком большие коэффициенты.");
+                        tbBCoefs.Margin = new Padding(3, 3, 20, 3);
+                        tbBPolynomial.Text = "";
+                        return;
+                    }
                     coefs[i] = n;
                 }
                 else
                 {
-                    epBCoefs.SetError(tbBCoefs, "Невозможно привести все значения к целому числу");
+                    epBCoefs.SetError(tbBCoefs, "Невозможно привести все значения к числу.");
                     tbBCoefs.Margin = new Padding(3, 3, 20, 3);
                     tbBPolynomial.Text = "";
                     return;
@@ -68,7 +92,7 @@ namespace WinFormsApp1
         private void tbAInputX_TextChanged(object sender, EventArgs e)
         {
             string s = tbAInputX.Text.Trim();
-            if (s != "" && !double.TryParse(s, out double x))
+            if (s != "" && !double.TryParse(s, out double _))
             {
                 epAInputX.SetError(tbAInputX, "Невозможно привести к целому числу");
                 tbAInputX.Margin = new Padding(3, 3, 20, 3);
@@ -83,7 +107,7 @@ namespace WinFormsApp1
         private void tbBInputX_TextChanged(object sender, EventArgs e)
         {
             string s = tbBInputX.Text.Trim();
-            if (s != "" && !double.TryParse(s, out double x))
+            if (s != "" && !double.TryParse(s, out double _))
             {
                 epBInputX.SetError(tbBInputX, "Невозможно привести к целому числу");
                 tbBInputX.Margin = new Padding(3, 3, 20, 3);
@@ -98,7 +122,7 @@ namespace WinFormsApp1
         private void tbAInputN_TextChanged(object sender, EventArgs e)
         {
             string s = tbAInputN.Text.Trim();
-            if (s != "" && !double.TryParse(s, out double x))
+            if (s != "" && !double.TryParse(s, out double _))
             {
                 epAInputN.SetError(tbAInputN, "Невозможно привести к целому числу");
                 tbAInputN.Margin = new Padding(3, 3, 20, 3);
@@ -113,7 +137,7 @@ namespace WinFormsApp1
         private void tbBInputN_TextChanged(object sender, EventArgs e)
         {
             string s = tbBInputN.Text.Trim();
-            if (s != "" && !double.TryParse(s, out double x))
+            if (s != "" && !double.TryParse(s, out double _))
             {
                 epBInputN.SetError(tbBInputN, "Невозможно привести к целому числу");
                 tbBInputN.Margin = new Padding(3, 3, 20, 3);
@@ -128,7 +152,7 @@ namespace WinFormsApp1
         private void tbAPow_TextChanged(object sender, EventArgs e)
         {
             string s = tbAPow.Text.Trim();
-            if (s != "" && !int.TryParse(s, out int x))
+            if (s != "" && !int.TryParse(s, out int _))
             {
                 epAPow.SetError(tbAPow, "Невозможно привести к целому числу");
                 tbAPow.Margin = new Padding(3, 3, 20, 3);
@@ -143,7 +167,7 @@ namespace WinFormsApp1
         private void tbBPow_TextChanged(object sender, EventArgs e)
         {
             string s = tbBPow.Text.Trim();
-            if (s != "" && !int.TryParse(s, out int x))
+            if (s != "" && !int.TryParse(s, out int _))
             {
                 epBPow.SetError(tbBPow, "Невозможно привести к целому числу");
                 tbBPow.Margin = new Padding(3, 3, 20, 3);
@@ -158,7 +182,7 @@ namespace WinFormsApp1
         private void tbARoot_TextChanged(object sender, EventArgs e)
         {
             string s = tbARoot.Text.Trim();
-            if (s != "" && !double.TryParse(s, out double x))
+            if (s != "" && !double.TryParse(s, out double _))
             {
                 epARoot.SetError(tbARoot, "Невозможно привести к целому числу");
                 tbARoot.Margin = new Padding(3, 3, 20, 3);
@@ -173,7 +197,7 @@ namespace WinFormsApp1
         private void tbBRoot_TextChanged(object sender, EventArgs e)
         {
             string s = tbBRoot.Text.Trim();
-            if (s != "" && !double.TryParse(s, out double x))
+            if (s != "" && !double.TryParse(s, out double _))
             {
                 epBRoot.SetError(tbBRoot, "Невозможно привести к целому числу");
                 tbBRoot.Margin = new Padding(3, 3, 20, 3);
@@ -187,18 +211,29 @@ namespace WinFormsApp1
 
         private void btnSwap_Click(object sender, EventArgs e)
         {
-            string t = tbACoefs.Text;
-            tbACoefs.Text = tbBCoefs.Text;
-            tbBCoefs.Text = t;
+            (tbACoefs.Text, tbBCoefs.Text) = (tbBCoefs.Text, tbACoefs.Text);
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
             if (tbAPolynomial.Text == "" || tbBPolynomial.Text == "")
             {
+                tbOutput.Text = "Сначала введите полиномы.";
+                btnInsertA.Enabled = false;
+                btnInsertB.Enabled = false;
                 return;
             }
             R = A + B;
+            for (int i = 0; i <= R.N; i++)
+            {
+                if (R.Coefs[i] == double.NegativeInfinity || R.Coefs[i] == double.PositiveInfinity)
+                {
+                    tbOutput.Text = "Результирующий полином имеет слишком большие коэффициенты.";
+                    btnInsertA.Enabled = false;
+                    btnInsertB.Enabled = false;
+                    return;
+                }
+            }
             tbOutput.Text = R.ToString();
             btnInsertA.Enabled = true;
             btnInsertB.Enabled = true;
@@ -208,9 +243,22 @@ namespace WinFormsApp1
         {
             if (tbAPolynomial.Text == "" || tbBPolynomial.Text == "")
             {
+                tbOutput.Text = "Сначала введите полиномы.";
+                btnInsertA.Enabled = false;
+                btnInsertB.Enabled = false;
                 return;
             }
             R = A - B;
+            for (int i = 0; i <= R.N; i++)
+            {
+                if (R.Coefs[i] == double.NegativeInfinity || R.Coefs[i] == double.PositiveInfinity)
+                {
+                    tbOutput.Text = "Результирующий полином имеет слишком большие коэффициенты.";
+                    btnInsertA.Enabled = false;
+                    btnInsertB.Enabled = false;
+                    return;
+                }
+            }
             tbOutput.Text = R.ToString();
             btnInsertA.Enabled = true;
             btnInsertB.Enabled = true;
@@ -220,9 +268,29 @@ namespace WinFormsApp1
         {
             if (tbAPolynomial.Text == "" || tbBPolynomial.Text == "")
             {
+                tbOutput.Text = "Сначала введите полиномы.";
+                btnInsertA.Enabled = false;
+                btnInsertB.Enabled = false;
+                return;
+            }
+            if (A.N + B.N > 1000)
+            {
+                tbOutput.Text = "Результирующий полином имеет слишком высокую степень.";
+                btnInsertA.Enabled = false;
+                btnInsertB.Enabled = false;
                 return;
             }
             R = A * B;
+            for (int i = 0; i <= R.N; i++)
+            {
+                if (R.Coefs[i] == double.NegativeInfinity || R.Coefs[i] == double.PositiveInfinity)
+                {
+                    tbOutput.Text = "Результирующий полином имеет слишком большие коэффициенты.";
+                    btnInsertA.Enabled = false;
+                    btnInsertB.Enabled = false;
+                    return;
+                }
+            }
             tbOutput.Text = R.ToString();
             btnInsertA.Enabled = true;
             btnInsertB.Enabled = true;
@@ -232,9 +300,22 @@ namespace WinFormsApp1
         {
             if (tbAPolynomial.Text == "" || tbBPolynomial.Text == "")
             {
+                tbOutput.Text = "Сначала введите полиномы.";
+                btnInsertA.Enabled = false;
+                btnInsertB.Enabled = false;
                 return;
             }
             R = A / B;
+            for (int i = 0; i <= R.N; i++)
+            {
+                if (R.Coefs[i] == double.NegativeInfinity || R.Coefs[i] == double.PositiveInfinity)
+                {
+                    tbOutput.Text = "Результирующий полином имеет слишком большие коэффициенты.";
+                    btnInsertA.Enabled = false;
+                    btnInsertB.Enabled = false;
+                    return;
+                }
+            }
             tbOutput.Text = R.ToString();
             btnInsertA.Enabled = true;
             btnInsertB.Enabled = true;
@@ -244,9 +325,22 @@ namespace WinFormsApp1
         {
             if (tbAPolynomial.Text == "" || tbBPolynomial.Text == "")
             {
+                tbOutput.Text = "Сначала введите полиномы.";
+                btnInsertA.Enabled = false;
+                btnInsertB.Enabled = false;
                 return;
             }
             R = A % B;
+            for (int i = 0; i <= R.N; i++)
+            {
+                if (R.Coefs[i] == double.NegativeInfinity || R.Coefs[i] == double.PositiveInfinity)
+                {
+                    tbOutput.Text = "Результирующий полином имеет слишком большие коэффициенты.";
+                    btnInsertA.Enabled = false;
+                    btnInsertB.Enabled = false;
+                    return;
+                }
+            }
             tbOutput.Text = R.ToString();
             btnInsertA.Enabled = true;
             btnInsertB.Enabled = true;
@@ -256,12 +350,28 @@ namespace WinFormsApp1
         {
             if (tbAPolynomial.Text == "")
             {
+                tbOutput.Text = "Сначала введите полином.";
+                btnInsertA.Enabled = false;
+                btnInsertB.Enabled = false;
                 return;
             }
             if (double.TryParse(tbAInputX.Text, out double x))
             {
                 double resInPoint = A.P(x);
+                if (resInPoint == double.NegativeInfinity || resInPoint == double.PositiveInfinity)
+                {
+                    tbOutput.Text = "Результат слишком большой.";
+                    btnInsertA.Enabled = false;
+                    btnInsertB.Enabled = false;
+                    return;
+                }
                 tbOutput.Text = resInPoint.ToString();
+                btnInsertA.Enabled = false;
+                btnInsertB.Enabled = false;
+            }
+            else
+            {
+                tbOutput.Text = "Ввод невозможно привести к целому числу.";
                 btnInsertA.Enabled = false;
                 btnInsertB.Enabled = false;
             }
@@ -271,12 +381,28 @@ namespace WinFormsApp1
         {
             if (tbBPolynomial.Text == "")
             {
+                tbOutput.Text = "Сначала введите полином.";
+                btnInsertA.Enabled = false;
+                btnInsertB.Enabled = false;
                 return;
             }
             if (double.TryParse(tbBInputX.Text, out double x))
             {
                 double resInPoint = B.P(x);
+                if (resInPoint == double.NegativeInfinity || resInPoint == double.PositiveInfinity)
+                {
+                    tbOutput.Text = "Результат слишком большой.";
+                    btnInsertA.Enabled = false;
+                    btnInsertB.Enabled = false;
+                    return;
+                }
                 tbOutput.Text = resInPoint.ToString();
+                btnInsertA.Enabled = false;
+                btnInsertB.Enabled = false;
+            }
+            else
+            {
+                tbOutput.Text = "Ввод невозможно привести к целому числу.";
                 btnInsertA.Enabled = false;
                 btnInsertB.Enabled = false;
             }
@@ -286,14 +412,33 @@ namespace WinFormsApp1
         {
             if (tbAPolynomial.Text == "")
             {
+                tbOutput.Text = "Сначала введите полином.";
+                btnInsertA.Enabled = false;
+                btnInsertB.Enabled = false;
                 return;
             }
             if (double.TryParse(tbAInputN.Text, out double n))
             {
                 R = A * n;
+                for (int i = 0; i <= R.N; i++)
+                {
+                    if (R.Coefs[i] == double.NegativeInfinity || R.Coefs[i] == double.PositiveInfinity)
+                    {
+                        tbOutput.Text = "Результирующий полином имеет слишком большие коэффициенты.";
+                        btnInsertA.Enabled = false;
+                        btnInsertB.Enabled = false;
+                        return;
+                    }
+                }
                 tbOutput.Text = R.ToString();
                 btnInsertA.Enabled = true;
                 btnInsertB.Enabled = true;
+            }
+            else
+            {
+                tbOutput.Text = "Ввод невозможно привести к целому числу.";
+                btnInsertA.Enabled = false;
+                btnInsertB.Enabled = false;
             }
         }
 
@@ -301,14 +446,33 @@ namespace WinFormsApp1
         {
             if (tbBPolynomial.Text == "")
             {
+                tbOutput.Text = "Сначала введите полином.";
+                btnInsertA.Enabled = false;
+                btnInsertB.Enabled = false;
                 return;
             }
             if (double.TryParse(tbBInputN.Text, out double n))
             {
                 R = B * n;
+                for (int i = 0; i <= R.N; i++)
+                {
+                    if (R.Coefs[i] == double.NegativeInfinity || R.Coefs[i] == double.PositiveInfinity)
+                    {
+                        tbOutput.Text = "Результирующий полином имеет слишком большие коэффициенты.";
+                        btnInsertA.Enabled = false;
+                        btnInsertB.Enabled = false;
+                        return;
+                    }
+                }
                 tbOutput.Text = R.ToString();
                 btnInsertA.Enabled = true;
                 btnInsertB.Enabled = true;
+            }
+            else
+            {
+                tbOutput.Text = "Ввод невозможно привести к целому числу.";
+                btnInsertA.Enabled = false;
+                btnInsertB.Enabled = false;
             }
         }
 
@@ -316,14 +480,47 @@ namespace WinFormsApp1
         {
             if (tbAPolynomial.Text == "")
             {
+                tbOutput.Text = "Сначала введите полином.";
+                btnInsertA.Enabled = false;
+                btnInsertB.Enabled = false;
                 return;
             }
-            if (int.TryParse(tbAPow.Text, out int n) && n >= 0)
+            if (int.TryParse(tbAPow.Text, out int n))
             {
+                if (n < 0)
+                {
+                    tbOutput.Text = "Степень не должна быть меньше нуля.";
+                    btnInsertA.Enabled = false;
+                    btnInsertB.Enabled = false;
+                    return;
+                }
+                if (A.N * n > 1000)
+                {
+                    tbOutput.Text = "Слишком высокая степень.";
+                    btnInsertA.Enabled = false;
+                    btnInsertB.Enabled = false;
+                    return;
+                }
                 R = new PolynomialWithRoots(A.Pow(n).Coefs);
+                for (int i = 0; i <= R.N; i++)
+                {
+                    if (R.Coefs[i] == double.NegativeInfinity || R.Coefs[i] == double.PositiveInfinity)
+                    {
+                        tbOutput.Text = "Результирующий полином имеет слишком большие коэффициенты.";
+                        btnInsertA.Enabled = false;
+                        btnInsertB.Enabled = false;
+                        return;
+                    }
+                }
                 tbOutput.Text = R.ToString();
                 btnInsertA.Enabled = true;
                 btnInsertB.Enabled = true;
+            }
+            else
+            {
+                tbOutput.Text = "Ввод невозможно привести к целому числу.";
+                btnInsertA.Enabled = false;
+                btnInsertB.Enabled = false;
             }
         }
 
@@ -331,14 +528,47 @@ namespace WinFormsApp1
         {
             if (tbBPolynomial.Text == "")
             {
+                tbOutput.Text = "Сначала введите полином.";
+                btnInsertA.Enabled = false;
+                btnInsertB.Enabled = false;
                 return;
             }
-            if (int.TryParse(tbBPow.Text, out int n) && n >= 0)
+            if (int.TryParse(tbBPow.Text, out int n))
             {
+                if (n < 0)
+                {
+                    tbOutput.Text = "Степень не должна быть меньше нуля.";
+                    btnInsertA.Enabled = false;
+                    btnInsertB.Enabled = false;
+                    return;
+                }
+                if (B.N * n > 1000)
+                {
+                    tbOutput.Text = "Слишком высокая степень.";
+                    btnInsertA.Enabled = false;
+                    btnInsertB.Enabled = false;
+                    return;
+                }
                 R = new PolynomialWithRoots(B.Pow(n).Coefs);
+                for (int i = 0; i <= R.N; i++)
+                {
+                    if (R.Coefs[i] == double.NegativeInfinity || R.Coefs[i] == double.PositiveInfinity)
+                    {
+                        tbOutput.Text = "Результирующий полином имеет слишком большие коэффициенты.";
+                        btnInsertA.Enabled = false;
+                        btnInsertB.Enabled = false;
+                        return;
+                    }
+                }
                 tbOutput.Text = R.ToString();
                 btnInsertA.Enabled = true;
                 btnInsertB.Enabled = true;
+            }
+            else
+            {
+                tbOutput.Text = "Ввод невозможно привести к целому числу.";
+                btnInsertA.Enabled = false;
+                btnInsertB.Enabled = false;
             }
         }
 
@@ -346,9 +576,22 @@ namespace WinFormsApp1
         {
             if (tbAPolynomial.Text == "")
             {
+                tbOutput.Text = "Сначала введите полином.";
+                btnInsertA.Enabled = false;
+                btnInsertB.Enabled = false;
                 return;
             }
             R = new PolynomialWithRoots(A.GetDerivative().Coefs);
+            for (int i = 0; i <= R.N; i++)
+            {
+                if (R.Coefs[i] == double.NegativeInfinity || R.Coefs[i] == double.PositiveInfinity)
+                {
+                    tbOutput.Text = "Результирующий полином имеет слишком большие коэффициенты.";
+                    btnInsertA.Enabled = false;
+                    btnInsertB.Enabled = false;
+                    return;
+                }
+            }
             tbOutput.Text = R.ToString();
             btnInsertA.Enabled = true;
             btnInsertB.Enabled = true;
@@ -358,9 +601,22 @@ namespace WinFormsApp1
         {
             if (tbBPolynomial.Text == "")
             {
+                tbOutput.Text = "Сначала введите полином.";
+                btnInsertA.Enabled = false;
+                btnInsertB.Enabled = false;
                 return;
             }
             R = new PolynomialWithRoots(B.GetDerivative().Coefs);
+            for (int i = 0; i <= R.N; i++)
+            {
+                if (R.Coefs[i] == double.NegativeInfinity || R.Coefs[i] == double.PositiveInfinity)
+                {
+                    tbOutput.Text = "Результирующий полином имеет слишком большие коэффициенты.";
+                    btnInsertA.Enabled = false;
+                    btnInsertB.Enabled = false;
+                    return;
+                }
+            }
             tbOutput.Text = R.ToString();
             btnInsertA.Enabled = true;
             btnInsertB.Enabled = true;
@@ -370,9 +626,29 @@ namespace WinFormsApp1
         {
             if (tbAPolynomial.Text == "")
             {
+                tbOutput.Text = "Сначала введите полином.";
+                btnInsertA.Enabled = false;
+                btnInsertB.Enabled = false;
+                return;
+            }
+            if (A.N == 1000)
+            {
+                tbOutput.Text = "Слишком высокая степень исходного полинома.";
+                btnInsertA.Enabled = false;
+                btnInsertB.Enabled = false;
                 return;
             }
             R = new PolynomialWithRoots(A.GetPrimitive().Coefs);
+            for (int i = 0; i <= R.N; i++)
+            {
+                if (R.Coefs[i] == double.NegativeInfinity || R.Coefs[i] == double.PositiveInfinity)
+                {
+                    tbOutput.Text = "Результирующий полином имеет слишком большие коэффициенты.";
+                    btnInsertA.Enabled = false;
+                    btnInsertB.Enabled = false;
+                    return;
+                }
+            }
             tbOutput.Text = R.ToString();
             btnInsertA.Enabled = true;
             btnInsertB.Enabled = true;
@@ -382,9 +658,29 @@ namespace WinFormsApp1
         {
             if (tbBPolynomial.Text == "")
             {
+                tbOutput.Text = "Сначала введите полином.";
+                btnInsertA.Enabled = false;
+                btnInsertB.Enabled = false;
+                return;
+            }
+            if (B.N == 1000)
+            {
+                tbOutput.Text = "Слишком высокая степень исходного полинома.";
+                btnInsertA.Enabled = false;
+                btnInsertB.Enabled = false;
                 return;
             }
             R = new PolynomialWithRoots(B.GetPrimitive().Coefs);
+            for (int i = 0; i <= R.N; i++)
+            {
+                if (R.Coefs[i] == double.NegativeInfinity || R.Coefs[i] == double.PositiveInfinity)
+                {
+                    tbOutput.Text = "Результирующий полином имеет слишком большие коэффициенты.";
+                    btnInsertA.Enabled = false;
+                    btnInsertB.Enabled = false;
+                    return;
+                }
+            }
             tbOutput.Text = R.ToString();
             btnInsertA.Enabled = true;
             btnInsertB.Enabled = true;
@@ -392,6 +688,13 @@ namespace WinFormsApp1
 
         private void bntAGetStationaryPoints_Click(object sender, EventArgs e)
         {
+            if (tbAPolynomial.Text == "")
+            {
+                tbOutput.Text = "Сначала введите полином.";
+                btnInsertA.Enabled = false;
+                btnInsertB.Enabled = false;
+                return;
+            }
             if (A.N <= 1)
             {
                 tbOutput.Text = "Точек экстремума нет";
@@ -399,11 +702,11 @@ namespace WinFormsApp1
                 btnInsertB.Enabled = false;
                 return;
             }
-            List<(double, int)> stationaryPoints = A.FindAllStationaryPoints(-100000, 100000);
+            List<(double x, double y, StationaryPointType stPointType)> stationaryPoints = A.FindAllStationaryPoints(-100000, 100000);
             string s = "";
             foreach (var item in stationaryPoints)
             {
-                s += $"({item.Item1}; {A.P(item.Item1)}) - точка " + (item.Item2 == -1 ? "минимума" : "максимума") + "\n";
+                s += $"({item.x}; {item.y}) - точка " + (item.stPointType == StationaryPointType.Min ? "минимума" : "максимума") + "\n";
             }
             if (s == "")
             {
@@ -416,6 +719,13 @@ namespace WinFormsApp1
 
         private void bntBGetStationaryPoints_Click(object sender, EventArgs e)
         {
+            if (tbBPolynomial.Text == "")
+            {
+                tbOutput.Text = "Сначала введите полином.";
+                btnInsertA.Enabled = false;
+                btnInsertB.Enabled = false;
+                return;
+            }
             if (B.N <= 1)
             {
                 tbOutput.Text = "Точек экстремума нет";
@@ -423,11 +733,11 @@ namespace WinFormsApp1
                 btnInsertB.Enabled = false;
                 return;
             }
-            List<(double, int)> stationaryPoints = B.FindAllStationaryPoints(-100000, 100000);
+            List<(double x, double y, StationaryPointType stPointType)> stationaryPoints = B.FindAllStationaryPoints(-100000, 100000);
             string s = "";
             foreach (var item in stationaryPoints)
             {
-                s += $"({item.Item1}; {A.P(item.Item1)}) - точка " + (item.Item2 == -1 ? "минимума" : "максимума") + "\n";
+                s += $"({item.x}; {item.y}) - точка " + (item.stPointType == StationaryPointType.Min ? "минимума" : "максимума") + "\n";
             }
             if (s == "")
             {
@@ -442,6 +752,7 @@ namespace WinFormsApp1
         {
             if (tbAPolynomial.Text == "")
             {
+                tbOutput.Text = "Сначала введите полином.";
                 btnInsertA.Enabled = false;
                 btnInsertB.Enabled = false;
                 return;
@@ -452,7 +763,7 @@ namespace WinFormsApp1
                 string s = "";
                 foreach (var item in roots)
                 {
-                    s += Math.Round(item, 5).ToString() + "\n";
+                    s += item.ToString() + "\n";
                 }
                 if (s == "")
                 {
@@ -465,12 +776,19 @@ namespace WinFormsApp1
                 btnInsertA.Enabled = false;
                 btnInsertB.Enabled = false;
             }
+            else
+            {
+                tbOutput.Text = "Ввод невозможно привести к целому числу.";
+                btnInsertA.Enabled = false;
+                btnInsertB.Enabled = false;
+            }
         }
 
         private void btnBGetRoots_Click(object sender, EventArgs e)
         {
             if (tbBPolynomial.Text == "")
             {
+                tbOutput.Text = "Сначала введите полином.";
                 btnInsertA.Enabled = false;
                 btnInsertB.Enabled = false;
                 return;
@@ -481,7 +799,7 @@ namespace WinFormsApp1
                 string s = "";
                 foreach (var item in roots)
                 {
-                    s += Math.Round(item, 5).ToString() + "\n";
+                    s += item.ToString() + "\n";
                 }
                 if (s == "")
                 {
@@ -491,6 +809,12 @@ namespace WinFormsApp1
                 {
                     tbOutput.Text = s;
                 }
+                btnInsertA.Enabled = false;
+                btnInsertB.Enabled = false;
+            }
+            else
+            {
+                tbOutput.Text = "Ввод невозможно привести к целому числу.";
                 btnInsertA.Enabled = false;
                 btnInsertB.Enabled = false;
             }
@@ -520,13 +844,81 @@ namespace WinFormsApp1
 
         private void btnAChartOutout_Click(object sender, EventArgs e)
         {
-            ChartOutput f = new ChartOutput(A);
+            if (tbAPolynomial.Text == "")
+            {
+                tbOutput.Text = "Сначала введите полином.";
+                btnInsertA.Enabled = false;
+                btnInsertB.Enabled = false;
+                return;
+            }
+            if (A.N > 40)
+            {
+                tbOutput.Text = "Слишком высокая степень полинома";
+                btnInsertA.Enabled = false;
+                btnInsertB.Enabled = false;
+                return;
+            }
+
+            int n = Math.Max(100, 10000 / ((int)Math.Pow(10, A.N / 10)));
+            double[] x = new double[2 * n + 1];
+            double[] y = new double[2 * n + 1];
+            int ind = 0;
+            for (int i = -n; i <= n; i++)
+            {
+                x[ind] = i;
+                double Y = A.P(i);
+                if (Y > 1.4e87 || Y < -1.4e87)
+                {
+                    tbOutput.Text = "Слишком высокая степень полинома";
+                    btnInsertA.Enabled = false;
+                    btnInsertB.Enabled = false;
+                    return;
+                }
+                y[ind] = Y;
+                ind++;
+            }
+
+            ChartOutput f = new ChartOutput(x, y);
             f.Show();
         }
 
         private void btnBChartOutout_Click(object sender, EventArgs e)
         {
-            ChartOutput f = new ChartOutput(B);
+            if (tbBPolynomial.Text == "")
+            {
+                tbOutput.Text = "Сначала введите полином.";
+                btnInsertA.Enabled = false;
+                btnInsertB.Enabled = false;
+                return;
+            }
+            if (B.N > 40)
+            {
+                tbOutput.Text = "Слишком высокая степень полинома";
+                btnInsertA.Enabled = false;
+                btnInsertB.Enabled = false;
+                return;
+            }
+
+            int n = Math.Max(100, 10000 / ((int)Math.Pow(10, B.N / 10)));
+            double[] x = new double[2 * n + 1];
+            double[] y = new double[2 * n + 1];
+            int ind = 0;
+            for (int i = -n; i <= n; i++)
+            {
+                x[ind] = i;
+                double Y = B.P(i);
+                if (Y > 1.4e87 || Y < -1.4e87)
+                {
+                    tbOutput.Text = "Слишком высокая степень полинома";
+                    btnInsertA.Enabled = false;
+                    btnInsertB.Enabled = false;
+                    return;
+                }
+                y[ind] = Y;
+                ind++;
+            }
+
+            ChartOutput f = new ChartOutput(x, y);
             f.Show();
         }
 

@@ -1,4 +1,4 @@
-﻿namespace WinFormsApp1
+﻿namespace WinFormsAppPolynomial
 {
     partial class MainForm
     {
@@ -279,6 +279,7 @@
             this.tbBPow.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tbBPow.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.tbBPow.Location = new System.Drawing.Point(259, 3);
+            this.tbBPow.MaxLength = 10;
             this.tbBPow.Name = "tbBPow";
             this.tbBPow.Size = new System.Drawing.Size(107, 33);
             this.tbBPow.TabIndex = 5;
@@ -317,6 +318,7 @@
             this.tbBRoot.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tbBRoot.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.tbBRoot.Location = new System.Drawing.Point(257, 3);
+            this.tbBRoot.MaxLength = 100;
             this.tbBRoot.Name = "tbBRoot";
             this.tbBRoot.Size = new System.Drawing.Size(109, 33);
             this.tbBRoot.TabIndex = 5;
@@ -355,6 +357,7 @@
             this.tbBInputN.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tbBInputN.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.tbBInputN.Location = new System.Drawing.Point(260, 3);
+            this.tbBInputN.MaxLength = 100;
             this.tbBInputN.Name = "tbBInputN";
             this.tbBInputN.Size = new System.Drawing.Size(106, 33);
             this.tbBInputN.TabIndex = 2;
@@ -405,6 +408,7 @@
             this.tbBCoefs.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tbBCoefs.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.tbBCoefs.Location = new System.Drawing.Point(3, 33);
+            this.tbBCoefs.MaxLength = 1000000;
             this.tbBCoefs.Name = "tbBCoefs";
             this.tbBCoefs.Size = new System.Drawing.Size(363, 32);
             this.tbBCoefs.TabIndex = 1;
@@ -481,6 +485,7 @@
             this.tbBInputX.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tbBInputX.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.tbBInputX.Location = new System.Drawing.Point(260, 3);
+            this.tbBInputX.MaxLength = 100;
             this.tbBInputX.Name = "tbBInputX";
             this.tbBInputX.Size = new System.Drawing.Size(106, 33);
             this.tbBInputX.TabIndex = 2;
@@ -744,6 +749,7 @@
             this.tbARoot.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tbARoot.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.tbARoot.Location = new System.Drawing.Point(254, 3);
+            this.tbARoot.MaxLength = 100;
             this.tbARoot.Name = "tbARoot";
             this.tbARoot.Size = new System.Drawing.Size(110, 33);
             this.tbARoot.TabIndex = 3;
@@ -821,6 +827,7 @@
             this.tbAInputN.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tbAInputN.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.tbAInputN.Location = new System.Drawing.Point(258, 3);
+            this.tbAInputN.MaxLength = 100;
             this.tbAInputN.Name = "tbAInputN";
             this.tbAInputN.Size = new System.Drawing.Size(106, 33);
             this.tbAInputN.TabIndex = 2;
@@ -871,6 +878,7 @@
             this.tbACoefs.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tbACoefs.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.tbACoefs.Location = new System.Drawing.Point(3, 33);
+            this.tbACoefs.MaxLength = 1000000;
             this.tbACoefs.Name = "tbACoefs";
             this.tbACoefs.Size = new System.Drawing.Size(361, 32);
             this.tbACoefs.TabIndex = 1;
@@ -947,6 +955,7 @@
             this.tbAInputX.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tbAInputX.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.tbAInputX.Location = new System.Drawing.Point(258, 3);
+            this.tbAInputX.MaxLength = 100;
             this.tbAInputX.Name = "tbAInputX";
             this.tbAInputX.Size = new System.Drawing.Size(106, 33);
             this.tbAInputX.TabIndex = 2;
@@ -1024,6 +1033,7 @@
             this.tbAPow.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tbAPow.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.tbAPow.Location = new System.Drawing.Point(255, 3);
+            this.tbAPow.MaxLength = 10;
             this.tbAPow.Name = "tbAPow";
             this.tbAPow.Size = new System.Drawing.Size(109, 33);
             this.tbAPow.TabIndex = 4;
