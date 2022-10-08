@@ -333,7 +333,7 @@
             this.btnBGetRoots.Name = "btnBGetRoots";
             this.btnBGetRoots.Size = new System.Drawing.Size(248, 33);
             this.btnBGetRoots.TabIndex = 2;
-            this.btnBGetRoots.Text = "X при которых функция =";
+            this.btnBGetRoots.Text = "Найти x, если P(x) =";
             this.btnBGetRoots.UseVisualStyleBackColor = true;
             this.btnBGetRoots.Click += new System.EventHandler(this.btnBGetRoots_Click);
             // 
@@ -764,7 +764,7 @@
             this.btnAGetRoots.Name = "btnAGetRoots";
             this.btnAGetRoots.Size = new System.Drawing.Size(245, 33);
             this.btnAGetRoots.TabIndex = 2;
-            this.btnAGetRoots.Text = "X при которых функция =";
+            this.btnAGetRoots.Text = "Найти x, если P(x) = ";
             this.btnAGetRoots.UseVisualStyleBackColor = true;
             this.btnAGetRoots.Click += new System.EventHandler(this.btnAGetRoots_Click);
             // 
