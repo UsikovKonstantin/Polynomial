@@ -94,7 +94,7 @@ namespace WinFormsAppPolynomial
             string s = tbAInputX.Text.Trim();
             if (s != "" && !double.TryParse(s, out double _))
             {
-                epAInputX.SetError(tbAInputX, "Невозможно привести к целому числу");
+                epAInputX.SetError(tbAInputX, "Невозможно привести ввод к числу.");
                 tbAInputX.Margin = new Padding(3, 3, 20, 3);
             }
             else
@@ -109,7 +109,7 @@ namespace WinFormsAppPolynomial
             string s = tbBInputX.Text.Trim();
             if (s != "" && !double.TryParse(s, out double _))
             {
-                epBInputX.SetError(tbBInputX, "Невозможно привести к целому числу");
+                epBInputX.SetError(tbBInputX, "Невозможно привести ввод к числу.");
                 tbBInputX.Margin = new Padding(3, 3, 20, 3);
             }
             else
@@ -124,7 +124,7 @@ namespace WinFormsAppPolynomial
             string s = tbAInputN.Text.Trim();
             if (s != "" && !double.TryParse(s, out double _))
             {
-                epAInputN.SetError(tbAInputN, "Невозможно привести к целому числу");
+                epAInputN.SetError(tbAInputN, "Невозможно привести ввод к числу.");
                 tbAInputN.Margin = new Padding(3, 3, 20, 3);
             }
             else
@@ -139,7 +139,7 @@ namespace WinFormsAppPolynomial
             string s = tbBInputN.Text.Trim();
             if (s != "" && !double.TryParse(s, out double _))
             {
-                epBInputN.SetError(tbBInputN, "Невозможно привести к целому числу");
+                epBInputN.SetError(tbBInputN, "Невозможно привести ввод к числу.");
                 tbBInputN.Margin = new Padding(3, 3, 20, 3);
             }
             else
@@ -154,7 +154,7 @@ namespace WinFormsAppPolynomial
             string s = tbAPow.Text.Trim();
             if (s != "" && !int.TryParse(s, out int _))
             {
-                epAPow.SetError(tbAPow, "Невозможно привести к целому числу");
+                epAPow.SetError(tbAPow, "Невозможно привести ввод к целому числу.");
                 tbAPow.Margin = new Padding(3, 3, 20, 3);
             }
             else
@@ -169,7 +169,7 @@ namespace WinFormsAppPolynomial
             string s = tbBPow.Text.Trim();
             if (s != "" && !int.TryParse(s, out int _))
             {
-                epBPow.SetError(tbBPow, "Невозможно привести к целому числу");
+                epBPow.SetError(tbBPow, "Невозможно привести ввод к целому числу.");
                 tbBPow.Margin = new Padding(3, 3, 20, 3);
             }
             else
@@ -184,7 +184,7 @@ namespace WinFormsAppPolynomial
             string s = tbARoot.Text.Trim();
             if (s != "" && !double.TryParse(s, out double _))
             {
-                epARoot.SetError(tbARoot, "Невозможно привести к целому числу");
+                epARoot.SetError(tbARoot, "Невозможно привести ввод к числу.");
                 tbARoot.Margin = new Padding(3, 3, 20, 3);
             }
             else
@@ -199,7 +199,7 @@ namespace WinFormsAppPolynomial
             string s = tbBRoot.Text.Trim();
             if (s != "" && !double.TryParse(s, out double _))
             {
-                epBRoot.SetError(tbBRoot, "Невозможно привести к целому числу");
+                epBRoot.SetError(tbBRoot, "Невозможно привести ввод к числу.");
                 tbBRoot.Margin = new Padding(3, 3, 20, 3);
             }
             else
@@ -371,7 +371,7 @@ namespace WinFormsAppPolynomial
             }
             else
             {
-                tbOutput.Text = "Ввод невозможно привести к целому числу.";
+                tbOutput.Text = "Ввод невозможно привести к числу.";
                 btnInsertA.Enabled = false;
                 btnInsertB.Enabled = false;
             }
@@ -402,7 +402,7 @@ namespace WinFormsAppPolynomial
             }
             else
             {
-                tbOutput.Text = "Ввод невозможно привести к целому числу.";
+                tbOutput.Text = "Ввод невозможно привести к числу.";
                 btnInsertA.Enabled = false;
                 btnInsertB.Enabled = false;
             }
@@ -436,7 +436,7 @@ namespace WinFormsAppPolynomial
             }
             else
             {
-                tbOutput.Text = "Ввод невозможно привести к целому числу.";
+                tbOutput.Text = "Ввод невозможно привести к числу.";
                 btnInsertA.Enabled = false;
                 btnInsertB.Enabled = false;
             }
@@ -470,7 +470,7 @@ namespace WinFormsAppPolynomial
             }
             else
             {
-                tbOutput.Text = "Ввод невозможно привести к целому числу.";
+                tbOutput.Text = "Ввод невозможно привести к числу.";
                 btnInsertA.Enabled = false;
                 btnInsertB.Enabled = false;
             }
@@ -778,7 +778,7 @@ namespace WinFormsAppPolynomial
             }
             else
             {
-                tbOutput.Text = "Ввод невозможно привести к целому числу.";
+                tbOutput.Text = "Ввод невозможно привести к числу.";
                 btnInsertA.Enabled = false;
                 btnInsertB.Enabled = false;
             }
@@ -814,7 +814,7 @@ namespace WinFormsAppPolynomial
             }
             else
             {
-                tbOutput.Text = "Ввод невозможно привести к целому числу.";
+                tbOutput.Text = "Ввод невозможно привести к числу.";
                 btnInsertA.Enabled = false;
                 btnInsertB.Enabled = false;
             }
