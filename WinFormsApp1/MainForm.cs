@@ -702,7 +702,8 @@ namespace WinFormsAppPolynomial
                 btnInsertB.Enabled = false;
                 return;
             }
-            List<(double x, double y, StationaryPointType stPointType)> stationaryPoints = A.FindAllStationaryPoints(-100000, 100000);
+            List<(double x, double y, StationaryPointType stPointType)> statPoints = A.FindAllStationaryPoints(-100000, 100000);
+            List<(double x, double y, StationaryPointType stPointType)> stationaryPoints = statPoints.OrderBy(item => item.x).ToList();
             string s = "";
             foreach (var item in stationaryPoints)
             {
@@ -733,7 +734,8 @@ namespace WinFormsAppPolynomial
                 btnInsertB.Enabled = false;
                 return;
             }
-            List<(double x, double y, StationaryPointType stPointType)> stationaryPoints = B.FindAllStationaryPoints(-100000, 100000);
+            List<(double x, double y, StationaryPointType stPointType)> statPoints = B.FindAllStationaryPoints(-100000, 100000);
+            List<(double x, double y, StationaryPointType stPointType)> stationaryPoints = statPoints.OrderBy(item => item.x).ToList();
             string s = "";
             foreach (var item in stationaryPoints)
             {
@@ -760,10 +762,29 @@ namespace WinFormsAppPolynomial
             if (double.TryParse(tbARoot.Text, out double y))
             {
                 List<double> roots = A.FindAllRootsNewton(-100000, 100000, y);
+                roots.Sort();
                 string s = "";
-                foreach (var item in roots)
+                if (roots.Count >= 2)
                 {
-                    s += item.ToString() + "\n";
+                    if (Math.Abs(roots[1] - roots[0]) < 1e-5)
+                    {
+                        s += Math.Round(roots[1], 6) + "\n";
+                    }
+                    else
+                    {
+                        s += roots[0] + "\n";
+                    }
+                    for (int i = 1; i < roots.Count; i++)
+                    {
+                        if (Math.Abs(roots[i] - roots[i - 1]) > 1e-5)
+                        {
+                            s += roots[i] + "\n";
+                        }
+                    }
+                }
+                else if (roots.Count == 1)
+                {
+                    s += roots[0];
                 }
                 if (s == "")
                 {
@@ -796,10 +817,29 @@ namespace WinFormsAppPolynomial
             if (double.TryParse(tbBRoot.Text, out double y))
             {
                 List<double> roots = B.FindAllRootsNewton(-100000, 100000, y);
+                roots.Sort();
                 string s = "";
-                foreach (var item in roots)
+                if (roots.Count >= 2)
                 {
-                    s += item.ToString() + "\n";
+                    if (Math.Abs(roots[1] - roots[0]) < 1e-5)
+                    {
+                        s += Math.Round(roots[1], 6) + "\n";
+                    }
+                    else
+                    {
+                        s += roots[0] + "\n";
+                    }
+                    for (int i = 1; i < roots.Count; i++)
+                    {
+                        if (Math.Abs(roots[i] - roots[i - 1]) > 1e-5)
+                        {
+                            s += roots[i] + "\n";
+                        }
+                    }
+                }
+                else if (roots.Count == 1)
+                {
+                    s += roots[0];
                 }
                 if (s == "")
                 {
@@ -859,14 +899,42 @@ namespace WinFormsAppPolynomial
                 return;
             }
 
-            int n = Math.Max(100, 10000 / ((int)Math.Pow(10, A.N / 10)));
-            double[] x = new double[2 * n + 1];
-            double[] y = new double[2 * n + 1];
-            int ind = 0;
-            for (int i = -n; i <= n; i++)
+            int n = 2 * Math.Max(100, 10000 / ((int)Math.Pow(10, A.N / 10)));
+            List<(double x, double y, StationaryPointType type)> statPoints = A.FindAllStationaryPoints(-100000, 100000);
+            List<(double x, double y, StationaryPointType type)> stPoints = statPoints.OrderBy(item => item.x).ToList();
+            double start, end;
+            if (stPoints.Count == 0)
             {
-                x[ind] = i;
-                double Y = A.P(i);
+                start = -10;
+                end = 10;
+            }
+            else if (stPoints.Count == 1)
+            {
+                start = stPoints[0].x - 10;
+                end = stPoints[0].x + 10;
+            }
+            else
+            {
+                double maxDif = -1;
+                for (int i = 1; i < stPoints.Count; i++)
+                {
+                    if (stPoints[i].x - stPoints[i - 1].x > maxDif)
+                    {
+                        maxDif = stPoints[i].x - stPoints[i - 1].x;
+                    }
+                }
+                int c = stPoints.Count - 1;
+                start = stPoints[0].x - Math.Max(maxDif, 10);
+                end = stPoints[c].x + Math.Max(maxDif, 10);
+            }
+            double step = (end - start) / n;
+
+            List<double> x = new List<double>();
+            List<double> y = new List<double>();
+            while (start <= end)
+            {
+                x.Add(start);
+                double Y = A.P(start);
                 if (Y > 1.4e87 || Y < -1.4e87)
                 {
                     tbOutput.Text = "Слишком высокая степень полинома";
@@ -874,11 +942,11 @@ namespace WinFormsAppPolynomial
                     btnInsertB.Enabled = false;
                     return;
                 }
-                y[ind] = Y;
-                ind++;
+                y.Add(Y);
+                start += step;
             }
 
-            ChartOutput f = new ChartOutput(x, y);
+            ChartOutput f = new ChartOutput(x.ToArray(), y.ToArray());
             f.Show();
         }
 
@@ -899,14 +967,42 @@ namespace WinFormsAppPolynomial
                 return;
             }
 
-            int n = Math.Max(100, 10000 / ((int)Math.Pow(10, B.N / 10)));
-            double[] x = new double[2 * n + 1];
-            double[] y = new double[2 * n + 1];
-            int ind = 0;
-            for (int i = -n; i <= n; i++)
+            int n = 2 * Math.Max(100, 10000 / ((int)Math.Pow(10, B.N / 10)));
+            List<(double x, double y, StationaryPointType type)> statPoints = B.FindAllStationaryPoints(-100000, 100000);
+            List<(double x, double y, StationaryPointType type)> stPoints = statPoints.OrderBy(item => item.x).ToList();
+            double start, end;
+            if (stPoints.Count == 0)
             {
-                x[ind] = i;
-                double Y = B.P(i);
+                start = -10;
+                end = 10;
+            }
+            else if (stPoints.Count == 1)
+            {
+                start = stPoints[0].x - 10;
+                end = stPoints[0].x + 10;
+            }
+            else
+            {
+                double maxDif = -1;
+                for (int i = 1; i < stPoints.Count; i++)
+                {
+                    if (stPoints[i].x - stPoints[i - 1].x > maxDif)
+                    {
+                        maxDif = stPoints[i].x - stPoints[i - 1].x;
+                    }
+                }
+                int c = stPoints.Count - 1;
+                start = stPoints[0].x - Math.Max(maxDif, 10);
+                end = stPoints[c].x + Math.Max(maxDif, 10);
+            }
+            double step = (end - start) / n;
+
+            List<double> x = new List<double>();
+            List<double> y = new List<double>();
+            while (start <= end)
+            {
+                x.Add(start);
+                double Y = B.P(start);
                 if (Y > 1.4e87 || Y < -1.4e87)
                 {
                     tbOutput.Text = "Слишком высокая степень полинома";
@@ -914,11 +1010,11 @@ namespace WinFormsAppPolynomial
                     btnInsertB.Enabled = false;
                     return;
                 }
-                y[ind] = Y;
-                ind++;
+                y.Add(Y);
+                start += step;
             }
 
-            ChartOutput f = new ChartOutput(x, y);
+            ChartOutput f = new ChartOutput(x.ToArray(), y.ToArray());
             f.Show();
         }
 
