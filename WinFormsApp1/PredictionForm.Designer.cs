@@ -53,7 +53,6 @@
             this.label6 = new System.Windows.Forms.Label();
             this.tbLagrangeX = new System.Windows.Forms.RichTextBox();
             this.tableLayoutPanel11 = new System.Windows.Forms.TableLayoutPanel();
-            this.btnSquare = new System.Windows.Forms.Button();
             this.tableLayoutPanel23 = new System.Windows.Forms.TableLayoutPanel();
             this.label18 = new System.Windows.Forms.Label();
             this.tbSquareX = new System.Windows.Forms.RichTextBox();
@@ -64,6 +63,9 @@
             this.tableLayoutPanel14 = new System.Windows.Forms.TableLayoutPanel();
             this.label9 = new System.Windows.Forms.Label();
             this.tbSquareN = new System.Windows.Forms.RichTextBox();
+            this.tableLayoutPanel8 = new System.Windows.Forms.TableLayoutPanel();
+            this.bntBestN = new System.Windows.Forms.Button();
+            this.btnSquare = new System.Windows.Forms.Button();
             this.label19 = new System.Windows.Forms.Label();
             this.tbOutput = new System.Windows.Forms.RichTextBox();
             this.tableLayoutPanel15 = new System.Windows.Forms.TableLayoutPanel();
@@ -90,8 +92,6 @@
             this.tableLayoutPanel22 = new System.Windows.Forms.TableLayoutPanel();
             this.label17 = new System.Windows.Forms.Label();
             this.richTextBox14 = new System.Windows.Forms.RichTextBox();
-            this.tableLayoutPanel8 = new System.Windows.Forms.TableLayoutPanel();
-            this.bntBestN = new System.Windows.Forms.Button();
             this.epInputX = new System.Windows.Forms.ErrorProvider(this.components);
             this.epInputY = new System.Windows.Forms.ErrorProvider(this.components);
             this.epLagrangeX = new System.Windows.Forms.ErrorProvider(this.components);
@@ -110,6 +110,7 @@
             this.tableLayoutPanel23.SuspendLayout();
             this.tableLayoutPanel13.SuspendLayout();
             this.tableLayoutPanel14.SuspendLayout();
+            this.tableLayoutPanel8.SuspendLayout();
             this.tableLayoutPanel15.SuspendLayout();
             this.tableLayoutPanel16.SuspendLayout();
             this.tableLayoutPanel17.SuspendLayout();
@@ -118,7 +119,6 @@
             this.tableLayoutPanel20.SuspendLayout();
             this.tableLayoutPanel21.SuspendLayout();
             this.tableLayoutPanel22.SuspendLayout();
-            this.tableLayoutPanel8.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.epInputX)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.epInputY)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.epLagrangeX)).BeginInit();
@@ -268,11 +268,13 @@
             this.tbInputY.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tbInputY.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.tbInputY.Location = new System.Drawing.Point(38, 3);
+            this.tbInputY.Multiline = false;
             this.tbInputY.Name = "tbInputY";
             this.tbInputY.Size = new System.Drawing.Size(299, 33);
             this.tbInputY.TabIndex = 1;
             this.tbInputY.Text = "";
             this.tbInputY.TextChanged += new System.EventHandler(this.tbInputY_TextChanged);
+            this.tbInputY.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tbInputY_KeyDown);
             // 
             // label1
             // 
@@ -318,11 +320,13 @@
             this.tbInputX.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tbInputX.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.tbInputX.Location = new System.Drawing.Point(38, 3);
+            this.tbInputX.Multiline = false;
             this.tbInputX.Name = "tbInputX";
             this.tbInputX.Size = new System.Drawing.Size(299, 33);
             this.tbInputX.TabIndex = 1;
             this.tbInputX.Text = "";
             this.tbInputX.TextChanged += new System.EventHandler(this.tbInputX_TextChanged);
+            this.tbInputX.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tbInputX_KeyDown);
             // 
             // tableLayoutPanel7
             // 
@@ -468,18 +472,6 @@
             this.tableLayoutPanel11.Size = new System.Drawing.Size(346, 205);
             this.tableLayoutPanel11.TabIndex = 3;
             // 
-            // btnSquare
-            // 
-            this.btnSquare.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnSquare.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.btnSquare.Location = new System.Drawing.Point(173, 3);
-            this.btnSquare.Name = "btnSquare";
-            this.btnSquare.Size = new System.Drawing.Size(164, 33);
-            this.btnSquare.TabIndex = 5;
-            this.btnSquare.Text = "Вычислить";
-            this.btnSquare.UseVisualStyleBackColor = true;
-            this.btnSquare.Click += new System.EventHandler(this.btnSquare_Click);
-            // 
             // tableLayoutPanel23
             // 
             this.tableLayoutPanel23.ColumnCount = 2;
@@ -605,6 +597,45 @@
             this.tbSquareN.TabIndex = 1;
             this.tbSquareN.Text = "";
             this.tbSquareN.TextChanged += new System.EventHandler(this.tbSquareN_TextChanged);
+            // 
+            // tableLayoutPanel8
+            // 
+            this.tableLayoutPanel8.ColumnCount = 2;
+            this.tableLayoutPanel8.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel8.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel8.Controls.Add(this.bntBestN, 0, 0);
+            this.tableLayoutPanel8.Controls.Add(this.btnSquare, 1, 0);
+            this.tableLayoutPanel8.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel8.Location = new System.Drawing.Point(3, 163);
+            this.tableLayoutPanel8.Name = "tableLayoutPanel8";
+            this.tableLayoutPanel8.RowCount = 1;
+            this.tableLayoutPanel8.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel8.Size = new System.Drawing.Size(340, 39);
+            this.tableLayoutPanel8.TabIndex = 5;
+            // 
+            // bntBestN
+            // 
+            this.bntBestN.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.bntBestN.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.bntBestN.Location = new System.Drawing.Point(3, 3);
+            this.bntBestN.Name = "bntBestN";
+            this.bntBestN.Size = new System.Drawing.Size(164, 33);
+            this.bntBestN.TabIndex = 6;
+            this.bntBestN.Text = "Оптимальный N";
+            this.bntBestN.UseVisualStyleBackColor = true;
+            this.bntBestN.Click += new System.EventHandler(this.bntBestN_Click);
+            // 
+            // btnSquare
+            // 
+            this.btnSquare.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnSquare.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.btnSquare.Location = new System.Drawing.Point(173, 3);
+            this.btnSquare.Name = "btnSquare";
+            this.btnSquare.Size = new System.Drawing.Size(164, 33);
+            this.btnSquare.TabIndex = 5;
+            this.btnSquare.Text = "Вычислить";
+            this.btnSquare.UseVisualStyleBackColor = true;
+            this.btnSquare.Click += new System.EventHandler(this.btnSquare_Click);
             // 
             // label19
             // 
@@ -914,33 +945,6 @@
             this.richTextBox14.TabIndex = 1;
             this.richTextBox14.Text = "";
             // 
-            // tableLayoutPanel8
-            // 
-            this.tableLayoutPanel8.ColumnCount = 2;
-            this.tableLayoutPanel8.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel8.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel8.Controls.Add(this.bntBestN, 0, 0);
-            this.tableLayoutPanel8.Controls.Add(this.btnSquare, 1, 0);
-            this.tableLayoutPanel8.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel8.Location = new System.Drawing.Point(3, 163);
-            this.tableLayoutPanel8.Name = "tableLayoutPanel8";
-            this.tableLayoutPanel8.RowCount = 1;
-            this.tableLayoutPanel8.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel8.Size = new System.Drawing.Size(340, 39);
-            this.tableLayoutPanel8.TabIndex = 5;
-            // 
-            // bntBestN
-            // 
-            this.bntBestN.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.bntBestN.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.bntBestN.Location = new System.Drawing.Point(3, 3);
-            this.bntBestN.Name = "bntBestN";
-            this.bntBestN.Size = new System.Drawing.Size(164, 33);
-            this.bntBestN.TabIndex = 6;
-            this.bntBestN.Text = "Оптимальный N";
-            this.bntBestN.UseVisualStyleBackColor = true;
-            this.bntBestN.Click += new System.EventHandler(this.bntBestN_Click);
-            // 
             // epInputX
             // 
             this.epInputX.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
@@ -998,6 +1002,7 @@
             this.tableLayoutPanel13.PerformLayout();
             this.tableLayoutPanel14.ResumeLayout(false);
             this.tableLayoutPanel14.PerformLayout();
+            this.tableLayoutPanel8.ResumeLayout(false);
             this.tableLayoutPanel15.ResumeLayout(false);
             this.tableLayoutPanel15.PerformLayout();
             this.tableLayoutPanel16.ResumeLayout(false);
@@ -1014,7 +1019,6 @@
             this.tableLayoutPanel21.PerformLayout();
             this.tableLayoutPanel22.ResumeLayout(false);
             this.tableLayoutPanel22.PerformLayout();
-            this.tableLayoutPanel8.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.epInputX)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.epInputY)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.epLagrangeX)).EndInit();

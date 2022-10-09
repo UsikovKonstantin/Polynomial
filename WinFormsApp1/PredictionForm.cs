@@ -107,6 +107,7 @@ namespace WinFormsAppPolynomial
                 points.Add(new Point(x, y));
                 tbInputX.Text = "";
                 tbInputY.Text = "";
+                tbInputX.Focus();
             }
             else
             {
@@ -218,6 +219,11 @@ namespace WinFormsAppPolynomial
                     tbOutput.Text = "Степень полинома должна быть больше нуля.";
                     return;
                 }
+                if (N > 7)
+                {
+                    tbOutput.Text = "Степень полинома должна быть меньше 8.";
+                    return;
+                }
 
                 PolynomialPrediction polynomial;
                 try
@@ -294,7 +300,7 @@ namespace WinFormsAppPolynomial
             {
                 double? minDelta = double.MaxValue;
                 int N;
-                for (N = 1; N < points.Count; N++)
+                for (N = 1; N < Math.Min(8, points.Count); N++)
                 {
                     PolynomialPrediction pol;
                     try
@@ -365,6 +371,50 @@ namespace WinFormsAppPolynomial
             else
             {
                 tbOutput.Text = "X невозможно привести к числу.";
+            }
+        }
+
+        private void tbInputX_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Up || e.KeyCode == Keys.Down)
+            {
+                if (tbInputX.Focused)
+                {
+                    e.Handled = e.SuppressKeyPress = true;
+                    tbInputY.Focus();
+                }
+                else if (tbInputY.Focused)
+                {
+                    e.Handled = e.SuppressKeyPress = true;
+                    tbInputX.Focus();
+                }
+            }
+            else if (e.KeyCode == Keys.Enter)
+            {
+                e.Handled = e.SuppressKeyPress = true;
+                btnAddPoint_Click(sender, e);
+            }
+        }
+
+        private void tbInputY_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Up || e.KeyCode == Keys.Down)
+            {
+                if (tbInputX.Focused)
+                {
+                    e.Handled = e.SuppressKeyPress = true;
+                    tbInputY.Focus();
+                }
+                else if (tbInputY.Focused)
+                {
+                    e.Handled = e.SuppressKeyPress = true;
+                    tbInputX.Focus();
+                }
+            }
+            else if (e.KeyCode == Keys.Enter)
+            {
+                e.Handled = e.SuppressKeyPress = true;
+                btnAddPoint_Click(sender, e);
             }
         }
     }
