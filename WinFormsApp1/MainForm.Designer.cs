@@ -262,15 +262,15 @@
             // tableLayoutPanel30
             // 
             this.tableLayoutPanel30.ColumnCount = 2;
-            this.tableLayoutPanel30.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 69.50904F));
-            this.tableLayoutPanel30.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 30.49096F));
+            this.tableLayoutPanel30.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 70F));
+            this.tableLayoutPanel30.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 30F));
             this.tableLayoutPanel30.Controls.Add(this.tbBPow, 0, 0);
             this.tableLayoutPanel30.Controls.Add(this.btnBPow, 0, 0);
             this.tableLayoutPanel30.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel30.Location = new System.Drawing.Point(3, 271);
             this.tableLayoutPanel30.Name = "tableLayoutPanel30";
             this.tableLayoutPanel30.RowCount = 1;
-            this.tableLayoutPanel30.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel30.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel30.Size = new System.Drawing.Size(369, 39);
             this.tableLayoutPanel30.TabIndex = 10;
             // 
@@ -278,10 +278,10 @@
             // 
             this.tbBPow.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tbBPow.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.tbBPow.Location = new System.Drawing.Point(259, 3);
+            this.tbBPow.Location = new System.Drawing.Point(261, 3);
             this.tbBPow.MaxLength = 10;
             this.tbBPow.Name = "tbBPow";
-            this.tbBPow.Size = new System.Drawing.Size(107, 33);
+            this.tbBPow.Size = new System.Drawing.Size(105, 33);
             this.tbBPow.TabIndex = 5;
             this.tbBPow.Text = "";
             this.tbBPow.TextChanged += new System.EventHandler(this.tbBPow_TextChanged);
@@ -292,7 +292,7 @@
             this.btnBPow.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.btnBPow.Location = new System.Drawing.Point(3, 3);
             this.btnBPow.Name = "btnBPow";
-            this.btnBPow.Size = new System.Drawing.Size(250, 33);
+            this.btnBPow.Size = new System.Drawing.Size(252, 33);
             this.btnBPow.TabIndex = 2;
             this.btnBPow.Text = "Возвести в степень";
             this.btnBPow.UseVisualStyleBackColor = true;
@@ -301,15 +301,15 @@
             // tableLayoutPanel29
             // 
             this.tableLayoutPanel29.ColumnCount = 2;
-            this.tableLayoutPanel29.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 68.99225F));
-            this.tableLayoutPanel29.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 31.00775F));
+            this.tableLayoutPanel29.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 70F));
+            this.tableLayoutPanel29.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 30F));
             this.tableLayoutPanel29.Controls.Add(this.tbBRoot, 0, 0);
             this.tableLayoutPanel29.Controls.Add(this.btnBGetRoots, 0, 0);
             this.tableLayoutPanel29.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel29.Location = new System.Drawing.Point(3, 316);
             this.tableLayoutPanel29.Name = "tableLayoutPanel29";
             this.tableLayoutPanel29.RowCount = 1;
-            this.tableLayoutPanel29.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel29.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel29.Size = new System.Drawing.Size(369, 39);
             this.tableLayoutPanel29.TabIndex = 9;
             // 
@@ -317,10 +317,10 @@
             // 
             this.tbBRoot.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tbBRoot.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.tbBRoot.Location = new System.Drawing.Point(257, 3);
+            this.tbBRoot.Location = new System.Drawing.Point(261, 3);
             this.tbBRoot.MaxLength = 100;
             this.tbBRoot.Name = "tbBRoot";
-            this.tbBRoot.Size = new System.Drawing.Size(109, 33);
+            this.tbBRoot.Size = new System.Drawing.Size(105, 33);
             this.tbBRoot.TabIndex = 5;
             this.tbBRoot.Text = "";
             this.tbBRoot.TextChanged += new System.EventHandler(this.tbBRoot_TextChanged);
@@ -331,7 +331,7 @@
             this.btnBGetRoots.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.btnBGetRoots.Location = new System.Drawing.Point(3, 3);
             this.btnBGetRoots.Name = "btnBGetRoots";
-            this.btnBGetRoots.Size = new System.Drawing.Size(248, 33);
+            this.btnBGetRoots.Size = new System.Drawing.Size(252, 33);
             this.btnBGetRoots.TabIndex = 2;
             this.btnBGetRoots.Text = "Найти x, если P(x) =";
             this.btnBGetRoots.UseVisualStyleBackColor = true;
@@ -340,15 +340,15 @@
             // tableLayoutPanel19
             // 
             this.tableLayoutPanel19.ColumnCount = 2;
-            this.tableLayoutPanel19.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 69.66581F));
-            this.tableLayoutPanel19.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 30.33419F));
+            this.tableLayoutPanel19.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 70F));
+            this.tableLayoutPanel19.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 30F));
             this.tableLayoutPanel19.Controls.Add(this.tbBInputN, 1, 0);
             this.tableLayoutPanel19.Controls.Add(this.btnBMultiplyByN, 0, 0);
             this.tableLayoutPanel19.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel19.Location = new System.Drawing.Point(3, 226);
             this.tableLayoutPanel19.Name = "tableLayoutPanel19";
             this.tableLayoutPanel19.RowCount = 1;
-            this.tableLayoutPanel19.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel19.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel19.Size = new System.Drawing.Size(369, 39);
             this.tableLayoutPanel19.TabIndex = 6;
             // 
@@ -356,10 +356,10 @@
             // 
             this.tbBInputN.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tbBInputN.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.tbBInputN.Location = new System.Drawing.Point(260, 3);
+            this.tbBInputN.Location = new System.Drawing.Point(261, 3);
             this.tbBInputN.MaxLength = 100;
             this.tbBInputN.Name = "tbBInputN";
-            this.tbBInputN.Size = new System.Drawing.Size(106, 33);
+            this.tbBInputN.Size = new System.Drawing.Size(105, 33);
             this.tbBInputN.TabIndex = 2;
             this.tbBInputN.Text = "";
             this.tbBInputN.TextChanged += new System.EventHandler(this.tbBInputN_TextChanged);
@@ -370,7 +370,7 @@
             this.btnBMultiplyByN.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.btnBMultiplyByN.Location = new System.Drawing.Point(3, 3);
             this.btnBMultiplyByN.Name = "btnBMultiplyByN";
-            this.btnBMultiplyByN.Size = new System.Drawing.Size(251, 33);
+            this.btnBMultiplyByN.Size = new System.Drawing.Size(252, 33);
             this.btnBMultiplyByN.TabIndex = 0;
             this.btnBMultiplyByN.Text = "Умножить на";
             this.btnBMultiplyByN.UseVisualStyleBackColor = true;
@@ -468,15 +468,15 @@
             // tableLayoutPanel22
             // 
             this.tableLayoutPanel22.ColumnCount = 2;
-            this.tableLayoutPanel22.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 69.66581F));
-            this.tableLayoutPanel22.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 30.33419F));
+            this.tableLayoutPanel22.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 70F));
+            this.tableLayoutPanel22.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 30F));
             this.tableLayoutPanel22.Controls.Add(this.tbBInputX, 1, 0);
             this.tableLayoutPanel22.Controls.Add(this.btnBGetValue, 0, 0);
             this.tableLayoutPanel22.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel22.Location = new System.Drawing.Point(3, 181);
             this.tableLayoutPanel22.Name = "tableLayoutPanel22";
             this.tableLayoutPanel22.RowCount = 1;
-            this.tableLayoutPanel22.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel22.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel22.Size = new System.Drawing.Size(369, 39);
             this.tableLayoutPanel22.TabIndex = 5;
             // 
@@ -484,10 +484,10 @@
             // 
             this.tbBInputX.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tbBInputX.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.tbBInputX.Location = new System.Drawing.Point(260, 3);
+            this.tbBInputX.Location = new System.Drawing.Point(261, 3);
             this.tbBInputX.MaxLength = 100;
             this.tbBInputX.Name = "tbBInputX";
-            this.tbBInputX.Size = new System.Drawing.Size(106, 33);
+            this.tbBInputX.Size = new System.Drawing.Size(105, 33);
             this.tbBInputX.TabIndex = 2;
             this.tbBInputX.Text = "";
             this.tbBInputX.TextChanged += new System.EventHandler(this.tbBInputX_TextChanged);
@@ -498,7 +498,7 @@
             this.btnBGetValue.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.btnBGetValue.Location = new System.Drawing.Point(3, 3);
             this.btnBGetValue.Name = "btnBGetValue";
-            this.btnBGetValue.Size = new System.Drawing.Size(251, 33);
+            this.btnBGetValue.Size = new System.Drawing.Size(252, 33);
             this.btnBGetValue.TabIndex = 0;
             this.btnBGetValue.Text = "Значение в точке";
             this.btnBGetValue.UseVisualStyleBackColor = true;
@@ -596,8 +596,8 @@
             this.tableLayoutPanel24.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel24.Location = new System.Drawing.Point(382, 3);
             this.tableLayoutPanel24.Name = "tableLayoutPanel24";
-            this.tableLayoutPanel24.RowCount = 8;
-            this.tableLayoutPanel24.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel24.RowCount = 9;
+            this.tableLayoutPanel24.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 70F));
             this.tableLayoutPanel24.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 45F));
             this.tableLayoutPanel24.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 45F));
             this.tableLayoutPanel24.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 45F));
@@ -605,6 +605,7 @@
             this.tableLayoutPanel24.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 45F));
             this.tableLayoutPanel24.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 45F));
             this.tableLayoutPanel24.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 60F));
+            this.tableLayoutPanel24.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 30F));
             this.tableLayoutPanel24.Size = new System.Drawing.Size(144, 449);
             this.tableLayoutPanel24.TabIndex = 2;
             // 
@@ -612,7 +613,7 @@
             // 
             this.btnSwap.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnSwap.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.btnSwap.Location = new System.Drawing.Point(25, 126);
+            this.btnSwap.Location = new System.Drawing.Point(25, 90);
             this.btnSwap.Margin = new System.Windows.Forms.Padding(25, 7, 25, 7);
             this.btnSwap.Name = "btnSwap";
             this.btnSwap.Size = new System.Drawing.Size(94, 31);
@@ -625,7 +626,7 @@
             // 
             this.btnAdd.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnAdd.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.btnAdd.Location = new System.Drawing.Point(25, 171);
+            this.btnAdd.Location = new System.Drawing.Point(25, 135);
             this.btnAdd.Margin = new System.Windows.Forms.Padding(25, 7, 25, 7);
             this.btnAdd.Name = "btnAdd";
             this.btnAdd.Size = new System.Drawing.Size(94, 31);
@@ -638,7 +639,7 @@
             // 
             this.btnSubtract.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnSubtract.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.btnSubtract.Location = new System.Drawing.Point(25, 216);
+            this.btnSubtract.Location = new System.Drawing.Point(25, 180);
             this.btnSubtract.Margin = new System.Windows.Forms.Padding(25, 7, 25, 7);
             this.btnSubtract.Name = "btnSubtract";
             this.btnSubtract.Size = new System.Drawing.Size(94, 31);
@@ -651,7 +652,7 @@
             // 
             this.btnMultiply.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnMultiply.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.btnMultiply.Location = new System.Drawing.Point(25, 261);
+            this.btnMultiply.Location = new System.Drawing.Point(25, 225);
             this.btnMultiply.Margin = new System.Windows.Forms.Padding(25, 7, 25, 7);
             this.btnMultiply.Name = "btnMultiply";
             this.btnMultiply.Size = new System.Drawing.Size(94, 31);
@@ -664,7 +665,7 @@
             // 
             this.btnDivide.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnDivide.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.btnDivide.Location = new System.Drawing.Point(25, 306);
+            this.btnDivide.Location = new System.Drawing.Point(25, 270);
             this.btnDivide.Margin = new System.Windows.Forms.Padding(25, 7, 25, 7);
             this.btnDivide.Name = "btnDivide";
             this.btnDivide.Size = new System.Drawing.Size(94, 31);
@@ -677,7 +678,7 @@
             // 
             this.btnMod.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnMod.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.btnMod.Location = new System.Drawing.Point(25, 351);
+            this.btnMod.Location = new System.Drawing.Point(25, 315);
             this.btnMod.Margin = new System.Windows.Forms.Padding(25, 7, 25, 7);
             this.btnMod.Name = "btnMod";
             this.btnMod.Size = new System.Drawing.Size(94, 31);
@@ -690,7 +691,7 @@
             // 
             this.btnInterpolationExtrapolation.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnInterpolationExtrapolation.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.btnInterpolationExtrapolation.Location = new System.Drawing.Point(18, 396);
+            this.btnInterpolationExtrapolation.Location = new System.Drawing.Point(18, 360);
             this.btnInterpolationExtrapolation.Margin = new System.Windows.Forms.Padding(18, 7, 18, 7);
             this.btnInterpolationExtrapolation.Name = "btnInterpolationExtrapolation";
             this.btnInterpolationExtrapolation.Size = new System.Drawing.Size(108, 46);
@@ -732,15 +733,15 @@
             // tableLayoutPanel28
             // 
             this.tableLayoutPanel28.ColumnCount = 2;
-            this.tableLayoutPanel28.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 68.48341F));
-            this.tableLayoutPanel28.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 31.51659F));
+            this.tableLayoutPanel28.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 70F));
+            this.tableLayoutPanel28.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 30F));
             this.tableLayoutPanel28.Controls.Add(this.tbARoot, 1, 0);
             this.tableLayoutPanel28.Controls.Add(this.btnAGetRoots, 0, 0);
             this.tableLayoutPanel28.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel28.Location = new System.Drawing.Point(3, 316);
             this.tableLayoutPanel28.Name = "tableLayoutPanel28";
             this.tableLayoutPanel28.RowCount = 1;
-            this.tableLayoutPanel28.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel28.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel28.Size = new System.Drawing.Size(367, 39);
             this.tableLayoutPanel28.TabIndex = 9;
             // 
@@ -748,10 +749,10 @@
             // 
             this.tbARoot.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tbARoot.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.tbARoot.Location = new System.Drawing.Point(254, 3);
+            this.tbARoot.Location = new System.Drawing.Point(259, 3);
             this.tbARoot.MaxLength = 100;
             this.tbARoot.Name = "tbARoot";
-            this.tbARoot.Size = new System.Drawing.Size(110, 33);
+            this.tbARoot.Size = new System.Drawing.Size(105, 33);
             this.tbARoot.TabIndex = 3;
             this.tbARoot.Text = "";
             this.tbARoot.TextChanged += new System.EventHandler(this.tbARoot_TextChanged);
@@ -762,7 +763,7 @@
             this.btnAGetRoots.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.btnAGetRoots.Location = new System.Drawing.Point(3, 3);
             this.btnAGetRoots.Name = "btnAGetRoots";
-            this.btnAGetRoots.Size = new System.Drawing.Size(245, 33);
+            this.btnAGetRoots.Size = new System.Drawing.Size(250, 33);
             this.btnAGetRoots.TabIndex = 2;
             this.btnAGetRoots.Text = "Найти x, если P(x) = ";
             this.btnAGetRoots.UseVisualStyleBackColor = true;
@@ -810,15 +811,15 @@
             // tableLayoutPanel7
             // 
             this.tableLayoutPanel7.ColumnCount = 2;
-            this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 69.66581F));
-            this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 30.33419F));
+            this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 70F));
+            this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 30F));
             this.tableLayoutPanel7.Controls.Add(this.tbAInputN, 1, 0);
             this.tableLayoutPanel7.Controls.Add(this.btnAMultiplyByN, 0, 0);
             this.tableLayoutPanel7.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel7.Location = new System.Drawing.Point(3, 226);
             this.tableLayoutPanel7.Name = "tableLayoutPanel7";
             this.tableLayoutPanel7.RowCount = 1;
-            this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel7.Size = new System.Drawing.Size(367, 39);
             this.tableLayoutPanel7.TabIndex = 6;
             // 
@@ -826,10 +827,10 @@
             // 
             this.tbAInputN.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tbAInputN.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.tbAInputN.Location = new System.Drawing.Point(258, 3);
+            this.tbAInputN.Location = new System.Drawing.Point(259, 3);
             this.tbAInputN.MaxLength = 100;
             this.tbAInputN.Name = "tbAInputN";
-            this.tbAInputN.Size = new System.Drawing.Size(106, 33);
+            this.tbAInputN.Size = new System.Drawing.Size(105, 33);
             this.tbAInputN.TabIndex = 2;
             this.tbAInputN.Text = "";
             this.tbAInputN.TextChanged += new System.EventHandler(this.tbAInputN_TextChanged);
@@ -840,7 +841,7 @@
             this.btnAMultiplyByN.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.btnAMultiplyByN.Location = new System.Drawing.Point(3, 3);
             this.btnAMultiplyByN.Name = "btnAMultiplyByN";
-            this.btnAMultiplyByN.Size = new System.Drawing.Size(249, 33);
+            this.btnAMultiplyByN.Size = new System.Drawing.Size(250, 33);
             this.btnAMultiplyByN.TabIndex = 0;
             this.btnAMultiplyByN.Text = "Умножить на";
             this.btnAMultiplyByN.UseVisualStyleBackColor = true;
@@ -938,15 +939,15 @@
             // tableLayoutPanel6
             // 
             this.tableLayoutPanel6.ColumnCount = 2;
-            this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 69.66581F));
-            this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 30.33419F));
+            this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 70F));
+            this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 30F));
             this.tableLayoutPanel6.Controls.Add(this.tbAInputX, 1, 0);
             this.tableLayoutPanel6.Controls.Add(this.btnAGetValue, 0, 0);
             this.tableLayoutPanel6.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel6.Location = new System.Drawing.Point(3, 181);
             this.tableLayoutPanel6.Name = "tableLayoutPanel6";
             this.tableLayoutPanel6.RowCount = 1;
-            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel6.Size = new System.Drawing.Size(367, 39);
             this.tableLayoutPanel6.TabIndex = 5;
             // 
@@ -954,10 +955,10 @@
             // 
             this.tbAInputX.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tbAInputX.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.tbAInputX.Location = new System.Drawing.Point(258, 3);
+            this.tbAInputX.Location = new System.Drawing.Point(259, 3);
             this.tbAInputX.MaxLength = 100;
             this.tbAInputX.Name = "tbAInputX";
-            this.tbAInputX.Size = new System.Drawing.Size(106, 33);
+            this.tbAInputX.Size = new System.Drawing.Size(105, 33);
             this.tbAInputX.TabIndex = 2;
             this.tbAInputX.Text = "";
             this.tbAInputX.TextChanged += new System.EventHandler(this.tbAInputX_TextChanged);
@@ -968,7 +969,7 @@
             this.btnAGetValue.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.btnAGetValue.Location = new System.Drawing.Point(3, 3);
             this.btnAGetValue.Name = "btnAGetValue";
-            this.btnAGetValue.Size = new System.Drawing.Size(249, 33);
+            this.btnAGetValue.Size = new System.Drawing.Size(250, 33);
             this.btnAGetValue.TabIndex = 0;
             this.btnAGetValue.Text = "Значение в точке";
             this.btnAGetValue.UseVisualStyleBackColor = true;
@@ -1016,15 +1017,15 @@
             // tableLayoutPanel9
             // 
             this.tableLayoutPanel9.ColumnCount = 2;
-            this.tableLayoutPanel9.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 68.72038F));
-            this.tableLayoutPanel9.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 31.27962F));
+            this.tableLayoutPanel9.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 70F));
+            this.tableLayoutPanel9.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 30F));
             this.tableLayoutPanel9.Controls.Add(this.tbAPow, 1, 0);
             this.tableLayoutPanel9.Controls.Add(this.btnAPow, 0, 0);
             this.tableLayoutPanel9.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel9.Location = new System.Drawing.Point(3, 271);
             this.tableLayoutPanel9.Name = "tableLayoutPanel9";
             this.tableLayoutPanel9.RowCount = 1;
-            this.tableLayoutPanel9.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel9.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel9.Size = new System.Drawing.Size(367, 39);
             this.tableLayoutPanel9.TabIndex = 8;
             // 
@@ -1032,10 +1033,10 @@
             // 
             this.tbAPow.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tbAPow.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.tbAPow.Location = new System.Drawing.Point(255, 3);
+            this.tbAPow.Location = new System.Drawing.Point(259, 3);
             this.tbAPow.MaxLength = 10;
             this.tbAPow.Name = "tbAPow";
-            this.tbAPow.Size = new System.Drawing.Size(109, 33);
+            this.tbAPow.Size = new System.Drawing.Size(105, 33);
             this.tbAPow.TabIndex = 4;
             this.tbAPow.Text = "";
             this.tbAPow.TextChanged += new System.EventHandler(this.tbAPow_TextChanged);
@@ -1046,7 +1047,7 @@
             this.btnAPow.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.btnAPow.Location = new System.Drawing.Point(3, 3);
             this.btnAPow.Name = "btnAPow";
-            this.btnAPow.Size = new System.Drawing.Size(246, 33);
+            this.btnAPow.Size = new System.Drawing.Size(250, 33);
             this.btnAPow.TabIndex = 3;
             this.btnAPow.Text = "Возвести в степень";
             this.btnAPow.UseVisualStyleBackColor = true;
