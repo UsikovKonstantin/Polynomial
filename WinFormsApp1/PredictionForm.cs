@@ -299,13 +299,13 @@ namespace WinFormsAppPolynomial
             if (double.TryParse(tbSquareX.Text, out double x))
             {
                 double? minDelta = double.MaxValue;
-                int N;
-                for (N = 1; N < Math.Min(8, points.Count); N++)
+                int N = 1;
+                for (int n = 1; n < Math.Min(8, points.Count); n++)
                 {
                     PolynomialPrediction pol;
                     try
                     {
-                        pol = new PolynomialPrediction(N, points.ToArray());
+                        pol = new PolynomialPrediction(n, points.ToArray());
                     }
                     catch (Exception)
                     {
@@ -317,13 +317,10 @@ namespace WinFormsAppPolynomial
                     if (curDelta < minDelta)
                     {
                         minDelta = curDelta;
-                    }
-                    else
-                    {
-                        break;
+                        N = n;
                     }
                 }
-                PolynomialPrediction polynomial = new PolynomialPrediction(N - 1, points.ToArray());
+                PolynomialPrediction polynomial = new PolynomialPrediction(N, points.ToArray());
 
                 double xMin = double.MaxValue;
                 double xMax = double.MinValue;
@@ -363,7 +360,7 @@ namespace WinFormsAppPolynomial
                 charts.Add(plot.plt.PlotScatter(X.ToArray(), Y.ToArray(), Color.Black, 2, 0));
                 redPoints.Add(plot.plt.AddPoint(x, polynomial.P(x), Color.Red, 10));
                 plot.Refresh();
-                tbSquareN.Text = (N - 1).ToString();
+                tbSquareN.Text = N.ToString();
                 tbSquareY.Text = polynomial.P(x).ToString();
                 tbOutput.Text = "Полученный полином:\n" + polynomial.ToString() + "\n";
                 tbOutput.Text += "Среднеквадратичное отклонение:\n" + polynomial.GetDelta(points.ToArray()).ToString();
