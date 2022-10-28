@@ -98,7 +98,7 @@ namespace ClassLibraryPolynomial
         /// <param name="coefs"> набор коэффициентов </param>
         public Polynomial(double[] coefs)
         {
-            n = coefs.Count() - 1;
+            n = coefs.Length - 1;
             this.coefs = coefs;
         }
         #endregion
@@ -291,25 +291,19 @@ namespace ClassLibraryPolynomial
             int n = p1.n;
             int m = p2.n;
             if (n < m)
-            {
                 return new Polynomial(0);
-            }
             double d;
             double[] pCoef = new double[n - m + 1];
             double[] tCoef = new double[n + 1];
             for (int i = 0; i <= n; i++)
-            {
                 tCoef[i] = p1.coefs[i];
-            }
             for (int i = 0; i <= n - m; i++)
             {
                 d = tCoef[n - i] / p2.coefs[m];
                 pCoef[n - m - i] = d;
                 tCoef[n - i] = 0;
                 for (int k = 1; k <= m; k++)
-                {
                     tCoef[n - i - k] -= d * p2.coefs[m - k];
-                }
             }
             return new Polynomial(pCoef);
         }
@@ -322,42 +316,31 @@ namespace ClassLibraryPolynomial
         /// <returns> полином - остаток от деления нацело </returns>
         public static Polynomial operator %(Polynomial p1, Polynomial p2)
         {
-            int n = p1.n;
-            int m = p2.n;
+            int n = p1.n, m = p2.n;
             if (n < m)
-            {
                 return new Polynomial(p1.coefs);
-            }
             double d;
             double[] pCoef = new double[n - m + 1];
             double[] tCoef = new double[n + 1];
             for (int i = 0; i <= n; i++)
-            {
                 tCoef[i] = p1.coefs[i];
-            }
             for (int i = 0; i <= n - m; i++)
             {
                 d = tCoef[n - i] / p2.coefs[m];
                 pCoef[n - m - i] = d;
                 tCoef[n - i] = 0;
                 for (int k = 1; k <= m; k++)
-                {
                     tCoef[n - i - k] -= d * p2.coefs[m - k];
-                }
             }
             int j = 0;
             while (j <= n && tCoef[n - j] == 0)
-            {
                 j++;
-            }
             double[] resCoef = new double[1];
             if (j <= n)
             {
                 resCoef = new double[n - j + 1];
                 for (int i = 0; i <= n - j; i++)
-                {
                     resCoef[i] = tCoef[i];
-                }
             }
             return new Polynomial(resCoef);
         }
