@@ -378,7 +378,7 @@
             Matrix transBasicFuncMatr = basicFuncMatr.Transposition();
             // Произведение транспонированного  МЗБФ на МЗБФ
             Matrix lambda = transBasicFuncMatr * basicFuncMatr;
-            // Произведение транспонированого МЗБФ на следящую матрицу 
+            // Произведение транспонированого МЗБФ на матрицу значений
             double[] Y = new double[points.Length];
             for (int i = 0; i < Y.Length; i++)
                 Y[i] = points[i].Y;
@@ -388,9 +388,7 @@
             // Получение результирующего полинома
             double[] coeff = new double[a.RowCount];
             for (int i = 0; i < coeff.Length; i++)
-            {
                 coeff[i] = a.Args[i, 0];
-            }
             return new PolynomialWithRoots(coeff);
         }
         #endregion
@@ -402,15 +400,13 @@
         /// <param name="p"> полином </param>
         /// <param name="points"> точки </param>
         /// <returns> среднеквадратичное отклонение </returns>
-        public double? GetDelta(Point[] points)
+        public double GetDelta(Point[] points)
         {
-            if (Coefs == null) return null;
             double[] dif = new double[points.Length];
             double[] f = new double[points.Length];
             for (int i = 0; i < points.Length; i++)
             {
-                for (int j = 0; j < coefs.Length; j++)
-                    f[i] += coefs[j] * Math.Pow(points[i].X, j);
+                f[i] = P(points[i].X);
                 dif[i] = Math.Pow(f[i] - points[i].Y, 2);
             }
             return Math.Sqrt(dif.Sum() / points.Length);
