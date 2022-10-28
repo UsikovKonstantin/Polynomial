@@ -222,14 +222,12 @@ namespace ClassLibraryPolynomial
             int m = Math.Min(p1.n, p2.n);
             int n = Math.Max(p1.n, p2.n);
             double[] resCoef = new double[n + 1];
+            // Сложение коэффициентов, которые есть в 1-ом и 2-ом полиномах
             for (int i = 0; i <= m; i++)
-            {
                 resCoef[i] = p1.coefs[i] + p2.coefs[i];
-            }
+            // Копирование коэффициентов, которые есть только в одном полиноме
             for (int i = m + 1; i <= n; i++)
-            {
                 resCoef[i] = (p1.n >= p2.n) ? p1.coefs[i] : p2.coefs[i];
-            }
             return new Polynomial(resCoef);
         }
 
@@ -244,14 +242,12 @@ namespace ClassLibraryPolynomial
             int m = Math.Min(p1.n, p2.n);
             int n = Math.Max(p1.n, p2.n);
             double[] resCoef = new double[n + 1];
+            // Вычитание коэффициентов, которые есть в 1-ом и 2-ом полиномах
             for (int i = 0; i <= m; i++)
-            {
                 resCoef[i] = p1.coefs[i] - p2.coefs[i];
-            }
+            // Копирование коэффициентов, которые есть только в одном полиноме
             for (int i = m + 1; i <= n; i++)
-            {
                 resCoef[i] = (p1.n >= p2.n) ? p1.coefs[i] : -p2.coefs[i];
-            }
             return new Polynomial(resCoef);
         }
 
@@ -266,17 +262,13 @@ namespace ClassLibraryPolynomial
             int n = p1.n;
             int m = p2.n;
             double[] resCoef = new double[n + m + 1];
-            for (int i = 0; i <= n + m; i++)
-            {
-                for (int k = 0; k <= Math.Min(i, n); k++)
+            for (int i = 0; i <= n + m; i++)  // i указывает на индекс в итоговом массиве
+                for (int k = 0; k <= Math.Min(i, n); k++)  // k указывает на индекс элемента в полиноме с меньшей степенью
                 {
-                    int j = i - k;
-                    if (j <= m)
-                    {
+                    int j = i - k;  // j указывает на индекс элемента в полиноме с большей степенью
+                    if (j <= m)  // если j не вышло за границы массива коэффициентов
                         resCoef[i] += p1.coefs[k] * p2.coefs[j];
-                    }
                 }
-            }
             return new Polynomial(resCoef);
         }
 
@@ -288,22 +280,20 @@ namespace ClassLibraryPolynomial
         /// <returns> полином - результат деления нацело </returns>
         public static Polynomial operator /(Polynomial p1, Polynomial p2)
         {
-            int n = p1.n;
-            int m = p2.n;
-            if (n < m)
+            int n = p1.n, m = p2.n;
+            if (n < m)  // если степень первого полинома меньше степени второго, то результат деления нацело - 0
                 return new Polynomial(0);
-            double d;
-            double[] pCoef = new double[n - m + 1];
-            double[] tCoef = new double[n + 1];
+            double[] pCoef = new double[n - m + 1];  // коэффициенты итогового полинома 
+            double[] tCoef = new double[n + 1];  // коэффициенты делимого
             for (int i = 0; i <= n; i++)
                 tCoef[i] = p1.coefs[i];
             for (int i = 0; i <= n - m; i++)
             {
-                d = tCoef[n - i] / p2.coefs[m];
+                double d = tCoef[n - i] / p2.coefs[m];  // коэффициент итогового полинома
                 pCoef[n - m - i] = d;
-                tCoef[n - i] = 0;
+                tCoef[n - i] = 0;  // старший коэффициент делимого уничтожается
                 for (int k = 1; k <= m; k++)
-                    tCoef[n - i - k] -= d * p2.coefs[m - k];
+                    tCoef[n - i - k] -= d * p2.coefs[m - k];  // вычитание из делимого результата умножения d на p2
             }
             return new Polynomial(pCoef);
         }
@@ -317,30 +307,29 @@ namespace ClassLibraryPolynomial
         public static Polynomial operator %(Polynomial p1, Polynomial p2)
         {
             int n = p1.n, m = p2.n;
-            if (n < m)
+            if (n < m)  // если степень первого полинома меньше степени второго, то остаток от деления нацело - первый полином
                 return new Polynomial(p1.coefs);
-            double d;
-            double[] pCoef = new double[n - m + 1];
+            double[] pCoef = new double[n - m + 1]; 
             double[] tCoef = new double[n + 1];
             for (int i = 0; i <= n; i++)
                 tCoef[i] = p1.coefs[i];
             for (int i = 0; i <= n - m; i++)
             {
-                d = tCoef[n - i] / p2.coefs[m];
+                double d = tCoef[n - i] / p2.coefs[m];
                 pCoef[n - m - i] = d;
                 tCoef[n - i] = 0;
                 for (int k = 1; k <= m; k++)
                     tCoef[n - i - k] -= d * p2.coefs[m - k];
             }
             int j = 0;
-            while (j <= n && tCoef[n - j] == 0)
+            while (j <= n && tCoef[n - j] == 0)  // поиск ненулевого элемента в массиве tCoef
                 j++;
             double[] resCoef = new double[1];
-            if (j <= n)
+            if (j <= n)  // если был найден ненулевой элемент (остаток не равен нулю)
             {
                 resCoef = new double[n - j + 1];
                 for (int i = 0; i <= n - j; i++)
-                    resCoef[i] = tCoef[i];
+                    resCoef[i] = tCoef[i];  // копируем коэффициенты из массива tCoef
             }
             return new Polynomial(resCoef);
         }
@@ -356,13 +345,9 @@ namespace ClassLibraryPolynomial
             int k = p.n;
             double[] resCoefs = new double[k + 1];
             for (int i = 0; i <= k; i++)
-            {
-                resCoefs[i] = p.coefs[i];
-            }
+                resCoefs[i] = p.coefs[i];  // копируем коэффициенты из полинома
             for (int i = 0; i <= k; i++)
-            {
-                resCoefs[i] *= n;
-            }
+                resCoefs[i] *= n;  // умножаем коэффициенты на число
             return new Polynomial(resCoefs);
         }
 
@@ -377,13 +362,9 @@ namespace ClassLibraryPolynomial
             int k = p.n;
             double[] resCoefs = new double[k + 1];
             for (int i = 0; i <= k; i++)
-            {
-                resCoefs[i] = p.coefs[i];
-            }
+                resCoefs[i] = p.coefs[i];  // копируем коэффициенты из полинома
             for (int i = 0; i <= k; i++)
-            {
-                resCoefs[i] *= n;
-            }
+                resCoefs[i] *= n;  // умножаем коэффициенты на число
             return new Polynomial(resCoefs);
         }
         #endregion
@@ -400,9 +381,9 @@ namespace ClassLibraryPolynomial
             int m = Math.Min(p1.n, p2.n);
             int n = Math.Max(p1.n, p2.n);
             for (int i = 0; i <= m; i++)
-                if (p1.coefs[i] != p2.coefs[i])
+                if (p1.coefs[i] != p2.coefs[i])  // сравнение коэффициентов, которые есть в обоих полиномах
                     return false;
-            for (int i = m + 1; i <= n; i++)
+            for (int i = m + 1; i <= n; i++)  // проверка коэффициентов, которые есть только в одном полиноме
                 if (p1.n >= p2.n)
                 {
                     if (p1.coefs[i] != 0)
@@ -427,9 +408,9 @@ namespace ClassLibraryPolynomial
             int m = Math.Min(p1.n, p2.n);
             int n = Math.Max(p1.n, p2.n);
             for (int i = 0; i <= m; i++)
-                if (p1.coefs[i] != p2.coefs[i])
+                if (p1.coefs[i] != p2.coefs[i])  // сравнение коэффициентов, которые есть в обоих полиномах
                     return true;
-            for (int i = m + 1; i <= n; i++)
+            for (int i = m + 1; i <= n; i++)  // проверка коэффициентов, которые есть только в одном полиноме
                 if (p1.n >= p2.n)
                 {
                     if (p1.coefs[i] != 0)
@@ -455,9 +436,9 @@ namespace ClassLibraryPolynomial
                 int m = Math.Min(this.n, p.n);
                 int n = Math.Max(this.n, p.n);
                 for (int i = 0; i <= m; i++)
-                    if (coefs[i] != p.coefs[i])
+                    if (coefs[i] != p.coefs[i])  // сравнение коэффициентов, которые есть в обоих полиномах
                         return false;
-                for (int i = m + 1; i <= n; i++)
+                for (int i = m + 1; i <= n; i++)  // проверка коэффициентов, которые есть только в одном полиноме
                     if (this.n >= p.n)
                     {
                         if (coefs[i] != 0)
@@ -500,9 +481,7 @@ namespace ClassLibraryPolynomial
         {
             double res = 0;
             for (int i = n; i >= 0; i--)
-            {
                 res = res * x + coefs[i];
-            }
             return res;
         }
 
@@ -514,9 +493,7 @@ namespace ClassLibraryPolynomial
         {
             double[] resCoefs = new double[n];
             for (int i = n; i > 0; i--)
-            {
                 resCoefs[i - 1] = i * coefs[i];
-            }
             return new Polynomial(resCoefs);
         }
 
@@ -528,10 +505,7 @@ namespace ClassLibraryPolynomial
         {
             double[] resCoefs = new double[n + 2];
             for (int i = n + 1; i > 0; i--)
-            {
                 resCoefs[i] = coefs[i - 1] / i;
-            }
-            resCoefs[0] = 0;
             return new Polynomial(resCoefs);
         }
 
