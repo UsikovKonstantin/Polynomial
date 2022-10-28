@@ -487,8 +487,9 @@ namespace ClassLibraryPolynomial
                 return hash;
             }
         }
-        #endregion 
+        #endregion
 
+        #region Методы
         /// <summary>
         /// Вычисление значения полинома в точке x.
         /// Схема Горнера.
@@ -548,5 +549,6 @@ namespace ClassLibraryPolynomial
             }
             return polynomial;
         }
+        #endregion
     }
 }
