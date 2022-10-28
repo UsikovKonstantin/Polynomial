@@ -233,23 +233,22 @@
     /// </summary>
     public class PolynomialPrediction : PolynomialWithRoots
     {
+        #region Поля
         private Point[] points = new Point[0];  // точки, по которым строится полином
         // Свойство для доступа к точкам
         public Point[] Points
         {
             get { return points; }
         }
+        #endregion
 
-        #region Конструкторы
+        #region Констукторы, вызывающие базовые конструкторы
         /// <summary>
         /// Конструктор по умолчанию.
         /// Создает полином второй степени и задаёт корни.
         /// </summary>
         public PolynomialPrediction() : base()
-        {
-            roots.Add(1);
-            roots.Add(2);
-        }
+        { }
 
         /// <summary>
         /// Конструктор.
@@ -296,35 +295,11 @@
         /// Создает полином, используя переданные корни.
         /// </summary>
         /// <param name="roots"> корни полинома </param>
-        public PolynomialPrediction(List<double> roots)
-        {
-            n = roots.Count;
-            this.roots = roots;
-            coefs = RootsToCoefficients();
-        }
+        public PolynomialPrediction(List<double> roots) : base(roots)
+        { }
+        #endregion
 
-        /// <summary>
-        /// Переход от корней к коэффициентам.
-        /// </summary>
-        /// <returns> коэффициенты полинома </returns>
-        private double[] RootsToCoefficients()
-        {
-            int m = roots.Count;
-            double[] coefs = new double[m + 1];
-            coefs[0] = -roots[0];
-            coefs[1] = 1;
-            for (int k = 1; k < m; k++)
-            {
-                coefs[k + 1] = 1;
-                for (int i = k; i > 0; i--)
-                {
-                    coefs[i] = -coefs[i] * roots[k] + coefs[i - 1];
-                }
-                coefs[0] = -coefs[0] * roots[k];
-            }
-            return coefs;
-        }
-
+        #region Конструктор полинома Лагранжа (интерполяция)
         /// <summary>
         /// Конструктор.
         /// Создаёт интерполяционный полином Лагранжа по заданным точкам.
@@ -332,11 +307,15 @@
         /// <param name="points"> массив точек </param>
         public PolynomialPrediction(Point[] points)
         {
-            PolynomialPrediction t = GetPredictionPolynomial(points);
-            coefs = t.coefs;
-            n = t.n;
-            roots = t.roots;
-            stationaryPoints = t.stationaryPoints;
+            PolynomialWithRoots p = new PolynomialWithRoots(new double[] { 0 });
+            for (int i = 0; i < points.Length; i++)
+            {
+                p += L(i, points) * points[i].Y;
+            }
+            coefs = p.Coefs;
+            n = p.N;
+            roots = p.Roots;
+            stationaryPoints = p.StationaryPoints;
             this.points = points;
         }
 
@@ -346,35 +325,20 @@
         /// <param name="index"> индекс X </param>
         /// <param name="points"> массив точек </param>
         /// <returns></returns>
-        private PolynomialPrediction L(int index, Point[] points)
+        private PolynomialWithRoots L(int index, Point[] points)
         {
-            PolynomialPrediction L = new PolynomialPrediction(new double[] { 1 });
+            PolynomialWithRoots L = new PolynomialWithRoots(new double[] { 1 });
             for (int i = 0; i < points.Length; i++)
-            {
                 if (i != index)
                 {
-                    PolynomialPrediction r = new PolynomialPrediction(new double[] { -points[i].X, 1 });
+                    PolynomialWithRoots r = new PolynomialWithRoots(new double[] { -points[i].X, 1 });
                     L *= r * (1 / (points[index].X - points[i].X));
                 }
-            }
             return L;
         }
+        #endregion
 
-        /// <summary>
-        /// Построение полинома Лагранжа по точкам.
-        /// </summary>
-        /// <param name="points"> точки </param>
-        /// <returns> полином Лагранжа </returns>
-        private PolynomialPrediction GetPredictionPolynomial(Point[] points)
-        {
-            PolynomialPrediction p = new PolynomialPrediction(new double[] { 0 });
-            for (int i = 0; i < points.Length; i++)
-            {
-                p += L(i, points) * points[i].Y;
-            }
-            return p;
-        }
-
+        #region Конструктор по методу наименьших квадратов (экстраполяция)
         /// <summary>
         /// Конструктор.
         /// Создаёт экстраполяционный полином методом наименьших квадратов.
@@ -383,11 +347,11 @@
         /// <param name="points"> массив точек </param>
         public PolynomialPrediction(int m, Point[] points)
         {
-            PolynomialPrediction t = LeastSquaresMethod(m, points);
-            coefs = t.coefs;
-            n = t.n;
-            roots = t.roots;
-            stationaryPoints = t.stationaryPoints;
+            PolynomialWithRoots p = LeastSquaresMethod(m, points);
+            coefs = p.Coefs;
+            n = p.N;
+            roots = p.Roots;
+            stationaryPoints = p.StationaryPoints;
             this.points = points;
         }
 
@@ -397,7 +361,7 @@
         /// <param name="m"> порядок полинома </param>
         /// <param name="points"> массив точек </param>
         /// <returns> экстраполяционный полином </returns>
-        public PolynomialPrediction LeastSquaresMethod(int m, Point[] points)
+        public PolynomialWithRoots LeastSquaresMethod(int m, Point[] points)
         {
             if (m <= 0) throw new ArgumentException("Порядок полинома должен быть больше 0");
             if (m >= points.Length) throw new ArgumentException("Порядок полинома должен быть на много меньше количества точек!");
@@ -427,216 +391,11 @@
             {
                 coeff[i] = a.Args[i, 0];
             }
-            return new PolynomialPrediction(coeff);
+            return new PolynomialWithRoots(coeff);
         }
         #endregion
 
-        #region Арифметические операции
-        /// <summary>
-        /// Сложение полиномов.
-        /// </summary>
-        /// <param name="p1"> первый полином </param>
-        /// <param name="p2"> второй полином </param>
-        /// <returns> сумма полиномов </returns>
-        public static PolynomialPrediction operator +(PolynomialPrediction p1, PolynomialPrediction p2)
-        {
-            int m = Math.Min(p1.n, p2.n);
-            int n = Math.Max(p1.n, p2.n);
-            double[] resCoef = new double[n + 1];
-            for (int i = 0; i <= m; i++)
-            {
-                resCoef[i] = p1.coefs[i] + p2.coefs[i];
-            }
-            for (int i = m + 1; i <= n; i++)
-            {
-                resCoef[i] = (p1.n >= p2.n) ? p1.coefs[i] : p2.coefs[i];
-            }
-            return new PolynomialPrediction(resCoef);
-        }
-
-        /// <summary>
-        /// Вычитание полиномов.
-        /// </summary>
-        /// <param name="p1"> первый полином </param>
-        /// <param name="p2"> второй полином </param>
-        /// <returns> разность полиномов </returns>
-        public static PolynomialPrediction operator -(PolynomialPrediction p1, PolynomialPrediction p2)
-        {
-            int m = Math.Min(p1.n, p2.n);
-            int n = Math.Max(p1.n, p2.n);
-            double[] resCoef = new double[n + 1];
-            for (int i = 0; i <= m; i++)
-            {
-                resCoef[i] = p1.coefs[i] - p2.coefs[i];
-            }
-            for (int i = m + 1; i <= n; i++)
-            {
-                resCoef[i] = (p1.n >= p2.n) ? p1.coefs[i] : -p2.coefs[i];
-            }
-            return new PolynomialPrediction(resCoef);
-        }
-
-        /// <summary>
-        /// Умножение полиномов.
-        /// </summary>
-        /// <param name="p1"> первый полином </param>
-        /// <param name="p2"> второй полином </param>
-        /// <returns> произведение полиномов </returns>
-        public static PolynomialPrediction operator *(PolynomialPrediction p1, PolynomialPrediction p2)
-        {
-            int n = p1.n;
-            int m = p2.n;
-            double[] resCoef = new double[n + m + 1];
-            for (int i = 0; i <= n + m; i++)
-            {
-                for (int k = 0; k <= Math.Min(i, n); k++)
-                {
-                    int j = i - k;
-                    if (j <= m)
-                    {
-                        resCoef[i] += p1.coefs[k] * p2.coefs[j];
-                    }
-                }
-            }
-            PolynomialPrediction res = new PolynomialPrediction(resCoef);
-
-            // Получение корней произведения полиномов
-            foreach (double root in p1.Roots)
-            {
-                res.roots.Add(root);
-            }
-            foreach (double root in p2.Roots)
-            {
-                res.roots.Add(root);
-            }
-            return res;
-        }
-
-        /// <summary>
-        /// Деление полиномов нацело.
-        /// </summary>
-        /// <param name="p1"> первый полином </param>
-        /// <param name="p2"> второй полином </param>
-        /// <returns> полином - результат деления нацело </returns>
-        public static PolynomialPrediction operator /(PolynomialPrediction p1, PolynomialPrediction p2)
-        {
-            int n = p1.n;
-            int m = p2.n;
-            if (n < m)
-            {
-                return new PolynomialPrediction(0);
-            }
-            double d;
-            double[] pCoef = new double[n - m + 1];
-            double[] tCoef = new double[n + 1];
-            for (int i = 0; i <= n; i++)
-            {
-                tCoef[i] = p1.coefs[i];
-            }
-            for (int i = 0; i <= n - m; i++)
-            {
-                d = tCoef[n - i] / p2.coefs[m];
-                pCoef[n - m - i] = d;
-                tCoef[n - i] = 0;
-                for (int k = 1; k <= m; k++)
-                {
-                    tCoef[n - i - k] -= d * p2.coefs[m - k];
-                }
-            }
-            return new PolynomialPrediction(pCoef);
-        }
-
-        /// <summary>
-        /// Остаток от деления нацело полиномов.
-        /// </summary>
-        /// <param name="p1"> первый полином </param>
-        /// <param name="p2"> второй полином </param>
-        /// <returns> полином - остаток от деления нацело </returns>
-        public static PolynomialPrediction operator %(PolynomialPrediction p1, PolynomialPrediction p2)
-        {
-            int n = p1.n;
-            int m = p2.n;
-            if (n < m)
-            {
-                return new PolynomialPrediction(p1.coefs);
-            }
-            double d;
-            double[] pCoef = new double[n - m + 1];
-            double[] tCoef = new double[n + 1];
-            for (int i = 0; i <= n; i++)
-            {
-                tCoef[i] = p1.coefs[i];
-            }
-            for (int i = 0; i <= n - m; i++)
-            {
-                d = tCoef[n - i] / p2.coefs[m];
-                pCoef[n - m - i] = d;
-                tCoef[n - i] = 0;
-                for (int k = 1; k <= m; k++)
-                {
-                    tCoef[n - i - k] -= d * p2.coefs[m - k];
-                }
-            }
-            int j = 0;
-            while (j <= n && tCoef[n - j] == 0)
-            {
-                j++;
-            }
-            double[] resCoef = new double[1];
-            if (j <= n)
-            {
-                resCoef = new double[n - j + 1];
-                for (int i = 0; i <= n - j; i++)
-                {
-                    resCoef[i] = tCoef[i];
-                }
-            }
-            return new PolynomialPrediction(resCoef);
-        }
-
-        /// <summary>
-        /// Умножение полинома на число.
-        /// </summary>
-        /// <param name="n"> число, на которое умножается полином </param>
-        /// <param name="p"> полином для умножения </param>
-        /// <returns> полином - результат умножения </returns>
-        public static PolynomialPrediction operator *(double n, PolynomialPrediction p)
-        {
-            int k = p.n;
-            double[] resCoefs = new double[k + 1];
-            for (int i = 0; i <= k; i++)
-            {
-                resCoefs[i] = p.coefs[i];
-            }
-            for (int i = 0; i <= k; i++)
-            {
-                resCoefs[i] *= n;
-            }
-            return new PolynomialPrediction(resCoefs);
-        }
-
-        /// <summary>
-        /// Умножение полинома на число.
-        /// </summary>
-        /// <param name="p"> полином для умножения </param>
-        /// <param name="n"> число, на которое умножается полином </param>
-        /// <returns> полином - результат умножения </returns>
-        public static PolynomialPrediction operator *(PolynomialPrediction p, double n)
-        {
-            int k = p.n;
-            double[] resCoefs = new double[k + 1];
-            for (int i = 0; i <= k; i++)
-            {
-                resCoefs[i] = p.coefs[i];
-            }
-            for (int i = 0; i <= k; i++)
-            {
-                resCoefs[i] *= n;
-            }
-            return new PolynomialPrediction(resCoefs);
-        }
-        #endregion
-
+        #region Методы
         /// <summary>
         /// Метод нахождения среднеквадратичного отклонения.
         /// </summary>
@@ -651,12 +410,11 @@
             for (int i = 0; i < points.Length; i++)
             {
                 for (int j = 0; j < coefs.Length; j++)
-                {
                     f[i] += coefs[j] * Math.Pow(points[i].X, j);
-                }
                 dif[i] = Math.Pow(f[i] - points[i].Y, 2);
             }
             return Math.Sqrt(dif.Sum() / points.Length);
         }
+        #endregion
     }
 }
