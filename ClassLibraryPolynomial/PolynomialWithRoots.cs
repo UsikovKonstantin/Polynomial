@@ -1,6 +1,4 @@
-﻿using System.Text;
-
-namespace ClassLibraryPolynomial
+﻿namespace ClassLibraryPolynomial
 {
     /// <summary>
     /// Перечисление точка экстремума.
@@ -18,7 +16,7 @@ namespace ClassLibraryPolynomial
     {
         #region Поля
         private protected List<double> roots = new List<double>();  // корни полинома
-        private protected List<(double, int)> stationaryPoints = new();  // точки экстремума
+        private protected List<(double x, double y, StationaryPointType stPoint)> stationaryPoints = new();  // точки экстремума
 
         // Свойство для доступа к корням.
         public List<double> Roots
@@ -34,12 +32,12 @@ namespace ClassLibraryPolynomial
             }
         }
         // Свойство для доступа к точкам экстремума.
-        public List<(double, int)> StationaryPoints
+        public List<(double x, double y, StationaryPointType stPoint)> StationaryPoints
         {
             get 
             {
-                List<(double, int)> res = new List<(double, int)>();
-                foreach ((double, int) item in stationaryPoints)
+                List<(double x, double y, StationaryPointType stPoint)> res = new();
+                foreach ((double x, double y, StationaryPointType stPoint) item in stationaryPoints)
                 {
                     res.Add(item);
                 }
@@ -55,6 +53,8 @@ namespace ClassLibraryPolynomial
         /// </summary>
         public PolynomialWithRoots() : base()
         {
+            roots = new List<double>();
+            stationaryPoints = new List<(double x, double y, StationaryPointType stPoint)>();
             roots.Add(1);
             roots.Add(2);
         }
@@ -66,7 +66,10 @@ namespace ClassLibraryPolynomial
         /// </summary>
         /// <param name="n"> степень полинома </param>
         public PolynomialWithRoots(int n) : base(n)
-        { }
+        {
+            roots = new List<double>();
+            stationaryPoints = new List<(double x, double y, StationaryPointType stPoint)>();
+        }
 
         /// <summary>
         /// Конструктор.
@@ -77,7 +80,10 @@ namespace ClassLibraryPolynomial
         /// <param name="min"> нижняя граница </param>
         /// <param name="max"> верхняя граница </param>
         public PolynomialWithRoots(int n, long min, long max) : base(n, min, max)
-        { }
+        {
+            roots = new List<double>();
+            stationaryPoints = new List<(double x, double y, StationaryPointType stPoint)>();
+        }
 
         /// <summary>
         /// Конструктор.
@@ -89,7 +95,10 @@ namespace ClassLibraryPolynomial
         /// <param name="max"> верхняя граница </param>
         /// <param name="round"> количество знаков после запятой </param>
         public PolynomialWithRoots(int n, double min, double max, int round) : base(n, min, max, round)
-        { }
+        {
+            roots = new List<double>();
+            stationaryPoints = new List<(double x, double y, StationaryPointType stPoint)>();
+        }
 
         /// <summary>
         /// Конструктор.
@@ -97,7 +106,10 @@ namespace ClassLibraryPolynomial
         /// </summary>
         /// <param name="coefs"> набор коэффициентов </param>
         public PolynomialWithRoots(double[] coefs) : base(coefs)
-        { }
+        {
+            roots = new List<double>();
+            stationaryPoints = new List<(double x, double y, StationaryPointType stPoint)>();
+        }
 
         /// <summary>
         /// Конструктор.
@@ -106,6 +118,7 @@ namespace ClassLibraryPolynomial
         /// <param name="roots"> корни полинома </param>
         public PolynomialWithRoots(List<double> roots)
         {
+            stationaryPoints = new List<(double x, double y, StationaryPointType stPoint)>();
             n = roots.Count;
             this.roots = roots;
             coefs = RootsToCoefficients();
@@ -131,31 +144,6 @@ namespace ClassLibraryPolynomial
                 coefs[0] = -coefs[0] * roots[k];
             }
             return coefs;
-        }
-        #endregion
-
-        #region Переопределение ToString()
-        /// <summary>
-        /// Переопределение метода ToString().
-        /// </summary>
-        /// <returns> описание полинома с указанием его корней </returns>
-        public override string ToString()
-        {
-            if (roots.Count == 0)
-            {
-                return base.ToString();
-            }
-
-            int m = roots.Count;
-            StringBuilder sb = new StringBuilder();
-            sb.Append(base.ToString());
-            sb.Append("\nКорни полинома:");
-            for (int i = 0; i < m; i++)
-            {
-                sb.Append(' ');
-                sb.Append(roots[i].ToString());
-            }
-            return sb.ToString();
         }
         #endregion
 
@@ -379,33 +367,24 @@ namespace ClassLibraryPolynomial
             pol.coefs[0] -= y;
             double eps = 1e-1;
             if (pol.P(a) * pol.P(b) <= 0)
-            {
                 return true;
-            }
+            else if (b - a < eps)
+                return false;
             else
             {
-                if (b - a < eps)
+                double mid = (a + b) / 2;
+                if (pol.ExistRoot(ref a, ref mid))
                 {
-                    return false;
+                    b = mid;
+                    return true;
+                }
+                else if (pol.ExistRoot(ref mid, ref b))
+                {
+                    a = mid;
+                    return true;
                 }
                 else
-                {
-                    double mid = (a + b) / 2;
-                    if (pol.ExistRoot(ref a, ref mid))
-                    {
-                        b = mid;
-                        return true;
-                    }
-                    else if (pol.ExistRoot(ref mid, ref b))
-                    {
-                        a = mid;
-                        return true;
-                    }
-                    else
-                    {
-                        return false;
-                    }
-                }
+                    return false;
             }
         }
 
@@ -426,13 +405,9 @@ namespace ClassLibraryPolynomial
             while (Math.Abs(pol.P(mid)) > eps)
             {
                 if (pol.P(a) * pol.P(mid) > 0)
-                {
                     a = mid;
-                }
                 else
-                {
                     b = mid;
-                }
                 mid = (a + b) / 2;
             }
             return mid;
@@ -463,6 +438,7 @@ namespace ClassLibraryPolynomial
                 a = ta;
                 b = tb;
             }
+            roots = res;
             return res;
         }
         #endregion
@@ -484,13 +460,9 @@ namespace ClassLibraryPolynomial
             double eps = 1e-7;
             double x0 = 0;
             if (pol.P(a) * pol.GetDerivative().GetDerivative().P(a) > 0)
-            {
                 x0 = a;
-            }
             else if (pol.P(b) * pol.GetDerivative().GetDerivative().P(b) > 0)
-            {
                 x0 = b;
-            }
             double xn = x0 - pol.P(x0) / pol.GetDerivative().P(x0);
             double xnp1 = xn - pol.P(xn) / pol.GetDerivative().P(xn);
             while (Math.Abs(xn - xnp1) >= eps)
@@ -526,20 +498,12 @@ namespace ClassLibraryPolynomial
                 a = ta;
                 b = tb;
             }
+            roots = res;
             return res;
         }
         #endregion
 
-        /// <summary>
-        /// Приведение объекта типа Polynomial к типу PolynomialWithRoots.
-        /// </summary>
-        /// <param name="p"> объект типа Polynomial </param>
-        /// <returns> объект типа PolynomialWithRoots </returns>
-        public static PolynomialWithRoots Parse(Polynomial p)
-        {
-            return new PolynomialWithRoots(p.Coefs);
-        }
-
+        #region Поиск точек экстремума
         /// <summary>
         /// Поиск всех точек экстремума на заданном интервале.
         /// </summary>
@@ -549,21 +513,17 @@ namespace ClassLibraryPolynomial
         public List<(double x, double y, StationaryPointType stPoint)> FindAllStationaryPoints(double a, double b)
         {
             double eps = 1e-5;
-            PolynomialWithRoots derivative = Parse(GetDerivative());
+            PolynomialWithRoots derivative = new PolynomialWithRoots(GetDerivative().Coefs);
             List<double> roots = derivative.FindAllRoots(a, b);
             List<(double, double, StationaryPointType)> res = new List<(double, double, StationaryPointType)>();
             for (int i = 0; i < roots.Count; i++)
-            {
                 if (P(roots[i]) < P(roots[i] + eps) && P(roots[i]) < P(roots[i] - eps))
-                {
                     res.Add((roots[i], P(roots[i]), StationaryPointType.Min));
-                }
                 else
-                {
                     res.Add((roots[i], P(roots[i]), StationaryPointType.Max));
-                }
-            }
+            stationaryPoints = res;
             return res;
         }
+        #endregion
     }
 }
