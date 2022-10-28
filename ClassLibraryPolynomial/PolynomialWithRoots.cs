@@ -321,7 +321,8 @@
         public bool ExistRoot(ref double a, ref double b, double y = 0)
         {
             PolynomialWithRoots pol = new PolynomialWithRoots(coefs);
-            pol.coefs[0] -= y;
+            pol.coefs[0] -= y;  // если мы хотим найти значения x, при которых функция равна y,
+            // то от полинома можно отнять этот y и искать значения x, при которых функция равна 0
             double eps = 1e-1;
             if (pol.P(a) * pol.P(b) <= 0)
                 return true;
@@ -381,17 +382,16 @@
         {
             double ta = a, tb = b;
             List<double> res = new List<double>();
-            PolynomialWithRoots q = new PolynomialWithRoots(Coefs);
+            PolynomialWithRoots q = new PolynomialWithRoots(Coefs);  // копия исходного полинома
             q.coefs[0] -= y;
-            double r;
-            PolynomialWithRoots one = new PolynomialWithRoots(1);
+            PolynomialWithRoots one = new PolynomialWithRoots(1);  // полином, у которого старший коэффициент 1, а свободный -r
             one.coefs[1] = 1;
             while (q.ExistRoot(ref a, ref b))
             {
-                r = q.FindRoot(a, b);
+                double r = q.FindRoot(a, b);
                 res.Add(r);
                 one.coefs[0] = -r;
-                q = q / one;
+                q /= one;  // делим полином на (x - r), тем самым удаляем корень r из полинома
                 a = ta;
                 b = tb;
             }
@@ -415,19 +415,19 @@
             PolynomialWithRoots pol = new PolynomialWithRoots(coefs);
             pol.coefs[0] -= y;
             double eps = 1e-7;
-            double x0 = 0;
+            double x0 = 0;  // начальное приближение
             if (pol.P(a) * pol.GetDerivative().GetDerivative().P(a) > 0)
                 x0 = a;
             else if (pol.P(b) * pol.GetDerivative().GetDerivative().P(b) > 0)
                 x0 = b;
-            double xn = x0 - pol.P(x0) / pol.GetDerivative().P(x0);
-            double xnp1 = xn - pol.P(xn) / pol.GetDerivative().P(xn);
-            while (Math.Abs(xn - xnp1) >= eps)
+            double xn = x0 - pol.P(x0) / pol.GetDerivative().P(x0);  // первое приближение
+            double xn2 = xn - pol.P(xn) / pol.GetDerivative().P(xn);  // второе приближение
+            while (Math.Abs(xn - xn2) >= eps)
             {
-                xn = xnp1;
-                xnp1 = xn - pol.P(xn) / pol.GetDerivative().P(xn);
+                xn = xn2;
+                xn2 = xn - pol.P(xn) / pol.GetDerivative().P(xn);  // вычисляем следующее приближение
             }
-            return xnp1;
+            return xn2;
         }
 
         /// <summary>
@@ -441,17 +441,17 @@
         {
             double ta = a, tb = b;
             List<double> res = new List<double>();
-            PolynomialWithRoots q = new PolynomialWithRoots(Coefs);
+            PolynomialWithRoots q = new PolynomialWithRoots(Coefs);  // копия исходного полинома
             q.coefs[0] -= y;
             double r;
-            PolynomialWithRoots one = new PolynomialWithRoots(1);
+            PolynomialWithRoots one = new PolynomialWithRoots(1);  // полином, у которого старший коэффициент 1, а свободный -r
             one.coefs[1] = 1;
             while (q.ExistRoot(ref a, ref b))
             {
                 r = q.FindRootNewton(a, b);
                 res.Add(r);
                 one.coefs[0] = -r;
-                q = q / one;
+                q /= one;  // делим полином на (x - r), тем самым удаляем корень r из полинома
                 a = ta;
                 b = tb;
             }
@@ -471,7 +471,7 @@
         {
             double eps = 1e-5;
             PolynomialWithRoots derivative = new PolynomialWithRoots(GetDerivative().Coefs);
-            List<double> roots = derivative.FindAllRoots(a, b);
+            List<double> roots = derivative.FindAllRoots(a, b);  // точки экстремума - точки, в которых производная равна 0
             List<(double, double, StationaryPointType)> res = new List<(double, double, StationaryPointType)>();
             for (int i = 0; i < roots.Count; i++)
                 if (P(roots[i]) < P(roots[i] + eps) && P(roots[i]) < P(roots[i] - eps))
