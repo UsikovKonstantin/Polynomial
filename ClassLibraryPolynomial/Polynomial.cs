@@ -542,12 +542,22 @@ namespace ClassLibraryPolynomial
         /// <returns> полином - результат возведения в степень </returns>
         public Polynomial Pow(int n)
         {
-            Polynomial polynomial = new Polynomial(new double[] { 1 });
-            for (int i = 0; i < n; i++)
-            {
-                polynomial *= this;
-            }
-            return polynomial;
+            if (n == 0)
+                return new Polynomial(new double[] { 1 });
+            Polynomial pol1 = new Polynomial(coefs);
+            Polynomial pol2 = new Polynomial(new double[] { 1 });
+            while (n > 1)
+                if (n % 2 == 0)
+                {
+                    pol1 *= pol1;
+                    n /= 2;
+                }
+                else
+                {
+                    pol2 *= pol1;
+                    n--;
+                }
+            return pol1 * pol2;
         }
         #endregion
     }
