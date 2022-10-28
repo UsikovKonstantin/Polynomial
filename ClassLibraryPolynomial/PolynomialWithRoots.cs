@@ -5,8 +5,8 @@
     /// </summary>
     public enum StationaryPointType
     {
-        Min,
-        Max
+        Min,  // точка минимума
+        Max   // точка максимума
     }
 
     /// <summary>
@@ -132,15 +132,13 @@
         {
             int m = roots.Count;
             double[] coefs = new double[m + 1];
-            coefs[0] = -roots[0];
-            coefs[1] = 1;
+            coefs[0] = -roots[0]; coefs[1] = 1;  // коэффициенты полинома 1-ой степени
             for (int k = 1; k < m; k++)
             {
+                // вычисление коэффициентов полинома (k+1)-ой степени по коэффициентам полинома степени k
                 coefs[k + 1] = 1;
                 for (int i = k; i > 0; i--)
-                {
                     coefs[i] = -coefs[i] * roots[k] + coefs[i - 1];
-                }
                 coefs[0] = -coefs[0] * roots[k];
             }
             return coefs;
@@ -159,14 +157,12 @@
             int m = Math.Min(p1.n, p2.n);
             int n = Math.Max(p1.n, p2.n);
             double[] resCoef = new double[n + 1];
+            // Сложение коэффициентов, которые есть в 1-ом и 2-ом полиномах
             for (int i = 0; i <= m; i++)
-            {
                 resCoef[i] = p1.coefs[i] + p2.coefs[i];
-            }
+            // Копирование коэффициентов, которые есть только в одном полиноме
             for (int i = m + 1; i <= n; i++)
-            {
                 resCoef[i] = (p1.n >= p2.n) ? p1.coefs[i] : p2.coefs[i];
-            }
             return new PolynomialWithRoots(resCoef);
         }
 
@@ -181,14 +177,12 @@
             int m = Math.Min(p1.n, p2.n);
             int n = Math.Max(p1.n, p2.n);
             double[] resCoef = new double[n + 1];
+            // Вычитание коэффициентов, которые есть в 1-ом и 2-ом полиномах
             for (int i = 0; i <= m; i++)
-            {
                 resCoef[i] = p1.coefs[i] - p2.coefs[i];
-            }
+            // Копирование коэффициентов, которые есть только в одном полиноме
             for (int i = m + 1; i <= n; i++)
-            {
                 resCoef[i] = (p1.n >= p2.n) ? p1.coefs[i] : -p2.coefs[i];
-            }
             return new PolynomialWithRoots(resCoef);
         }
 
@@ -203,28 +197,19 @@
             int n = p1.n;
             int m = p2.n;
             double[] resCoef = new double[n + m + 1];
-            for (int i = 0; i <= n + m; i++)
-            {
-                for (int k = 0; k <= Math.Min(i, n); k++)
+            for (int i = 0; i <= n + m; i++)  // i указывает на индекс в итоговом массиве
+                for (int k = 0; k <= Math.Min(i, n); k++)  // k указывает на индекс элемента в полиноме с меньшей степенью
                 {
-                    int j = i - k;
-                    if (j <= m)
-                    {
+                    int j = i - k;  // j указывает на индекс элемента в полиноме с большей степенью
+                    if (j <= m)  // если j не вышло за границы массива коэффициентов
                         resCoef[i] += p1.coefs[k] * p2.coefs[j];
-                    }
                 }
-            }
             PolynomialWithRoots res = new PolynomialWithRoots(resCoef);
-
             // Получение корней произведения полиномов
             foreach (double root in p1.Roots)
-            {
                 res.roots.Add(root);
-            }
             foreach (double root in p2.Roots)
-            {
                 res.roots.Add(root);
-            }
             return res;
         }
 
@@ -236,28 +221,20 @@
         /// <returns> полином - результат деления нацело </returns>
         public static PolynomialWithRoots operator /(PolynomialWithRoots p1, PolynomialWithRoots p2)
         {
-            int n = p1.n;
-            int m = p2.n;
-            if (n < m)
-            {
+            int n = p1.n, m = p2.n;
+            if (n < m)  // если степень первого полинома меньше степени второго, то результат деления нацело - 0
                 return new PolynomialWithRoots(0);
-            }
-            double d;
-            double[] pCoef = new double[n - m + 1];
-            double[] tCoef = new double[n + 1];
+            double[] pCoef = new double[n - m + 1];  // коэффициенты итогового полинома 
+            double[] tCoef = new double[n + 1];  // коэффициенты делимого
             for (int i = 0; i <= n; i++)
-            {
                 tCoef[i] = p1.coefs[i];
-            }
             for (int i = 0; i <= n - m; i++)
             {
-                d = tCoef[n - i] / p2.coefs[m];
+                double d = tCoef[n - i] / p2.coefs[m];  // коэффициент итогового полинома
                 pCoef[n - m - i] = d;
-                tCoef[n - i] = 0;
+                tCoef[n - i] = 0;  // старший коэффициент делимого уничтожается
                 for (int k = 1; k <= m; k++)
-                {
-                    tCoef[n - i - k] -= d * p2.coefs[m - k];
-                }
+                    tCoef[n - i - k] -= d * p2.coefs[m - k];  // вычитание из делимого результата умножения d на p2
             }
             return new PolynomialWithRoots(pCoef);
         }
@@ -270,42 +247,30 @@
         /// <returns> полином - остаток от деления нацело </returns>
         public static PolynomialWithRoots operator %(PolynomialWithRoots p1, PolynomialWithRoots p2)
         {
-            int n = p1.n;
-            int m = p2.n;
-            if (n < m)
-            {
+            int n = p1.n, m = p2.n;
+            if (n < m)  // если степень первого полинома меньше степени второго, то остаток от деления нацело - первый полином
                 return new PolynomialWithRoots(p1.coefs);
-            }
-            double d;
             double[] pCoef = new double[n - m + 1];
             double[] tCoef = new double[n + 1];
             for (int i = 0; i <= n; i++)
-            {
                 tCoef[i] = p1.coefs[i];
-            }
             for (int i = 0; i <= n - m; i++)
             {
-                d = tCoef[n - i] / p2.coefs[m];
+                double d = tCoef[n - i] / p2.coefs[m];
                 pCoef[n - m - i] = d;
                 tCoef[n - i] = 0;
                 for (int k = 1; k <= m; k++)
-                {
                     tCoef[n - i - k] -= d * p2.coefs[m - k];
-                }
             }
             int j = 0;
-            while (j <= n && tCoef[n - j] == 0)
-            {
+            while (j <= n && tCoef[n - j] == 0)  // поиск ненулевого элемента в массиве tCoef
                 j++;
-            }
             double[] resCoef = new double[1];
-            if (j <= n)
+            if (j <= n)  // если был найден ненулевой элемент (остаток не равен нулю)
             {
                 resCoef = new double[n - j + 1];
                 for (int i = 0; i <= n - j; i++)
-                {
-                    resCoef[i] = tCoef[i];
-                }
+                    resCoef[i] = tCoef[i];  // копируем коэффициенты из массива tCoef
             }
             return new PolynomialWithRoots(resCoef);
         }
@@ -321,13 +286,9 @@
             int k = p.n;
             double[] resCoefs = new double[k + 1];
             for (int i = 0; i <= k; i++)
-            {
-                resCoefs[i] = p.coefs[i];
-            }
+                resCoefs[i] = p.coefs[i];  // копируем коэффициенты из полинома
             for (int i = 0; i <= k; i++)
-            {
-                resCoefs[i] *= n;
-            }
+                resCoefs[i] *= n;  // умножаем коэффициенты на число
             return new PolynomialWithRoots(resCoefs);
         }
 
@@ -342,13 +303,9 @@
             int k = p.n;
             double[] resCoefs = new double[k + 1];
             for (int i = 0; i <= k; i++)
-            {
-                resCoefs[i] = p.coefs[i];
-            }
+                resCoefs[i] = p.coefs[i];  // копируем коэффициенты из полинома
             for (int i = 0; i <= k; i++)
-            {
-                resCoefs[i] *= n;
-            }
+                resCoefs[i] *= n;  // умножаем коэффициенты на число
             return new PolynomialWithRoots(resCoefs);
         }
         #endregion
