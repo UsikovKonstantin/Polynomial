@@ -150,6 +150,10 @@
             this.plot.Name = "plot";
             this.plot.Size = new System.Drawing.Size(1085, 736);
             this.plot.TabIndex = 0;
+            this.plot.Click += new System.EventHandler(this.plot_Click);
+            this.plot.Paint += new System.Windows.Forms.PaintEventHandler(this.plot_Paint);
+            this.plot.KeyDown += new System.Windows.Forms.KeyEventHandler(this.plot_KeyDown);
+            this.plot.MouseDown += new System.Windows.Forms.MouseEventHandler(this.plot_MouseDown);
             // 
             // tableLayoutPanel6
             // 

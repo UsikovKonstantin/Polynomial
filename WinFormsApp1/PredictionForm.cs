@@ -1,4 +1,5 @@
 ﻿using ClassLibraryPolynomial;
+using ScottPlot;
 using ScottPlot.Plottable;
 using Point = ClassLibraryPolynomial.Point;
 
@@ -219,11 +220,11 @@ namespace WinFormsAppPolynomial
                     tbOutput.Text = "Степень полинома должна быть больше нуля.";
                     return;
                 }
-                if (N > 7)
-                {
-                    tbOutput.Text = "Степень полинома должна быть меньше 8.";
-                    return;
-                }
+                //if (N > 7)
+                //{
+                //    tbOutput.Text = "Степень полинома должна быть меньше 8.";
+                //    return;
+                //}
 
                 PolynomialPrediction polynomial;
                 try
@@ -412,6 +413,24 @@ namespace WinFormsAppPolynomial
             {
                 e.Handled = e.SuppressKeyPress = true;
                 btnAddPoint_Click(sender, e);
+            }
+        }
+
+        private void plot_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Q)
+            {
+                (double x, double y) = plot.GetMouseCoordinates();
+                bluePoints.Add(plot.plt.AddPoint(x, y, Color.Blue, 10));
+                plot.Refresh();
+                foreach (var item in points)
+                {
+                    if (item.X == x && item.Y == y)
+                    {
+                        return;
+                    }
+                }
+                points.Add(new Point(x, y));
             }
         }
     }
