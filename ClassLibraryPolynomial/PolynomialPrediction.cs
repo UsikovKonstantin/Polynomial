@@ -1,4 +1,6 @@
-﻿namespace ClassLibraryPolynomial
+﻿using PluSolver;
+
+namespace ClassLibraryPolynomial
 {
     /// <summary>
     /// Класс точка.
@@ -70,41 +72,9 @@
                     Args[i, j] = x[i, j];
         }
 
-        /// <summary>
-        /// Конструктор.
-        /// Копирует переданные данные в матрицу.
-        /// </summary>
-        /// <param name="other"> другая матрица </param>
-        public Matrix(Matrix other)
-        {
-            RowCount = other.RowCount;
-            ColCount = other.ColCount;
-            Args = new double[RowCount, ColCount];
-            for (int i = 0; i < RowCount; i++)
-                for (int j = 0; j < ColCount; j++)
-                    Args[i, j] = other.Args[i, j];
-        }
         #endregion
 
         #region Методы
-        /// <summary>
-        /// Переопределение ToString()
-        /// </summary>
-        /// <returns> строковое представление матрицы </returns>
-        public override string ToString()
-        {
-            string s = string.Empty;
-            for (int i = 0; i < Args.GetLength(0); i++)
-            {
-                for (int j = 0; j < Args.GetLength(1); j++)
-                {
-                    s += string.Format("{0} ", Args[i, j]);
-                }
-                s += "\n";
-            }
-            return s;
-        }
-
         /// <summary>
         /// Получение транспонированной матрицы.
         /// </summary>
@@ -116,21 +86,6 @@
                 for (int j = 0; j < ColCount; j++)
                     t[j, i] = Args[i, j];
             return new Matrix(t);
-        }
-
-        /// <summary>
-        /// Умножение матрицы на число.
-        /// </summary>
-        /// <param name="m"> матрица </param>
-        /// <param name="k"> число </param>
-        /// <returns> матрица, умноженная на число </returns>
-        public static Matrix operator *(Matrix m, double k)
-        {
-            Matrix ans = new Matrix(m);
-            for (int i = 0; i < ans.RowCount; i++)
-                for (int j = 0; j < ans.ColCount; j++)
-                    ans.Args[i, j] = m.Args[i, j] * k;
-            return ans;
         }
 
         /// <summary>
@@ -153,77 +108,6 @@
                 }
             }
             return new Matrix(ans);
-        }
-
-        /// <summary>
-        /// Получение минора матрицы.
-        /// </summary>
-        /// <param name="row"> индекс строки </param>
-        /// <param name="column"> индекс столбца </param>
-        /// <returns> минор матрицы </returns>
-        private Matrix GetMinor(int row, int column)
-        {
-            double[,] minor = new double[RowCount - 1, ColCount - 1];
-            for (int i = 0; i < RowCount; i++)
-            {
-                for (int j = 0; j < ColCount; j++)
-                {
-                    if ((i != row) || (j != column))
-                    {
-                        if (i > row && j < column) minor[i - 1, j] = Args[i, j];
-                        if (i < row && j > column) minor[i, j - 1] = Args[i, j];
-                        if (i > row && j > column) minor[i - 1, j - 1] = Args[i, j];
-                        if (i < row && j < column) minor[i, j] = Args[i, j];
-                    }
-                }
-            }
-            return new Matrix(minor);
-        }
-
-        /// <summary>
-        /// Поиск определителя матрицы
-        /// </summary>
-        /// <param name="m"> матрица </param>
-        /// <returns> определитель матрицы </returns>
-        public static double Determ(Matrix m)
-        {
-            double det = 0;
-            int length = m.RowCount;
-
-            if (length == 1) det = m.Args[0, 0];
-            if (length == 2) det = m.Args[0, 0] * m.Args[1, 1] - m.Args[0, 1] * m.Args[1, 0];
-
-            if (length > 2)
-                for (int i = 0; i < m.ColCount; i++)
-                    det += Math.Pow(-1, 0 + i) * m.Args[0, i] * Determ(m.GetMinor(0, i));
-            return det;
-        }
-
-        /// <summary>
-        /// Поиск матрицы миноров (алгебраических дополнений)
-        /// </summary>
-        /// <returns> матрица миноров </returns>
-        public Matrix MinorMatrix()
-        {
-            double[,] ans = new double[RowCount, ColCount];
-
-            for (int i = 0; i < RowCount; i++)
-                for (int j = 0; j < ColCount; j++)
-                    ans[i, j] = Math.Pow(-1, i + j) * Determ(this.GetMinor(i, j));
-
-            return new Matrix(ans);
-        }
-
-        /// <summary>
-        /// Получение обратной матрицы.
-        /// </summary>
-        /// <returns> обратная матрица </returns>
-        public Matrix InverseMatrix()
-        {
-            if (Math.Abs(Determ(this)) <= 0.000000001) throw new ArgumentException("Обратная матрица не существует!");
-            double k = 1 / Determ(this);
-            Matrix minorMatrix = MinorMatrix();
-            return minorMatrix.Transposition() * k;
         }
         #endregion
     }
@@ -365,7 +249,6 @@
         {
             if (m <= 0) throw new ArgumentException("Порядок полинома должен быть больше 0");
             if (m >= points.Length) throw new ArgumentException("Порядок полинома должен быть на много меньше количества точек!");
-
             // Массив для хранения значений базисных функций
             double[,] basic = new double[points.Length, m + 1];
             // Заполнение массива для базисных функций
@@ -383,12 +266,13 @@
             for (int i = 0; i < Y.Length; i++)
                 Y[i] = points[i].Y;
             Matrix beta = transBasicFuncMatr * new Matrix(Y);
-            // Решение СЛАУ путем умножения обратной матрицы лямбда на бету
-            Matrix a = lambda.InverseMatrix() * beta;
+            // Решение СЛАУ 
+            double[] beta2 = new double[m + 1];
+            for (int i = 0; i < beta2.Length; i++)
+                beta2[i] = beta.Args[i, 0];
+            var solver = new Solver(lambda.Args, beta2);
+            double[] coeff = solver.SolveX();
             // Получение результирующего полинома
-            double[] coeff = new double[a.RowCount];
-            for (int i = 0; i < coeff.Length; i++)
-                coeff[i] = a.Args[i, 0];
             return new PolynomialWithRoots(coeff);
         }
         #endregion

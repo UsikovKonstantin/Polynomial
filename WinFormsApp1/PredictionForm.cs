@@ -220,11 +220,6 @@ namespace WinFormsAppPolynomial
                     tbOutput.Text = "Степень полинома должна быть больше нуля.";
                     return;
                 }
-                //if (N > 7)
-                //{
-                //    tbOutput.Text = "Степень полинома должна быть меньше 8.";
-                //    return;
-                //}
 
                 PolynomialPrediction polynomial;
                 try
@@ -282,93 +277,6 @@ namespace WinFormsAppPolynomial
             else
             {
                 tbOutput.Text = "X или N невозможно привести к числу.";
-            }
-        }
-
-        private void bntBestN_Click(object sender, EventArgs e)
-        {
-            if (points.Count == 0)
-            {
-                tbOutput.Text = "Нет точек.";
-                return;
-            }
-            if (points.Count == 1)
-            {
-                tbOutput.Text = "Для построения полинома нужно хотя бы 2 точки.";
-                return;
-            }
-            if (double.TryParse(tbSquareX.Text, out double x))
-            {
-                double? minDelta = double.MaxValue;
-                int N = 1;
-                for (int n = 1; n < Math.Min(8, points.Count); n++)
-                {
-                    PolynomialPrediction pol;
-                    try
-                    {
-                        pol = new PolynomialPrediction(n, points.ToArray());
-                    }
-                    catch (Exception)
-                    {
-                        tbOutput.Text = "Не удалось вычислить полином методом наименьших квадратов.";
-                        return;
-                    }
-
-                    double? curDelta = pol.GetDelta(points.ToArray());
-                    if (curDelta < minDelta)
-                    {
-                        minDelta = curDelta;
-                        N = n;
-                    }
-                }
-                PolynomialPrediction polynomial = new PolynomialPrediction(N, points.ToArray());
-
-                double xMin = double.MaxValue;
-                double xMax = double.MinValue;
-                foreach (var item in points)
-                {
-                    if (item.X < xMin)
-                        xMin = item.X;
-                    if (item.X > xMax)
-                        xMax = item.X;
-                }
-                if (x < xMin)
-                    xMin = x;
-                if (x > xMax)
-                    xMax = x;
-
-                List<double> X = new List<double>();
-                List<double> Y = new List<double>();
-
-                double i = xMin - 10;
-                double step = (xMax - xMin + 20) / 1000;
-                while (i <= xMax + 10)
-                {
-                    X.Add(i);
-                    Y.Add(polynomial.P(i));
-                    i += step;
-                }
-
-                if (charts.Count != 0)
-                {
-                    plot.plt.Remove(charts[charts.Count - 1]);
-                    charts.Remove(charts[charts.Count - 1]);
-                    plot.plt.Remove(redPoints[redPoints.Count - 1]);
-                    redPoints.Remove(redPoints[redPoints.Count - 1]);
-                    plot.Refresh();
-                }
-
-                charts.Add(plot.plt.PlotScatter(X.ToArray(), Y.ToArray(), Color.Black, 2, 0));
-                redPoints.Add(plot.plt.AddPoint(x, polynomial.P(x), Color.Red, 10));
-                plot.Refresh();
-                tbSquareN.Text = N.ToString();
-                tbSquareY.Text = polynomial.P(x).ToString();
-                tbOutput.Text = "Полученный полином:\n" + polynomial.ToString() + "\n";
-                tbOutput.Text += "Среднеквадратичное отклонение:\n" + polynomial.GetDelta(points.ToArray()).ToString();
-            }
-            else
-            {
-                tbOutput.Text = "X невозможно привести к числу.";
             }
         }
 
