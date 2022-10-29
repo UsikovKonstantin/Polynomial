@@ -1,6 +1,4 @@
-﻿using PluSolver;
-
-namespace ClassLibraryPolynomial
+﻿namespace ClassLibraryPolynomial
 {
     /// <summary>
     /// Класс точка.
@@ -270,10 +268,78 @@ namespace ClassLibraryPolynomial
             double[] beta2 = new double[m + 1];
             for (int i = 0; i < beta2.Length; i++)
                 beta2[i] = beta.Args[i, 0];
-            var solver = new Solver(lambda.Args, beta2);
-            double[] coeff = solver.SolveX();
+            (double[,] lower, double[,] upper) LU = GetLUMatrices(lambda.Args);
+            double[] coeff = ComputeX(LU.lower, LU.upper, beta2);
             // Получение результирующего полинома
             return new PolynomialWithRoots(coeff);
+        }
+
+        /// <summary>
+        /// Разложение матрицы на верхнюю и нижнюю треугольные матрицы.
+        /// </summary>
+        /// <param name="A"> матрица коэффициентов </param>
+        /// <returns> кортеж - нижняя и верхняя треугольные матрицы </returns>
+        private (double[,] lower, double[,] upper) GetLUMatrices(double[,] A)
+        {
+            int n = A.GetLength(0);
+            double[,] lower = new double[n, n];
+            double[,] upper = new double[n, n];
+            for (int i = 0; i < n; i++)
+            {
+                for (int k = i; k < n; k++)
+                {
+                    double sum = 0;
+                    for (int j = 0; j < i; j++)
+                        sum += lower[i, j] * upper[j, k];
+                    upper[i, k] = A[i, k] - sum;
+                }
+                for (int k = i; k < n; k++)
+                {
+                    if (i == k)
+                        lower[i, i] = 1;
+                    else
+                    {
+                        double sum = 0;
+                        for (int j = 0; j < i; j++)
+                            sum += lower[k, j] * upper[j, i];
+                        lower[k, i] = (A[k, i] - sum) / upper[i, i];
+                    }
+                }
+            }
+            return (lower, upper);
+        }
+
+        /// <summary>
+        /// Вычисление вектора X по нижней и верхней треугольной матрице.
+        /// </summary>
+        /// <param name="lower"> нижняя треугольная матрица </param>
+        /// <param name="upper"> верхняя треугольная матрица </param>
+        /// <param name="B"> массив коэффициентов </param>
+        /// <returns> вектор X - решение СЛАУ </returns>
+        private double[] ComputeX(double[,] lower, double[,] upper, double[] B)
+        {
+            double[] Z = new double[B.Length];
+            Z[0] = B[0] / lower[0, 0];
+            for (int i = 1; i < B.Length; i++)
+            {
+                for (int j = 0; j < i; j++)
+                {
+                    Z[i] += -lower[i, j] * Z[j];
+                }
+                Z[i] = (Z[i] + B[i]) / lower[i, i];
+            }
+
+            double[] X = new double[Z.Length];
+            X[X.Length - 1] = Z[X.Length - 1] / upper[X.Length - 1, X.Length - 1];
+            for (int i = X.Length - 2; i >= 0; i--)
+            {
+                for (int j = i + 1; j < X.Length; j++)
+                {
+                    X[i] += -upper[i, j] * X[j];
+                }
+                X[i] = (X[i] + Z[i]) / upper[i, i];
+            }
+            return X;
         }
         #endregion
 

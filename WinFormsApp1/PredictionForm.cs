@@ -254,7 +254,13 @@ namespace WinFormsAppPolynomial
                 while (i <= xMax + 10)
                 {
                     X.Add(i);
-                    Y.Add(polynomial.P(i));
+                    double y = polynomial.P(i);
+                    if (double.IsNaN(y))
+                    {
+                        tbOutput.Text = "Не удалось вычислить полином методом наименьших квадратов.";
+                        return;
+                    }
+                    Y.Add(y);
                     i += step;
                 }
 
