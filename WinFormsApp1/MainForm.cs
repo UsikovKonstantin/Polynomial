@@ -684,34 +684,34 @@ namespace WinFormsAppPolynomial
         List<IPlottable> bluePoints = new List<IPlottable>();  // заданные точки
 
         // Изменение введённого значения координаты X точки.
-        private void tbInputX_TextChanged(object sender, EventArgs e)
+        private void rtbInputX_TextChanged(object sender, EventArgs e)
         {
-            string s = tbInputX.Text.Trim();
+            string s = rtbInputX.Text.Trim();
             if (s != "" && !double.TryParse(s, out double _))
             {
-                epInputX.SetError(tbInputX, "Невозможно привести к числу.");
-                tbInputX.Margin = new Padding(3, 3, 20, 3);
+                epInputX.SetError(rtbInputX, "Невозможно привести к числу.");
+                rtbInputX.Margin = new Padding(3, 3, 20, 3);
             }
             else
             {
                 epInputX.Clear();
-                tbInputX.Margin = new Padding(3, 3, 3, 3);
+                rtbInputX.Margin = new Padding(3, 3, 3, 3);
             }
         }
 
         // Изменение введённого значения координаты Y точки.
-        private void tbInputY_TextChanged(object sender, EventArgs e)
+        private void rtbInputY_TextChanged(object sender, EventArgs e)
         {
-            string s = tbInputY.Text.Trim();
+            string s = rtbInputY.Text.Trim();
             if (s != "" && !double.TryParse(s, out double _))
             {
-                epInputY.SetError(tbInputY, "Невозможно привести к числу.");
-                tbInputY.Margin = new Padding(3, 3, 20, 3);
+                epInputY.SetError(rtbInputY, "Невозможно привести к числу.");
+                rtbInputY.Margin = new Padding(3, 3, 20, 3);
             }
             else
             {
                 epInputY.Clear();
-                tbInputY.Margin = new Padding(3, 3, 3, 3);
+                rtbInputY.Margin = new Padding(3, 3, 3, 3);
             }
         }
 
@@ -766,17 +766,17 @@ namespace WinFormsAppPolynomial
         // Добавление точки.
         private void btnAddPoint_Click(object sender, EventArgs e)
         {
-            if (double.TryParse(tbInputX.Text, out double x) && double.TryParse(tbInputY.Text, out double y))
+            if (double.TryParse(rtbInputX.Text, out double x) && double.TryParse(rtbInputY.Text, out double y))
             {
-                bluePoints.Add(plot.plt.AddPoint(x, y, Color.Blue, 10));
+                bluePoints.Add(plot.Plot.AddPoint(x, y, Color.Blue, 10));
                 plot.Refresh();
                 foreach (var item in points)
                     if (item.X == x && item.Y == y)
                         return;
                 points.Add(new Point(x, y));
-                tbInputX.Text = "";
-                tbInputY.Text = "";
-                tbInputX.Focus();
+                rtbInputX.Text = "";
+                rtbInputY.Text = "";
+                rtbInputX.Focus();
             }
             else
                 tbOutput2.Text = "Введенные координаты невозможно привести к числу.";
@@ -787,16 +787,16 @@ namespace WinFormsAppPolynomial
         {
             if (charts.Count != 0)
             {
-                plot.plt.Remove(charts[charts.Count - 1]);
+                plot.Plot.Remove(charts[charts.Count - 1]);
                 charts.Remove(charts[charts.Count - 1]);
-                plot.plt.Remove(redPoints[redPoints.Count - 1]);
+                plot.Plot.Remove(redPoints[redPoints.Count - 1]);
                 redPoints.Remove(redPoints[redPoints.Count - 1]);
                 plot.Refresh();
                 return;
             }
             if (bluePoints.Count != 0)
             {
-                plot.plt.Remove(bluePoints[bluePoints.Count - 1]);
+                plot.Plot.Remove(bluePoints[bluePoints.Count - 1]);
                 bluePoints.Remove(bluePoints[bluePoints.Count - 1]);
                 points.RemoveAt(points.Count - 1);
                 plot.Refresh();
@@ -849,15 +849,15 @@ namespace WinFormsAppPolynomial
 
                 if (charts.Count != 0)
                 {
-                    plot.plt.Remove(charts[charts.Count - 1]);
+                    plot.Plot.Remove(charts[charts.Count - 1]);
                     charts.Remove(charts[charts.Count - 1]);
-                    plot.plt.Remove(redPoints[redPoints.Count - 1]);
+                    plot.Plot.Remove(redPoints[redPoints.Count - 1]);
                     redPoints.Remove(redPoints[redPoints.Count - 1]);
                     plot.Refresh();
                 }
 
-                charts.Add(plot.plt.PlotScatter(X.ToArray(), Y.ToArray(), Color.Black, 2, 0));
-                redPoints.Add(plot.plt.AddPoint(x, polynomial.P(x), Color.Red, 10));
+                charts.Add(plot.Plot.AddScatter(X.ToArray(), Y.ToArray(), Color.Black, 2, 0));
+                redPoints.Add(plot.Plot.AddPoint(x, polynomial.P(x), Color.Red, 10));
                 plot.Refresh();
                 tbLagrangeY.Text = polynomial.P(x).ToString();
                 tbOutput2.Text = "Полученный полином:\n" + polynomial.ToString() + "\n";
@@ -933,15 +933,15 @@ namespace WinFormsAppPolynomial
 
                 if (charts.Count != 0)
                 {
-                    plot.plt.Remove(charts[charts.Count - 1]);
+                    plot.Plot.Remove(charts[charts.Count - 1]);
                     charts.Remove(charts[charts.Count - 1]);
-                    plot.plt.Remove(redPoints[redPoints.Count - 1]);
+                    plot.Plot.Remove(redPoints[redPoints.Count - 1]);
                     redPoints.Remove(redPoints[redPoints.Count - 1]);
                     plot.Refresh();
                 }
 
-                charts.Add(plot.plt.PlotScatter(X.ToArray(), Y.ToArray(), Color.Black, 2, 0));
-                redPoints.Add(plot.plt.AddPoint(x, polynomial.P(x), Color.Red, 10));
+                charts.Add(plot.Plot.AddScatter(X.ToArray(), Y.ToArray(), Color.Black, 2, 0));
+                redPoints.Add(plot.Plot.AddPoint(x, polynomial.P(x), Color.Red, 10));
                 plot.Refresh();
                 tbSquareY.Text = polynomial.P(x).ToString();
                 tbOutput2.Text = "Полученный полином:\n" + polynomial.ToString() + "\n";
@@ -952,33 +952,49 @@ namespace WinFormsAppPolynomial
         }
 
         // Более удобный ввод точек (переход с текстбокса X на Y)
-        private void tbInputX_KeyDown(object sender, KeyEventArgs e)
+        private void rtbInputX_KeyDown(object sender, KeyEventArgs e)
         {
-            e.Handled = e.SuppressKeyPress = true;
             if (e.KeyCode == Keys.Up || e.KeyCode == Keys.Down)
             {
-                if (tbInputX.Focused)
-                    tbInputY.Focus();
-                else if (tbInputY.Focused)
-                    tbInputX.Focus();
+                if (rtbInputX.Focused)
+                {
+                    e.Handled = e.SuppressKeyPress = true;
+                    rtbInputY.Focus();
+                }
+                else if (rtbInputY.Focused)
+                {
+                    e.Handled = e.SuppressKeyPress = true;
+                    rtbInputX.Focus();
+                }
             }
             else if (e.KeyCode == Keys.Enter)
+            {
+                e.Handled = e.SuppressKeyPress = true;
                 btnAddPoint_Click(sender, e);
+            }
         }
 
         // Более удобный ввод точек (переход с текстбокса Y на X)
-        private void tbInputY_KeyDown(object sender, KeyEventArgs e)
+        private void rtbInputY_KeyDown(object sender, KeyEventArgs e)
         {
-            e.Handled = e.SuppressKeyPress = true;
             if (e.KeyCode == Keys.Up || e.KeyCode == Keys.Down)
             {
-                if (tbInputX.Focused)
-                    tbInputY.Focus();
-                else if (tbInputY.Focused)
-                    tbInputX.Focus();
+                if (rtbInputX.Focused)
+                {
+                    e.Handled = e.SuppressKeyPress = true;
+                    rtbInputY.Focus();
+                }
+                else if (rtbInputY.Focused)
+                {
+                    e.Handled = e.SuppressKeyPress = true;
+                    rtbInputX.Focus();
+                }
             }
             else if (e.KeyCode == Keys.Enter)
+            {
+                e.Handled = e.SuppressKeyPress = true;
                 btnAddPoint_Click(sender, e);
+            }
         }
 
         // Более удобный ввод точек (возможность задать точку по положению курсора)
@@ -987,7 +1003,7 @@ namespace WinFormsAppPolynomial
             if (e.KeyCode == Keys.Q)
             {
                 (double x, double y) = plot.GetMouseCoordinates();
-                bluePoints.Add(plot.plt.AddPoint(x, y, Color.Blue, 10));
+                bluePoints.Add(plot.Plot.AddPoint(x, y, Color.Blue, 10));
                 plot.Refresh();
                 foreach (var item in points)
                     if (item.X == x && item.Y == y)
