@@ -334,89 +334,94 @@ namespace WinFormsAppPolynomial
         #endregion
 
         #region Операции над одним полиномом
-        // Получение значения в точке для полинома A.
+        // Получение значения полинома в точке.
+        private void GetValue(PolynomialWithRoots pol, string textPol, string textA)
+        {
+            SetInsertButtons(false);
+            if (textPol == "")
+            {
+                tbOutput.Text = "Сначала введите полином.";
+                return;
+            }
+            if (double.TryParse(textA, out double x))
+            {
+                double resInPoint = pol.P(x);
+                if (resInPoint == double.NegativeInfinity || resInPoint == double.PositiveInfinity)
+                {
+                    tbOutput.Text = "Результат слишком большой.";
+                    return;
+                }
+                R = new PolynomialWithRoots(new double[] { resInPoint });
+                tbOutput.Text = R.ToString();
+                SetInsertButtons(true);
+            }
+            else
+                tbOutput.Text = "Ввод невозможно привести к числу.";
+        }
         private void btnAGetValue_Click(object sender, EventArgs e)
         {
-            SetInsertButtons(false);
-            if (tbAPolynomial.Text == "")
-            {
-                tbOutput.Text = "Сначала введите полином.";
-                return;
-            }
-            if (double.TryParse(tbAInputX.Text, out double x))
-            {
-                double resInPoint = A.P(x);
-                if (resInPoint == double.NegativeInfinity || resInPoint == double.PositiveInfinity)
-                {
-                    tbOutput.Text = "Результат слишком большой.";
-                    return;
-                }
-                tbOutput.Text = resInPoint.ToString();
-            }
-            else
-                tbOutput.Text = "Ввод невозможно привести к числу.";
+            GetValue(A, tbAPolynomial.Text, tbAInputX.Text);
         }
-
-        // Получение значения в точке для полинома B.
         private void btnBGetValue_Click(object sender, EventArgs e)
         {
+            GetValue(B, tbBPolynomial.Text, tbBInputX.Text);
+        }
+
+        // Умножение полинома на число.
+        private void MultiplyByN(PolynomialWithRoots pol, string textPol, string textN)
+        {
             SetInsertButtons(false);
-            if (tbBPolynomial.Text == "")
+            if (textPol == "")
             {
                 tbOutput.Text = "Сначала введите полином.";
                 return;
             }
-            if (double.TryParse(tbBInputX.Text, out double x))
+            if (double.TryParse(textN, out double n))
             {
-                double resInPoint = B.P(x);
-                if (resInPoint == double.NegativeInfinity || resInPoint == double.PositiveInfinity)
-                {
-                    tbOutput.Text = "Результат слишком большой.";
-                    return;
-                }
-                tbOutput.Text = resInPoint.ToString();
+                R = pol * n;
+                for (int i = 0; i <= R.N; i++)
+                    if (R.Coefs[i] == double.NegativeInfinity || R.Coefs[i] == double.PositiveInfinity)
+                    {
+                        tbOutput.Text = "Результирующий полином имеет слишком большие коэффициенты.";
+                        return;
+                    }
+                tbOutput.Text = R.ToString();
+                SetInsertButtons(true);
             }
             else
                 tbOutput.Text = "Ввод невозможно привести к числу.";
         }
-
-        // Умножение полинома A на число.
         private void btnAMultiplyByN_Click(object sender, EventArgs e)
         {
-            SetInsertButtons(false);
-            if (tbAPolynomial.Text == "")
-            {
-                tbOutput.Text = "Сначала введите полином.";
-                return;
-            }
-            if (double.TryParse(tbAInputN.Text, out double n))
-            {
-                R = A * n;
-                for (int i = 0; i <= R.N; i++)
-                    if (R.Coefs[i] == double.NegativeInfinity || R.Coefs[i] == double.PositiveInfinity)
-                    {
-                        tbOutput.Text = "Результирующий полином имеет слишком большие коэффициенты.";
-                        return;
-                    }
-                tbOutput.Text = R.ToString();
-                SetInsertButtons(true);
-            }
-            else
-                tbOutput.Text = "Ввод невозможно привести к числу.";
+            MultiplyByN(A, tbAPolynomial.Text, tbAInputN.Text);
         }
-
-        // Умножение полинома B на число.
         private void btnBMultiplyByN_Click(object sender, EventArgs e)
         {
+            MultiplyByN(B, tbBPolynomial.Text, tbBInputN.Text);
+        }
+
+        // Возведение полинома в степень.
+        private void Pow(PolynomialWithRoots pol, string textPol, string textA)
+        {
             SetInsertButtons(false);
-            if (tbBPolynomial.Text == "")
+            if (textPol == "")
             {
                 tbOutput.Text = "Сначала введите полином.";
                 return;
             }
-            if (double.TryParse(tbBInputN.Text, out double n))
+            if (int.TryParse(textA, out int n))
             {
-                R = B * n;
+                if (n < 0)
+                {
+                    tbOutput.Text = "Степень не должна быть меньше нуля.";
+                    return;
+                }
+                if (pol.N * n > MAX_N)
+                {
+                    tbOutput.Text = "Слишком высокая степень.";
+                    return;
+                }
+                R = new PolynomialWithRoots(pol.Pow(n).Coefs);
                 for (int i = 0; i <= R.N; i++)
                     if (R.Coefs[i] == double.NegativeInfinity || R.Coefs[i] == double.PositiveInfinity)
                     {
@@ -427,307 +432,171 @@ namespace WinFormsAppPolynomial
                 SetInsertButtons(true);
             }
             else
-                tbOutput.Text = "Ввод невозможно привести к числу.";
+                tbOutput.Text = "Ввод невозможно привести к целому числу.";
         }
-
-        // Возведение полинома A в степень.
         private void btnAPow_Click(object sender, EventArgs e)
         {
-            SetInsertButtons(false);
-            if (tbAPolynomial.Text == "")
-            {
-                tbOutput.Text = "Сначала введите полином.";
-                return;
-            }
-            if (int.TryParse(tbAPow.Text, out int n))
-            {
-                if (n < 0)
-                {
-                    tbOutput.Text = "Степень не должна быть меньше нуля.";
-                    return;
-                }
-                if (A.N * n > MAX_N)
-                {
-                    tbOutput.Text = "Слишком высокая степень.";
-                    return;
-                }
-                R = new PolynomialWithRoots(A.Pow(n).Coefs);
-                for (int i = 0; i <= R.N; i++)
-                    if (R.Coefs[i] == double.NegativeInfinity || R.Coefs[i] == double.PositiveInfinity)
-                    {
-                        tbOutput.Text = "Результирующий полином имеет слишком большие коэффициенты.";
-                        return;
-                    }
-                tbOutput.Text = R.ToString();
-                SetInsertButtons(true);
-            }
-            else
-                tbOutput.Text = "Ввод невозможно привести к целому числу.";
+            Pow(A, tbAPolynomial.Text, tbAPow.Text);
         }
-
-        // Возведение полинома B в степень.
         private void btnBPow_Click(object sender, EventArgs e)
         {
+            Pow(B, tbBPolynomial.Text, tbBPow.Text);
+        }
+
+        // Корни полинома.
+        private void GetRoots(PolynomialWithRoots pol, string textPol, string textA)
+        {
             SetInsertButtons(false);
-            if (tbBPolynomial.Text == "")
+            if (textPol == "")
             {
                 tbOutput.Text = "Сначала введите полином.";
                 return;
             }
-            if (int.TryParse(tbBPow.Text, out int n))
+            const int MAX_X = 10000;
+            if (double.TryParse(textA, out double y))
             {
-                if (n < 0)
+                List<double> roots = pol.FindAllRootsNewton(-MAX_X, MAX_X, y);
+                roots.Sort();
+                string s = "";
+                if (roots.Count >= 2)
                 {
-                    tbOutput.Text = "Степень не должна быть меньше нуля.";
-                    return;
+                    if (Math.Abs(roots[1] - roots[0]) < 1e-5)
+                        s += Math.Round(roots[1], 6) + "\n";
+                    else
+                        s += roots[0] + "\n";
+                    for (int i = 1; i < roots.Count; i++)
+                        if (Math.Abs(roots[i] - roots[i - 1]) > 1e-5)
+                            s += roots[i] + "\n";
                 }
-                if (B.N * n > MAX_N)
-                {
-                    tbOutput.Text = "Слишком высокая степень.";
-                    return;
-                }
-                R = new PolynomialWithRoots(B.Pow(n).Coefs);
-                for (int i = 0; i <= R.N; i++)
-                    if (R.Coefs[i] == double.NegativeInfinity || R.Coefs[i] == double.PositiveInfinity)
-                    {
-                        tbOutput.Text = "Результирующий полином имеет слишком большие коэффициенты.";
-                        return;
-                    }
-                tbOutput.Text = R.ToString();
-                SetInsertButtons(true);
+                else if (roots.Count == 1)
+                    s += roots[0];
+                if (s == "")
+                    tbOutput.Text = "Корней нет";
+                else
+                    tbOutput.Text = s;
             }
             else
-                tbOutput.Text = "Ввод невозможно привести к целому числу.";
+                tbOutput.Text = "Ввод невозможно привести к числу.";
         }
-
-        // Производная полинома A.
-        private void btnAGetDerivative_Click(object sender, EventArgs e)
-        {
-            SetInsertButtons(false);
-            if (tbAPolynomial.Text == "")
-            {
-                tbOutput.Text = "Сначала введите полином.";
-                return;
-            }
-            R = new PolynomialWithRoots(A.GetDerivative().Coefs);
-            for (int i = 0; i <= R.N; i++)
-                if (R.Coefs[i] == double.NegativeInfinity || R.Coefs[i] == double.PositiveInfinity)
-                {
-                    tbOutput.Text = "Результирующий полином имеет слишком большие коэффициенты.";
-                    return;
-                }
-            tbOutput.Text = R.ToString();
-            SetInsertButtons(true);
-        }
-
-        // Производная полинома B.
-        private void btnBGetDerivative_Click(object sender, EventArgs e)
-        {
-            SetInsertButtons(false);
-            if (tbBPolynomial.Text == "")
-            {
-                tbOutput.Text = "Сначала введите полином.";
-                return;
-            }
-            R = new PolynomialWithRoots(B.GetDerivative().Coefs);
-            for (int i = 0; i <= R.N; i++)
-                if (R.Coefs[i] == double.NegativeInfinity || R.Coefs[i] == double.PositiveInfinity)
-                {
-                    tbOutput.Text = "Результирующий полином имеет слишком большие коэффициенты.";
-                    return;
-                }
-            tbOutput.Text = R.ToString();
-            SetInsertButtons(true);
-        }
-
-        // Первообразная полинома A.
-        private void btnAGetPrimitive_Click(object sender, EventArgs e)
-        {
-            SetInsertButtons(false);
-            if (tbAPolynomial.Text == "")
-            {
-                tbOutput.Text = "Сначала введите полином.";
-                return;
-            }
-            if (A.N >= MAX_N)
-            {
-                tbOutput.Text = "Слишком высокая степень исходного полинома.";
-                return;
-            }
-            R = new PolynomialWithRoots(A.GetPrimitive().Coefs);
-            for (int i = 0; i <= R.N; i++)
-                if (R.Coefs[i] == double.NegativeInfinity || R.Coefs[i] == double.PositiveInfinity)
-                {
-                    tbOutput.Text = "Результирующий полином имеет слишком большие коэффициенты.";
-                    return;
-                }
-            tbOutput.Text = R.ToString();
-            SetInsertButtons(true);
-        }
-
-        // Первообразная полинома B.
-        private void btnBGetPrimitive_Click(object sender, EventArgs e)
-        {
-            SetInsertButtons(false);
-            if (tbBPolynomial.Text == "")
-            {
-                tbOutput.Text = "Сначала введите полином.";
-                return;
-            }
-            if (B.N >= MAX_N)
-            {
-                tbOutput.Text = "Слишком высокая степень исходного полинома.";
-                return;
-            }
-            R = new PolynomialWithRoots(B.GetPrimitive().Coefs);
-            for (int i = 0; i <= R.N; i++)
-                if (R.Coefs[i] == double.NegativeInfinity || R.Coefs[i] == double.PositiveInfinity)
-                {
-                    tbOutput.Text = "Результирующий полином имеет слишком большие коэффициенты.";
-                    return;
-                }
-            tbOutput.Text = R.ToString();
-            SetInsertButtons(true);
-        }
-
-        // Точки экстремума полинома A.
-        private void bntAGetStationaryPoints_Click(object sender, EventArgs e)
-        {
-            SetInsertButtons(false);
-            if (tbAPolynomial.Text == "")
-            {
-                tbOutput.Text = "Сначала введите полином.";
-                return;
-            }
-            if (A.N <= 1)
-            {
-                tbOutput.Text = "Точек экстремума нет";
-                return;
-            }
-            const int MAX_X = 10000;
-            List<(double x, double y, StationaryPointType stPointType)> stationaryPoints = A.FindAllStationaryPoints(-MAX_X, MAX_X);
-            stationaryPoints = stationaryPoints.OrderBy(item => item.x).ToList();
-            string s = "";
-            foreach (var item in stationaryPoints)
-                s += $"({item.x}; {item.y}) - точка " + (item.stPointType == StationaryPointType.Min ? "минимума" : "максимума") + "\n";
-            if (s == "")
-                s = "Точек экстремума нет";
-            tbOutput.Text = s;
-        }
-
-        // Точки экстремума полинома B.
-        private void bntBGetStationaryPoints_Click(object sender, EventArgs e)
-        {
-            SetInsertButtons(false);
-            if (tbBPolynomial.Text == "")
-            {
-                tbOutput.Text = "Сначала введите полином.";
-                return;
-            }
-            if (B.N <= 1)
-            {
-                tbOutput.Text = "Точек экстремума нет";
-                return;
-            }
-            const int MAX_X = 10000;
-            List<(double x, double y, StationaryPointType stPointType)> stationaryPoints = B.FindAllStationaryPoints(-MAX_X, MAX_X);
-            stationaryPoints = stationaryPoints.OrderBy(item => item.x).ToList();
-            string s = "";
-            foreach (var item in stationaryPoints)
-                s += $"({item.x}; {item.y}) - точка " + (item.stPointType == StationaryPointType.Min ? "минимума" : "максимума") + "\n";
-            if (s == "")
-                s = "Точек экстремума нет";
-            tbOutput.Text = s;
-        }
-
-        // Корни полинома A.
         private void btnAGetRoots_Click(object sender, EventArgs e)
         {
-            SetInsertButtons(false);
-            if (tbAPolynomial.Text == "")
-            {
-                tbOutput.Text = "Сначала введите полином.";
-                return;
-            }
-            const int MAX_X = 10000;
-            if (double.TryParse(tbARoot.Text, out double y))
-            {
-                List<double> roots = A.FindAllRootsNewton(-MAX_X, MAX_X, y);
-                roots.Sort();
-                string s = "";
-                if (roots.Count >= 2)
-                {
-                    if (Math.Abs(roots[1] - roots[0]) < 1e-5)
-                        s += Math.Round(roots[1], 6) + "\n";
-                    else
-                        s += roots[0] + "\n";
-                    for (int i = 1; i < roots.Count; i++)
-                        if (Math.Abs(roots[i] - roots[i - 1]) > 1e-5)
-                            s += roots[i] + "\n";
-                }
-                else if (roots.Count == 1)
-                    s += roots[0];
-                if (s == "")
-                    tbOutput.Text = "Корней нет";
-                else
-                    tbOutput.Text = s;
-            }
-            else
-                tbOutput.Text = "Ввод невозможно привести к числу.";
+            GetRoots(A, tbAPolynomial.Text, tbARoot.Text);
         }
-
-        // Корни полинома B.
         private void btnBGetRoots_Click(object sender, EventArgs e)
         {
+            GetRoots(B, tbBPolynomial.Text, tbBRoot.Text);
+        }
+
+        // Производная полинома.
+        private void GetDerivative(PolynomialWithRoots pol, string textPol)
+        {
             SetInsertButtons(false);
-            if (tbBPolynomial.Text == "")
+            if (textPol == "")
             {
                 tbOutput.Text = "Сначала введите полином.";
+                return;
+            }
+            R = new PolynomialWithRoots(pol.GetDerivative().Coefs);
+            for (int i = 0; i <= R.N; i++)
+                if (R.Coefs[i] == double.NegativeInfinity || R.Coefs[i] == double.PositiveInfinity)
+                {
+                    tbOutput.Text = "Результирующий полином имеет слишком большие коэффициенты.";
+                    return;
+                }
+            tbOutput.Text = R.ToString();
+            SetInsertButtons(true);
+        }
+        private void btnAGetDerivative_Click(object sender, EventArgs e)
+        {
+            GetDerivative(A, tbAPolynomial.Text);
+        }
+        private void btnBGetDerivative_Click(object sender, EventArgs e)
+        {
+            GetDerivative(B, tbBPolynomial.Text);
+        }
+
+        // Первообразная полинома.
+        private void GetPrimitive(PolynomialWithRoots pol, string textPol)
+        {
+            SetInsertButtons(false);
+            if (textPol == "")
+            {
+                tbOutput.Text = "Сначала введите полином.";
+                return;
+            }
+            if (pol.N >= MAX_N)
+            {
+                tbOutput.Text = "Слишком высокая степень исходного полинома.";
+                return;
+            }
+            R = new PolynomialWithRoots(pol.GetPrimitive().Coefs);
+            for (int i = 0; i <= R.N; i++)
+                if (R.Coefs[i] == double.NegativeInfinity || R.Coefs[i] == double.PositiveInfinity)
+                {
+                    tbOutput.Text = "Результирующий полином имеет слишком большие коэффициенты.";
+                    return;
+                }
+            tbOutput.Text = R.ToString();
+            SetInsertButtons(true);
+        }
+        private void btnAGetPrimitive_Click(object sender, EventArgs e)
+        {
+            GetPrimitive(A, tbAPolynomial.Text);
+        }
+        private void btnBGetPrimitive_Click(object sender, EventArgs e)
+        {
+            GetPrimitive(B, tbBPolynomial.Text);
+        }
+
+        // Точки экстремума полинома.
+        private void GetStationaryPoints(PolynomialWithRoots pol, string textPol)
+        {
+            SetInsertButtons(false);
+            if (textPol == "")
+            {
+                tbOutput.Text = "Сначала введите полином.";
+                return;
+            }
+            if (pol.N <= 1)
+            {
+                tbOutput.Text = "Точек экстремума нет";
                 return;
             }
             const int MAX_X = 10000;
-            if (double.TryParse(tbBRoot.Text, out double y))
-            {
-                List<double> roots = B.FindAllRootsNewton(-MAX_X, MAX_X, y);
-                roots.Sort();
-                string s = "";
-                if (roots.Count >= 2)
-                {
-                    if (Math.Abs(roots[1] - roots[0]) < 1e-5)
-                        s += Math.Round(roots[1], 6) + "\n";
-                    else
-                        s += roots[0] + "\n";
-                    for (int i = 1; i < roots.Count; i++)
-                        if (Math.Abs(roots[i] - roots[i - 1]) > 1e-5)
-                            s += roots[i] + "\n";
-                }
-                else if (roots.Count == 1)
-                    s += roots[0];
-                if (s == "")
-                    tbOutput.Text = "Корней нет";
-                else
-                    tbOutput.Text = s;
-            }
-            else
-                tbOutput.Text = "Ввод невозможно привести к числу.";
+            List<(double x, double y, StationaryPointType stPointType)> stationaryPoints = pol.FindAllStationaryPoints(-MAX_X, MAX_X);
+            stationaryPoints = stationaryPoints.OrderBy(item => item.x).ToList();
+            string s = "";
+            foreach (var item in stationaryPoints)
+                s += $"({item.x}; {item.y}) - точка " + (item.stPointType == StationaryPointType.Min ? "минимума" : "максимума") + "\n";
+            if (s == "")
+                s = "Точек экстремума нет";
+            tbOutput.Text = s;
+        }
+        private void bntAGetStationaryPoints_Click(object sender, EventArgs e)
+        {
+            GetStationaryPoints(A, tbAPolynomial.Text);
+        }
+        private void bntBGetStationaryPoints_Click(object sender, EventArgs e)
+        {
+            GetStationaryPoints(B, tbBPolynomial.Text);
         }
 
-        // График полинома A
-        private void btnAChartOutout_Click(object sender, EventArgs e)
+        // График полинома.
+        private void ChartOutout(PolynomialWithRoots pol, string textPol)
         {
             SetInsertButtons(false);
-            if (tbAPolynomial.Text == "")
+            if (textPol == "")
             {
                 tbOutput.Text = "Сначала введите полином.";
                 return;
             }
-            if (A.N > 40)
+            if (pol.N > 40)
             {
                 tbOutput.Text = "Слишком высокая степень полинома.";
                 return;
             }
-            int n = 2 * Math.Max(100, 10000 / ((int)Math.Pow(10, A.N / 10)));
-            List<(double x, double y, StationaryPointType type)> stPoints = A.FindAllStationaryPoints(-100000, 100000);
+            int n = 2 * Math.Max(100, 10000 / ((int)Math.Pow(10, pol.N / 10)));
+            List<(double x, double y, StationaryPointType type)> stPoints = pol.FindAllStationaryPoints(-100000, 100000);
             stPoints = stPoints.OrderBy(item => item.x).ToList();
             double start, end;
             if (stPoints.Count == 0)
@@ -756,7 +625,7 @@ namespace WinFormsAppPolynomial
             while (start <= end)
             {
                 x.Add(start);
-                double Y = A.P(start);
+                double Y = pol.P(start);
                 if (Y > 1.4e87 || Y < -1.4e87)
                 {
                     tbOutput.Text = "Слишком высокая степень полинома";
@@ -769,63 +638,13 @@ namespace WinFormsAppPolynomial
             f.Show();
             SetInsertButtons(true);
         }
-
-        // График полинома B
+        private void btnAChartOutout_Click(object sender, EventArgs e)
+        {
+            ChartOutout(A, tbAPolynomial.Text);
+        }
         private void btnBChartOutout_Click(object sender, EventArgs e)
         {
-            SetInsertButtons(false);
-            if (tbBPolynomial.Text == "")
-            {
-                tbOutput.Text = "Сначала введите полином.";
-                return;
-            }
-            if (B.N > 40)
-            {
-                tbOutput.Text = "Слишком высокая степень полинома";
-                return;
-            }
-            int n = 2 * Math.Max(100, 10000 / ((int)Math.Pow(10, B.N / 10)));
-            List<(double x, double y, StationaryPointType type)> stPoints = B.FindAllStationaryPoints(-100000, 100000);
-            stPoints = stPoints.OrderBy(item => item.x).ToList();
-            double start, end;
-            if (stPoints.Count == 0)
-            {
-                start = -10;
-                end = 10;
-            }
-            else if (stPoints.Count == 1)
-            {
-                start = stPoints[0].x - 10;
-                end = stPoints[0].x + 10;
-            }
-            else
-            {
-                double maxDif = -1;
-                for (int i = 1; i < stPoints.Count; i++)
-                    if (stPoints[i].x - stPoints[i - 1].x > maxDif)
-                        maxDif = stPoints[i].x - stPoints[i - 1].x;
-                int c = stPoints.Count - 1;
-                start = stPoints[0].x - Math.Max(maxDif, 10);
-                end = stPoints[c].x + Math.Max(maxDif, 10);
-            }
-            double step = (end - start) / n;
-            List<double> x = new List<double>();
-            List<double> y = new List<double>();
-            while (start <= end)
-            {
-                x.Add(start);
-                double Y = B.P(start);
-                if (Y > 1.4e87 || Y < -1.4e87)
-                {
-                    tbOutput.Text = "Слишком высокая степень полинома";
-                    return;
-                }
-                y.Add(Y);
-                start += step;
-            }
-            ChartOutput f = new ChartOutput(x.ToArray(), y.ToArray());
-            f.Show();
-            SetInsertButtons(true);
+            ChartOutout(B, tbBPolynomial.Text);
         }
         #endregion
 
@@ -859,11 +678,12 @@ namespace WinFormsAppPolynomial
         #endregion
 
         #region Интерполяция / экстраполяция
-        List<Point> points = new List<Point>();
-        List<IPlottable> charts = new List<IPlottable>();
-        List<IPlottable> redPoints = new List<IPlottable>();
-        List<IPlottable> bluePoints = new List<IPlottable>();
+        List<Point> points = new List<Point>();  // список точек, по которым строится полином
+        List<IPlottable> charts = new List<IPlottable>();  // график
+        List<IPlottable> redPoints = new List<IPlottable>();  // найденная точка
+        List<IPlottable> bluePoints = new List<IPlottable>();  // заданные точки
 
+        // Изменение введённого значения координаты X точки.
         private void tbInputX_TextChanged(object sender, EventArgs e)
         {
             string s = tbInputX.Text.Trim();
@@ -879,6 +699,7 @@ namespace WinFormsAppPolynomial
             }
         }
 
+        // Изменение введённого значения координаты Y точки.
         private void tbInputY_TextChanged(object sender, EventArgs e)
         {
             string s = tbInputY.Text.Trim();
@@ -894,6 +715,7 @@ namespace WinFormsAppPolynomial
             }
         }
 
+        // Изменение введённого значения координаты X точки для поиска методом Лагранжа.
         private void tbLagrangeX_TextChanged(object sender, EventArgs e)
         {
             string s = tbLagrangeX.Text.Trim();
@@ -909,6 +731,7 @@ namespace WinFormsAppPolynomial
             }
         }
 
+        // Изменение введённого значения координаты X точки для поиска методом наименьших квадратов.
         private void tbSquareX_TextChanged(object sender, EventArgs e)
         {
             string s = tbSquareX.Text.Trim();
@@ -924,6 +747,7 @@ namespace WinFormsAppPolynomial
             }
         }
 
+        // Изменение введённого значения степени полинома N для поиска методом наименьших квадратов.
         private void tbSquareN_TextChanged(object sender, EventArgs e)
         {
             string s = tbSquareN.Text.Trim();
@@ -939,6 +763,7 @@ namespace WinFormsAppPolynomial
             }
         }
 
+        // Добавление точки.
         private void btnAddPoint_Click(object sender, EventArgs e)
         {
             if (double.TryParse(tbInputX.Text, out double x) && double.TryParse(tbInputY.Text, out double y))
@@ -946,23 +771,18 @@ namespace WinFormsAppPolynomial
                 bluePoints.Add(plot.plt.AddPoint(x, y, Color.Blue, 10));
                 plot.Refresh();
                 foreach (var item in points)
-                {
                     if (item.X == x && item.Y == y)
-                    {
                         return;
-                    }
-                }
                 points.Add(new Point(x, y));
                 tbInputX.Text = "";
                 tbInputY.Text = "";
                 tbInputX.Focus();
             }
             else
-            {
                 tbOutput2.Text = "Введенные координаты невозможно привести к числу.";
-            }
         }
 
+        // Очистка точек.
         private void btnClear_Click(object sender, EventArgs e)
         {
             if (charts.Count != 0)
@@ -983,6 +803,7 @@ namespace WinFormsAppPolynomial
             }
         }
 
+        // Вычисление полинома методом Лагранжа.
         private void btnLagrange_Click(object sender, EventArgs e)
         {
             if (points.Count == 0)
@@ -1043,11 +864,10 @@ namespace WinFormsAppPolynomial
                 tbOutput2.Text += "Среднеквадратичное отклонение:\n" + polynomial.GetDelta(points.ToArray()).ToString();
             }
             else
-            {
                 tbOutput2.Text = "Введенные координаты невозможно привести к числу.";
-            }
         }
 
+        // Вычисление полинома методом наименьших квадратов.
         private void btnSquare_Click(object sender, EventArgs e)
         {
             if (points.Count == 0)
@@ -1128,55 +948,40 @@ namespace WinFormsAppPolynomial
                 tbOutput2.Text += "Среднеквадратичное отклонение:\n" + polynomial.GetDelta(points.ToArray()).ToString();
             }
             else
-            {
                 tbOutput2.Text = "X или N невозможно привести к числу.";
-            }
         }
 
+        // Более удобный ввод точек (переход с текстбокса X на Y)
         private void tbInputX_KeyDown(object sender, KeyEventArgs e)
         {
+            e.Handled = e.SuppressKeyPress = true;
             if (e.KeyCode == Keys.Up || e.KeyCode == Keys.Down)
             {
                 if (tbInputX.Focused)
-                {
-                    e.Handled = e.SuppressKeyPress = true;
                     tbInputY.Focus();
-                }
                 else if (tbInputY.Focused)
-                {
-                    e.Handled = e.SuppressKeyPress = true;
                     tbInputX.Focus();
-                }
             }
             else if (e.KeyCode == Keys.Enter)
-            {
-                e.Handled = e.SuppressKeyPress = true;
                 btnAddPoint_Click(sender, e);
-            }
         }
 
+        // Более удобный ввод точек (переход с текстбокса Y на X)
         private void tbInputY_KeyDown(object sender, KeyEventArgs e)
         {
+            e.Handled = e.SuppressKeyPress = true;
             if (e.KeyCode == Keys.Up || e.KeyCode == Keys.Down)
             {
                 if (tbInputX.Focused)
-                {
-                    e.Handled = e.SuppressKeyPress = true;
                     tbInputY.Focus();
-                }
                 else if (tbInputY.Focused)
-                {
-                    e.Handled = e.SuppressKeyPress = true;
                     tbInputX.Focus();
-                }
             }
             else if (e.KeyCode == Keys.Enter)
-            {
-                e.Handled = e.SuppressKeyPress = true;
                 btnAddPoint_Click(sender, e);
-            }
         }
 
+        // Более удобный ввод точек (возможность задать точку по положению курсора)
         private void plot_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Q)
@@ -1185,12 +990,8 @@ namespace WinFormsAppPolynomial
                 bluePoints.Add(plot.plt.AddPoint(x, y, Color.Blue, 10));
                 plot.Refresh();
                 foreach (var item in points)
-                {
                     if (item.X == x && item.Y == y)
-                    {
                         return;
-                    }
-                }
                 points.Add(new Point(x, y));
             }
         }
