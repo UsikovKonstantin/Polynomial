@@ -245,8 +245,6 @@
         /// <returns> экстраполяционный полином </returns>
         public PolynomialWithRoots LeastSquaresMethod(int m, Point[] points)
         {
-            if (m <= 0) throw new ArgumentException("Порядок полинома должен быть больше 0");
-            if (m >= points.Length) throw new ArgumentException("Порядок полинома должен быть на много меньше количества точек!");
             // Массив для хранения значений базисных функций
             double[,] basic = new double[points.Length, m + 1];
             // Заполнение массива для базисных функций
@@ -264,7 +262,7 @@
             for (int i = 0; i < Y.Length; i++)
                 Y[i] = points[i].Y;
             Matrix beta = transBasicFuncMatr * new Matrix(Y);
-            // Решение СЛАУ 
+            // Решение СЛАУ lambda * X = beta
             double[] beta2 = new double[m + 1];
             for (int i = 0; i < beta2.Length; i++)
                 beta2[i] = beta.Args[i, 0];
