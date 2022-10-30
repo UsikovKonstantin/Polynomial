@@ -9,7 +9,7 @@ namespace WinFormsAppPolynomial
             InitializeComponent();
         }
 
-        const int MAX_N = 10000;  // максимальная степень полинома
+        const int MAX_N = 1000;  // максимальная степень полинома
         PolynomialWithRoots A = new PolynomialWithRoots(new double[] { 3, 2, 1 });  // первый полином
         PolynomialWithRoots B = new PolynomialWithRoots(new double[] { 6, 5, 4 });  // второй полином
         PolynomialWithRoots R = new PolynomialWithRoots();  // результат операций над двумя полиномами
@@ -602,7 +602,7 @@ namespace WinFormsAppPolynomial
                 tbOutput.Text = "Точек экстремума нет";
                 return;
             }
-            const int MAX_X = 100000;
+            const int MAX_X = 10000;
             List<(double x, double y, StationaryPointType stPointType)> stationaryPoints = A.FindAllStationaryPoints(-MAX_X, MAX_X);
             stationaryPoints = stationaryPoints.OrderBy(item => item.x).ToList();
             string s = "";
@@ -627,7 +627,7 @@ namespace WinFormsAppPolynomial
                 tbOutput.Text = "Точек экстремума нет";
                 return;
             }
-            const int MAX_X = 100000;
+            const int MAX_X = 10000;
             List<(double x, double y, StationaryPointType stPointType)> stationaryPoints = B.FindAllStationaryPoints(-MAX_X, MAX_X);
             stationaryPoints = stationaryPoints.OrderBy(item => item.x).ToList();
             string s = "";
@@ -647,7 +647,7 @@ namespace WinFormsAppPolynomial
                 tbOutput.Text = "Сначала введите полином.";
                 return;
             }
-            const int MAX_X = 100000;
+            const int MAX_X = 10000;
             if (double.TryParse(tbARoot.Text, out double y))
             {
                 List<double> roots = A.FindAllRootsNewton(-MAX_X, MAX_X, y);
@@ -683,7 +683,7 @@ namespace WinFormsAppPolynomial
                 tbOutput.Text = "Сначала введите полином.";
                 return;
             }
-            const int MAX_X = 100000;
+            const int MAX_X = 10000;
             if (double.TryParse(tbBRoot.Text, out double y))
             {
                 List<double> roots = B.FindAllRootsNewton(-MAX_X, MAX_X, y);
