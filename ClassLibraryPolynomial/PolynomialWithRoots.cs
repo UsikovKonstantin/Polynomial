@@ -471,7 +471,7 @@
         {
             double eps = 1e-5;
             PolynomialWithRoots derivative = new PolynomialWithRoots(GetDerivative().Coefs);
-            List<double> roots = derivative.FindAllRoots(a, b);  // точки экстремума - точки, в которых производная равна 0
+            List<double> roots = derivative.FindAllRootsNewton(a, b);  // точки экстремума - точки, в которых производная равна 0
             List<(double, double, StationaryPointType)> res = new List<(double, double, StationaryPointType)>();
             for (int i = 0; i < roots.Count; i++)
                 if (P(roots[i]) < P(roots[i] + eps) && P(roots[i]) < P(roots[i] - eps))
