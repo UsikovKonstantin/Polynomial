@@ -584,7 +584,6 @@ namespace WinFormsAppPolynomial
         // График полинома.
         private void ChartOutout(PolynomialWithRoots pol, string textPol)
         {
-            SetInsertButtons(false);
             if (textPol == "")
             {
                 tbOutput.Text = "Сначала введите полином.";
@@ -634,9 +633,17 @@ namespace WinFormsAppPolynomial
                 y.Add(Y);
                 start += step;
             }
-            ChartOutput f = new ChartOutput(x.ToArray(), y.ToArray());
+            ChartOutput f;
+            try
+            {
+                f = new ChartOutput(x.ToArray(), y.ToArray());
+            }
+            catch (Exception)
+            {
+                tbOutput.Text = "Не удалось построить график";
+                return;
+            }
             f.Show();
-            SetInsertButtons(true);
         }
         private void btnAChartOutout_Click(object sender, EventArgs e)
         {
