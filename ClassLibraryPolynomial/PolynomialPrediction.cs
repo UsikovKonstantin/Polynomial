@@ -203,18 +203,20 @@
 
         /// <summary>
         /// Поиск множителя Лагранжа.
+        /// Вычисляется как произведение при k = 0 до k = n-1, где n - количество точек
+        /// дробей (x - xₖ) / (xᵢ - xₖ), при условием, что k != i.
         /// </summary>
-        /// <param name="index"> индекс X </param>
+        /// <param name="i"> индекс, который необходимо исключить из множителя Лагранжа </param>
         /// <param name="points"> массив точек </param>
         /// <returns></returns>
-        private PolynomialWithRoots L(int index, Point[] points)
+        private PolynomialWithRoots L(int i, Point[] points)
         {
             PolynomialWithRoots L = new PolynomialWithRoots(new double[] { 1 });
-            for (int i = 0; i < points.Length; i++)
-                if (i != index)
+            for (int k = 0; k < points.Length; k++)
+                if (k != i)
                 {
-                    PolynomialWithRoots r = new PolynomialWithRoots(new double[] { -points[i].X, 1 });
-                    L *= r * (1 / (points[index].X - points[i].X));
+                    PolynomialWithRoots r = new PolynomialWithRoots(new double[] { -points[k].X, 1 });  // (x - xₖ)
+                    L *= r * (1 / (points[i].X - points[k].X));
                 }
             return L;
         }
@@ -248,9 +250,11 @@
             // Массив для хранения значений базисных функций
             double[,] basic = new double[points.Length, m + 1];
             // Заполнение массива для базисных функций
+            for (int i = 0; i < points.Length; i++)
+                basic[i, 0] = 1;
             for (int i = 0; i < basic.GetLength(0); i++)
-                for (int j = 0; j < basic.GetLength(1); j++)
-                    basic[i, j] = Math.Pow(points[i].X, j);
+                for (int j = 1; j < basic.GetLength(1); j++)
+                    basic[i, j] = basic[i, j - 1] * points[i].X;    
             // Создание матрицы из массива значений базисных функций (МЗБФ)
             Matrix basicFuncMatr = new Matrix(basic);
             // Транспонирование МЗБФ
@@ -273,7 +277,8 @@
         }
 
         /// <summary>
-        /// Разложение матрицы на верхнюю и нижнюю треугольные матрицы.
+        /// Разложение матрицы на нижнюю (L) и верхнюю (U) треугольные матрицы
+        /// таким образом, что A = L * U.
         /// </summary>
         /// <param name="A"> матрица коэффициентов </param>
         /// <returns> кортеж - нижняя и верхняя треугольные матрицы </returns>
