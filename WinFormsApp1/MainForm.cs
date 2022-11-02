@@ -334,6 +334,46 @@ namespace WinFormsAppPolynomial
         #endregion
 
         #region Операции над одним полиномом
+        // Генерация полинома
+        private void Generate(string textN, string textMin, string textMax, RichTextBox output)
+        {
+            if (int.TryParse(textN, out int n) && long.TryParse(textMin, out long min) && long.TryParse(textMax, out long max))
+            {
+                if (n < 0 || n > MAX_N)
+                {
+                    tbOutput.Text = $"N должно быть в диапазоне [0, {MAX_N}].";
+                    SetInsertButtons(false);
+                    return;
+                }
+                if (min > max)
+                {
+                    tbOutput.Text = $"Минимальное значение должно быть меньше максимального.";
+                    SetInsertButtons(false);
+                    return;
+                }
+                string s = "";
+                A = new PolynomialWithRoots(n, min, max + 1);
+                foreach (double item in A.Coefs)
+                {
+                    s += item + " ";
+                }
+                output.Text = s;
+            }
+            else
+            {
+                tbOutput.Text = "Входные данные невозможно привести к целому числу.";
+                SetInsertButtons(false);
+            }
+        }
+        private void btnGenerateA_Click(object sender, EventArgs e)
+        {
+            Generate(rtbN_A.Text, rtbMin_A.Text, rtbMax_A.Text, tbACoefs);
+        }
+        private void btnGenerateB_Click(object sender, EventArgs e)
+        {
+            Generate(rtbN_B.Text, rtbMin_B.Text, rtbMax_B.Text, tbBCoefs);
+        }
+
         // Получение значения полинома в точке.
         private void GetValue(PolynomialWithRoots pol, string textPol, string textA)
         {
@@ -587,11 +627,13 @@ namespace WinFormsAppPolynomial
             if (textPol == "")
             {
                 tbOutput.Text = "Сначала введите полином.";
+                SetInsertButtons(false);
                 return;
             }
             if (pol.N > 40)
             {
                 tbOutput.Text = "Слишком высокая степень полинома.";
+                SetInsertButtons(false);
                 return;
             }
             int n = 2 * Math.Max(100, 10000 / ((int)Math.Pow(10, pol.N / 10)));
@@ -628,6 +670,7 @@ namespace WinFormsAppPolynomial
                 if (Y > 1.4e87 || Y < -1.4e87)
                 {
                     tbOutput.Text = "Слишком высокая степень полинома";
+                    SetInsertButtons(false);
                     return;
                 }
                 y.Add(Y);
@@ -641,6 +684,7 @@ namespace WinFormsAppPolynomial
             catch (Exception)
             {
                 tbOutput.Text = "Не удалось построить график";
+                SetInsertButtons(false);
                 return;
             }
             f.Show();
