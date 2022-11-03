@@ -334,7 +334,7 @@ namespace WinFormsAppPolynomial
         #endregion
 
         #region Операции над одним полиномом
-        // Генерация полинома
+        // Генерация полинома по заданным параметрам.
         private void Generate(string textN, string textMin, string textMax, RichTextBox output)
         {
             if (int.TryParse(textN, out int n) && long.TryParse(textMin, out long min) && long.TryParse(textMax, out long max))
@@ -372,6 +372,63 @@ namespace WinFormsAppPolynomial
         private void btnGenerateB_Click(object sender, EventArgs e)
         {
             Generate(rtbN_B.Text, rtbMin_B.Text, rtbMax_B.Text, tbBCoefs);
+        }
+
+        // Генерация полинома по корням.
+        private void GenerateRoots(string textRoots, RichTextBox polCoefs)
+        {
+            string[] rootsStr = textRoots.Trim().Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+            if (rootsStr.Length == 0)
+            {
+                tbOutput.Text = "Введите корни.";
+                SetInsertButtons(false);
+                return;
+            }
+            if (rootsStr.Length > MAX_N)
+            {
+                tbOutput.Text = "Слишком много корней.";
+                SetInsertButtons(false);
+                return;
+            }
+            List<double> roots = new List<double>();
+            for (int i = 0; i < rootsStr.Length; i++)
+                if (double.TryParse(rootsStr[i], out double n))
+                {
+                    if (n == double.PositiveInfinity || n == double.NegativeInfinity)
+                    {
+                        tbOutput.Text = "Слишком большие корни.";
+                        SetInsertButtons(false);
+                        return;
+                    }
+                    roots.Add(n);
+                }
+                else
+                {
+                    tbOutput.Text = "Невозможно привести все значения к числу.";
+                    SetInsertButtons(false);
+                    return;
+                }
+            PolynomialWithRoots res = new PolynomialWithRoots(roots);
+            for (int i = 0; i < res.Coefs.Length; i++)
+                if (res.Coefs[i] == double.PositiveInfinity || res.Coefs[i] == double.NegativeInfinity)
+                {
+                    tbOutput.Text = "Слишком большие коэффициенты.";
+                    SetInsertButtons(false);
+                    return;
+                }
+            double[] coefs = res.Coefs;
+            string s = "";
+            for (int i = coefs.Length - 1; i >= 0; i--)
+                s += coefs[i].ToString() + " ";
+            polCoefs.Text = s;
+        }
+        private void btnRootGenerate_Click(object sender, EventArgs e)
+        {
+            GenerateRoots(rtbRootsAInput.Text, tbACoefs);
+        }
+        private void btnRootGenerateB_Click(object sender, EventArgs e)
+        {
+            GenerateRoots(rtbRootsBInput.Text, tbBCoefs);
         }
 
         // Получение значения полинома в точке.
