@@ -7,7 +7,7 @@ namespace TestProjectPolynomial
     [TestClass]
     public class UnitTestPolinomial
     {
-        Polynomial pol, pol2;
+        Polynomial? pol, pol2;
 
         [TestMethod]
         public void PolynomialTest()
