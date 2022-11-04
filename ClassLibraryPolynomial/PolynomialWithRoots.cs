@@ -474,9 +474,9 @@
             List<double> roots = derivative.FindAllRootsNewton(a, b);  // точки экстремума - точки, в которых производная равна 0
             List<(double, double, StationaryPointType)> res = new List<(double, double, StationaryPointType)>();
             for (int i = 0; i < roots.Count; i++)
-                if (P(roots[i]) < P(roots[i] + eps) && P(roots[i]) < P(roots[i] - eps))
+                if (P(roots[i]) < P(roots[i] + eps) && P(roots[i]) < P(roots[i] - eps))  // если производная поменяла знак с - на +
                     res.Add((roots[i], P(roots[i]), StationaryPointType.Min));
-                else
+                else  // если производная поменяла знак с + на -
                     res.Add((roots[i], P(roots[i]), StationaryPointType.Max));
             stationaryPoints = res;
             return res;
