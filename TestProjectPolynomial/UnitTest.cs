@@ -12,7 +12,9 @@ namespace TestProjectPolynomial
         [TestMethod]
         public void PolynomialTest()
         {
+            //Конструктор по умолчанию
             pol = new Polynomial();
+            //Конструктор, в котором пользователь сам задаёт значения
             pol2 = new Polynomial(new double[3] { 2, -3, 1 });
             Assert.AreEqual(pol, pol2);
         }
@@ -20,6 +22,7 @@ namespace TestProjectPolynomial
         [TestMethod]
         public void PolynomialTest2()
         {
+            //Конструктор создания полинома с нулевыми значениями 
             pol = new Polynomial(5);
             pol2 = new Polynomial(new double[5] { 0, 0, 0, 0, 0 });
             Assert.AreEqual(pol, pol2);
@@ -28,6 +31,7 @@ namespace TestProjectPolynomial
         [TestMethod]
         public void ToStringTest()
         {
+            //Преобразование полинома в строку
             pol = new Polynomial(new double[] { 1, 5, 8 });
             Assert.AreEqual(pol.ToString(), "8x^2 + 5x + 1");
         }
@@ -42,6 +46,10 @@ namespace TestProjectPolynomial
         [TestMethod]
         public void AddPolTest()
         {
+            //Складывается почленно
+            // 8 * x^2 + 5 * x + 1
+            // 0 * x^2 + 3 * x + 2
+            // 8 * x^2 + 8 * x + 3
             pol = new Polynomial(new double[] { 1, 5, 8 });
             pol2 = new Polynomial(new double[] { 2, 3 });
             pol = pol + pol2;
@@ -62,6 +70,10 @@ namespace TestProjectPolynomial
         [TestMethod]
         public void SubPolTest()
         {
+            //Вычитается почленно
+            // 8 * x^2 + 5 * x + 1
+            // 0 * x^2 + 3 * x + 2
+            // 8 * x^2 + 2 * x - 1
             pol = new Polynomial(new double[] { 1, 5, 8 });
             pol2 = new Polynomial(new double[] { 2, 3 });
             pol = pol - pol2;
@@ -82,6 +94,11 @@ namespace TestProjectPolynomial
         [TestMethod]
         public void MulPolTest()
         {
+            //Умножение производится по порядку от первого до последнего элемента первого полинома на каждый элемент второго полинома
+            // 1 * x^2 + 1 * x + 1
+            // 1 * x + 1
+            // 1 * x ^3 + 1 * x^2 + 1 * x^2 + 1 * x + 1 * x + 1 = 
+            // = 1 * x^3 + 2 * x^2 + 2 * x + 1
             pol = new Polynomial(new double[] { 1, 1, 1 });
             pol2 = new Polynomial(new double[] { 1, 1 });
             pol = pol * pol2;
@@ -229,8 +246,8 @@ namespace TestProjectPolynomial
     [TestClass]
     public class UnitTestPolynomialWithRoots
     {
-        PolynomialWithRoots pol, pol2;
-        List<double> test;
+        PolynomialWithRoots? pol, pol2;
+        List<double>? test;
 
         [TestMethod]
         public void PolynomialTest()
