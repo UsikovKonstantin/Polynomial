@@ -553,16 +553,17 @@ namespace WinFormsAppPolynomial
             if (double.TryParse(textA, out double y))
             {
                 List<double> roots = pol.FindAllRootsNewton(-MAX_X, MAX_X, y);
+                roots.RemoveAll(item => double.IsNaN(item));
                 roots.Sort();
                 string s = "";
                 if (roots.Count >= 2)
                 {
-                    if (Math.Abs(roots[1] - roots[0]) < 1e-5)
+                    if (Math.Abs(roots[1] - roots[0]) < 1e-3)
                         s += Math.Round(roots[1], 6) + "\n";
                     else
                         s += roots[0] + "\n";
                     for (int i = 1; i < roots.Count; i++)
-                        if (Math.Abs(roots[i] - roots[i - 1]) > 1e-5)
+                        if (Math.Abs(roots[i] - roots[i - 1]) > 1e-3)
                             s += roots[i] + "\n";
                 }
                 else if (roots.Count == 1)
@@ -661,6 +662,7 @@ namespace WinFormsAppPolynomial
             }
             const int MAX_X = 10000;
             List<(double x, double y, StationaryPointType stPointType)> stationaryPoints = pol.FindAllStationaryPoints(-MAX_X, MAX_X);
+            stationaryPoints.RemoveAll(item => double.IsNaN(item.x));
             stationaryPoints = stationaryPoints.OrderBy(item => item.x).ToList();
             string s = "";
             foreach (var item in stationaryPoints)
