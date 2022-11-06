@@ -695,8 +695,9 @@ namespace WinFormsAppPolynomial
                 SetInsertButtons(false);
                 return;
             }
-            int n = 2 * Math.Max(100, 10000 / ((int)Math.Pow(10, pol.N / 10)));
-            List<(double x, double y, StationaryPointType type)> stPoints = pol.FindAllStationaryPoints(-100000, 100000);
+            int n = 2 * Math.Max(100, 100000 / ((int)Math.Pow(10, pol.N / 10)));
+            const int MAX_X = 10000;
+            List<(double x, double y, StationaryPointType type)> stPoints = pol.FindAllStationaryPoints(-MAX_X, MAX_X);
             stPoints = stPoints.OrderBy(item => item.x).ToList();
             double start, end;
             if (stPoints.Count == 0)
