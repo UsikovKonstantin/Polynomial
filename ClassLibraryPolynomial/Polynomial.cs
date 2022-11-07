@@ -405,23 +405,7 @@ namespace ClassLibraryPolynomial
         /// <returns> true - если полиномы не равны, иначе false </returns>
         public static bool operator !=(Polynomial p1, Polynomial p2)
         {
-            int m = Math.Min(p1.n, p2.n);
-            int n = Math.Max(p1.n, p2.n);
-            for (int i = 0; i <= m; i++)
-                if (p1.coefs[i] != p2.coefs[i])  // сравнение коэффициентов, которые есть в обоих полиномах
-                    return true;
-            for (int i = m + 1; i <= n; i++)  // проверка коэффициентов, которые есть только в одном полиноме
-                if (p1.n >= p2.n)
-                {
-                    if (p1.coefs[i] != 0)
-                        return true;
-                }
-                else
-                {
-                    if (p2.coefs[i] != 0)
-                        return true;
-                }
-            return false;
+            return !(p1 == p2);
         }
 
         /// <summary>
@@ -432,25 +416,7 @@ namespace ClassLibraryPolynomial
         public override bool Equals(object? obj)
         {
             if (obj is Polynomial p)
-            {
-                int m = Math.Min(this.n, p.n);
-                int n = Math.Max(this.n, p.n);
-                for (int i = 0; i <= m; i++)
-                    if (coefs[i] != p.coefs[i])  // сравнение коэффициентов, которые есть в обоих полиномах
-                        return false;
-                for (int i = m + 1; i <= n; i++)  // проверка коэффициентов, которые есть только в одном полиноме
-                    if (this.n >= p.n)
-                    {
-                        if (coefs[i] != 0)
-                            return false;
-                    }
-                    else
-                    {
-                        if (p.coefs[i] != 0)
-                            return false;
-                    }
-                return true;
-            }
+                return this == p;
             return false;
         }
 
